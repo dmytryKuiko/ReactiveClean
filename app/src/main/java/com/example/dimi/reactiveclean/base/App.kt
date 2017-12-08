@@ -2,7 +2,7 @@ package com.example.dimi.reactiveclean.base
 
 import android.app.Activity
 import android.app.Application
-import com.example.dimi.reactiveclean.dagger.components.DaggerAppComponent
+import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -16,7 +16,7 @@ class App : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
         DaggerAppComponent.builder().application(this)
-                .baseUrlRetrofit("https://www.reddit.com")
+                .baseUrlRetrofit("https://newsapi.org/v2/")
                 .build()
                 .inject(this)
     }

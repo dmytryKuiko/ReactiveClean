@@ -4,11 +4,11 @@ import android.arch.persistence.room.*
 
 interface BaseDao<T> {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(obj: T)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg obj: T)
+    fun insert(array: Array<T>)
 
     @Update
     fun update(obj: T)
