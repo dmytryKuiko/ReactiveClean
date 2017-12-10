@@ -8,7 +8,9 @@ interface FirstScreenViewModel<Data> {
 
     fun getProgress(): LiveData<Int>
 
-    fun getError(): LiveData<Boolean>
+    fun getError(): LiveData<Unit>
+
+    fun getSuccess(): LiveData<Unit>
 
     fun onRefreshClicked()
 }

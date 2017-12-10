@@ -1,6 +1,7 @@
 package com.example.dimi.reactiveclean.di.modules
 
 import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
 import com.example.dimi.reactiveclean.data.FirstScreen.FirstScreenDataMapper
 import com.example.dimi.reactiveclean.data.FirstScreen.FirstScreenReactiveStore
 import com.example.dimi.reactiveclean.data.FirstScreen.FirstScreenReactiveStoreImpl
@@ -12,6 +13,7 @@ import com.example.dimi.reactiveclean.models.Article
 import com.example.dimi.reactiveclean.models.ArticleDisplayableItem
 import com.example.dimi.reactiveclean.models.ArticleResponse
 import com.example.dimi.reactiveclean.presentation.FirstScreen.presenter.*
+import com.example.dimi.reactiveclean.presentation.ViewModelFactory
 import com.example.dimi.reactiveclean.repositories.FirstScreen.FirstScreenRepository
 import com.example.dimi.reactiveclean.repositories.FirstScreen.FirstScreenRepositoryImpl
 import dagger.Binds
@@ -20,6 +22,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import io.reactivex.functions.Function
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 abstract class FirstScreenAbstractModule {
@@ -47,16 +50,28 @@ abstract class FirstScreenAbstractModule {
     internal abstract fun providePresenter(presenterImpl: FirstScreenPresenterImpl): FirstScreenPresenter
 
     @Binds
-    @IntoMap
     @FirstScreen
+    @IntoMap
     @ViewModelKey(FirstScreenViewModelImpl::class)
     abstract fun bindMainViewModel(firstScreenViewModelImpl: FirstScreenViewModelImpl): ViewModel
+
+    @Binds
+    @FirstScreen
+    internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
 
     @Module
     companion object {
         @JvmStatic
+        @FirstScreen
         @Provides
         fun provideDisplayableModel() = FirstScreenPresenterCache()
+
+//            fun provideViewModelArticleDisplayable(activity: MainActivity,
+//                                           viewModelArticleDisplayableFactory: ViewModelFactory):
+//            FirstScreenViewModelImpl = ViewModelProviders
+//            .of(activity, viewModelArticleDisplayableFactory)
+//            .get(FirstScreenViewModelImpl::class.java)
     }
 
     /**

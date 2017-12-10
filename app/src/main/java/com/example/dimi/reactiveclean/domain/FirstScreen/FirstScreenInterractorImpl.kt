@@ -14,15 +14,9 @@ class FirstScreenInterractorImpl
 constructor(private val firstScreenRepository: FirstScreenRepository) :
         FirstScreenInterractor<Nothing, List<Article>> {
 
-    init {
-        val a = 3
-        val b = 2
-    }
-
-
     override fun getArticlesStream(params: Nothing?): Flowable<kotlin.collections.List<Article>> =
             firstScreenRepository.getAllArticles()
-                    .flatMapSingle (this::fetchWhenNoneAndThenDrafts )
+                    .flatMapSingle(this::fetchWhenNoneAndThenDrafts)
                     .filter { t: List<Article> -> t.isNotEmpty() }
 
     override fun refreshArticles(): Completable =
@@ -32,7 +26,7 @@ constructor(private val firstScreenRepository: FirstScreenRepository) :
             fetchWhenNone(listArticles).andThen(just(listArticles)).observeOn(AndroidSchedulers.mainThread())
 
     private fun fetchWhenNone(listArticles: List<Article>): Completable =
-            when(listArticles.isEmpty()) {
+            when (listArticles.isEmpty()) {
                 true -> firstScreenRepository.fetchArticles()
                 else -> Completable.complete()
             }
