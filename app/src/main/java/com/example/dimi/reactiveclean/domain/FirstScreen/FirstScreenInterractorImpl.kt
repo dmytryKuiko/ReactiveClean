@@ -6,6 +6,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.Single.just
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class FirstScreenInterractorImpl
@@ -24,8 +25,11 @@ constructor(private val firstScreenRepository: FirstScreenRepository) :
                     .flatMapSingle (this::fetchWhenNoneAndThenDrafts )
                     .filter { t: List<Article> -> t.isNotEmpty() }
 
+    override fun refreshArticles(): Completable =
+            firstScreenRepository.deleteAndFetchArticles().toCompletable()
+
     private fun fetchWhenNoneAndThenDrafts(listArticles: List<Article>): Single<List<Article>> =
-            fetchWhenNone(listArticles).andThen(just(listArticles))
+            fetchWhenNone(listArticles).andThen(just(listArticles)).observeOn(AndroidSchedulers.mainThread())
 
     private fun fetchWhenNone(listArticles: List<Article>): Completable =
             when(listArticles.isEmpty()) {

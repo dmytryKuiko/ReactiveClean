@@ -25,6 +25,10 @@ constructor(private val newsDao: NewsDao) : FirstScreenReactiveStore<Long, Artic
 
     override fun getSingular(key: Long): Flowable<Article> = newsDao.getSingleResponseData(key)
 
-
     override fun getAll(): Flowable<List<Article>> = newsDao.getAllResponseData()
+
+
+    override fun deleteAllAndStoreAll(valueList: List<Article>) {
+        newsDao.deleteAllArticlesAndInsertAll(valueList)
+    }
 }

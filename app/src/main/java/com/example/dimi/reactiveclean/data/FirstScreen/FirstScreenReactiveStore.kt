@@ -11,4 +11,6 @@ interface FirstScreenReactiveStore<Key, Value> {
     fun getSingular(key: Key): Flowable<Value>
 
     fun getAll(): Flowable<List<Value>>
+
+    fun deleteAllAndStoreAll(valueList: List<Value>)
 }

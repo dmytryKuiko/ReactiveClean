@@ -7,8 +7,8 @@ import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-@Component(modules = [(AndroidSupportInjectionModule::class),(BuildersModule::class),
-    (AppModule::class), (ViewModelFactoryModule::class), (NetworkModule::class), (NetworkAbstractModule::class)])
+@Component(modules = [(AndroidSupportInjectionModule::class), (BuildersModule::class),
+    (AppModule::class), (NetworkModule::class), (NetworkAbstractModule::class), (ViewModelFactoryModule::class)])
 
 @Singleton
 interface AppComponent {
@@ -28,4 +28,7 @@ interface AppComponent {
     }
 
     fun inject(app: App)
+
+    fun provideMainActivityBuilder(): FirstScreenComponent.Builder
+
 }

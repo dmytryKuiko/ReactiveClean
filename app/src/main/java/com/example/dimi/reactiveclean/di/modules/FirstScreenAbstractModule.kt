@@ -1,39 +1,63 @@
 package com.example.dimi.reactiveclean.di.modules
 
+import android.arch.lifecycle.ViewModel
 import com.example.dimi.reactiveclean.data.FirstScreen.FirstScreenDataMapper
 import com.example.dimi.reactiveclean.data.FirstScreen.FirstScreenReactiveStore
 import com.example.dimi.reactiveclean.data.FirstScreen.FirstScreenReactiveStoreImpl
+import com.example.dimi.reactiveclean.di.scopes.FirstScreen
+import com.example.dimi.reactiveclean.di.scopes.ViewModelKey
 import com.example.dimi.reactiveclean.domain.FirstScreen.FirstScreenInterractor
 import com.example.dimi.reactiveclean.domain.FirstScreen.FirstScreenInterractorImpl
 import com.example.dimi.reactiveclean.models.Article
+import com.example.dimi.reactiveclean.models.ArticleDisplayableItem
 import com.example.dimi.reactiveclean.models.ArticleResponse
+import com.example.dimi.reactiveclean.presentation.FirstScreen.presenter.*
 import com.example.dimi.reactiveclean.repositories.FirstScreen.FirstScreenRepository
 import com.example.dimi.reactiveclean.repositories.FirstScreen.FirstScreenRepositoryImpl
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
+import dagger.multibindings.IntoMap
 import io.reactivex.functions.Function
 import javax.inject.Named
 
 @Module
-abstract class MainActivityAbstractModule {
+abstract class FirstScreenAbstractModule {
 
     @Binds
-//    @ActivityScope
-    internal abstract fun provideFirstScreenRepository(articleRepositoryImpl: FirstScreenRepositoryImpl): FirstScreenRepository
+    @FirstScreen
+    internal abstract fun provideRepository(articleRepositoryImpl: FirstScreenRepositoryImpl): FirstScreenRepository
 
     @Binds
-//    @ActivityScope
-    internal abstract fun provideFirstScreenStore(reactiveStoreImpl: FirstScreenReactiveStoreImpl): FirstScreenReactiveStore<Long, Article>
+    @FirstScreen
+    internal abstract fun provideStore(reactiveStoreImpl: FirstScreenReactiveStoreImpl): FirstScreenReactiveStore<Long, Article>
 
     @Binds
-//    @ActivityScope
-    internal abstract fun provideFirstScreenInterractor(interractorArticleListImpl: FirstScreenInterractorImpl):
+    @FirstScreen
+    internal abstract fun provideInterractor(interractorArticleListImpl: FirstScreenInterractorImpl):
             FirstScreenInterractor<Nothing, List<Article>>
 
     @Binds
-//    @ActivityScope
+    @FirstScreen
     @Named("firstScreenDataMapper")
-    internal abstract fun provideFirstScreenDataMapper(firstScreenDataMapper: FirstScreenDataMapper): Function<ArticleResponse, Article>
+    internal abstract fun providenDataMapper(firstScreenDataMapper: FirstScreenDataMapper): Function<ArticleResponse, Article>
+
+    @Binds
+    @FirstScreen
+    internal abstract fun providePresenter(presenterImpl: FirstScreenPresenterImpl): FirstScreenPresenter
+
+    @Binds
+    @IntoMap
+    @FirstScreen
+    @ViewModelKey(FirstScreenViewModelImpl::class)
+    abstract fun bindMainViewModel(firstScreenViewModelImpl: FirstScreenViewModelImpl): ViewModel
+
+    @Module
+    companion object {
+        @JvmStatic
+        @Provides
+        fun provideDisplayableModel() = FirstScreenPresenterCache()
+    }
 
     /**
      * Dagger generate java.util.List instead of kotlin.collection.List

@@ -2,9 +2,12 @@ package com.example.dimi.reactiveclean.presentation
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.example.dimi.reactiveclean.di.scopes.FirstScreen
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
+@FirstScreen
 class ViewModelFactory
 @Inject
 constructor(private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) :
