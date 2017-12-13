@@ -1,90 +1,70 @@
 package com.example.dimi.reactiveclean.presentation.FirstScreen.presenter
 
-import com.example.dimi.reactiveclean.domain.FirstScreen.FirstScreenDomainMapper
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.view.View
+import com.example.dimi.reactiveclean.di.scopes.FirstScreen
 import com.example.dimi.reactiveclean.domain.FirstScreen.FirstScreenInterractor
+import com.example.dimi.reactiveclean.domain.FirstScreen.FirstScreenDomainMapper
 import com.example.dimi.reactiveclean.models.*
-import com.example.dimi.reactiveclean.presentation.FirstScreen.view.FirstScreenView
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
+@FirstScreen
 class FirstScreenPresenterImpl
 @Inject
 constructor(private val firstScreenInterractor: FirstScreenInterractor<Nothing, List<Article>>,
-            private val firstScreenDomainMapperArticleDisplayable: FirstScreenDomainMapper,
-            private var cache: FirstScreenPresenterCache) : FirstScreenPresenter {
-
+            private val firstScreenDomainMapperArticleDisplayable: FirstScreenDomainMapper) :
+        FirstScreenPresenter {
     private val compositeDisposable = CompositeDisposable()
 
-    private var view: FirstScreenView? = null
+    private val listArticles = MutableLiveData<List<ArticleDisplayableItem>>()
+
+    private val showProgress = MutableLiveData<Int>()
+
+    private val showError = SingleEventLiveData<Unit>()
+
+    private val showUpdated = SingleEventLiveData<Unit>()
 
     init {
-        compositeDisposable.add(bindToArticleDisplayed())
-    }
-
-    override fun bindView(view: FirstScreenView) {
-        this.view = view
-        updateView(view)
-    }
-
-    override fun unbindView() {
-        view = null
-    }
-
-    override fun onRefreshClicked() {
-        refreshStarted()
-        val subscription = firstScreenInterractor.refreshArticles()
-                .observeOn(AndroidSchedulers.mainThread())
-                .doAfterTerminate(this@FirstScreenPresenterImpl::refreshFinished)
-                .subscribe(this@FirstScreenPresenterImpl::showSuccessfullyUpdated,
-                        this@FirstScreenPresenterImpl::showError)
+        val subscription = firstScreenInterractor.getArticlesStream(null)
+                .doOnSubscribe({ showProgress.postValue(View.VISIBLE) })
+                .map(firstScreenDomainMapperArticleDisplayable)
+                .subscribe(this@FirstScreenPresenterImpl::eventReceived, this@FirstScreenPresenterImpl::errorDuringTheUpdate)
         compositeDisposable.add(subscription)
     }
 
-    override fun clearSubscriptions() {
-        compositeDisposable.clear()
+    override fun disposeSubscriptions() {
+        compositeDisposable.dispose()
     }
 
-    private fun bindToArticleDisplayed() =
-            firstScreenInterractor.getArticlesStream(null)
-                    .map(firstScreenDomainMapperArticleDisplayable)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this@FirstScreenPresenterImpl::updateCacheAndShowArticles,
-                            this@FirstScreenPresenterImpl::showError)
+    override fun getData(): LiveData<List<ArticleDisplayableItem>> = listArticles
 
-    private fun updateView(view: FirstScreenView) {
-        if(cache.showProgress) {
-            view.showProgress()
-        }
-        view.getData(cache.articleList)
+    override fun getProgress(): LiveData<Int> = showProgress
+
+    override fun getError(): LiveData<Unit> = showError
+
+    override fun getSuccess(): LiveData<Unit> = showUpdated
+
+    override fun onRefreshClicked() {
+        val subscription = firstScreenInterractor.refreshArticles()
+                .doOnSubscribe({ showProgress.postValue(View.VISIBLE) })
+                .doFinally { showProgress.postValue(View.INVISIBLE) }
+                .subscribe(this@FirstScreenPresenterImpl::successfullyUpdated,
+                        this@FirstScreenPresenterImpl::errorDuringTheUpdate)
+        compositeDisposable.add(subscription)
     }
 
-    private fun showSuccessfullyUpdated() {
-        view?.showDataSynchronized()
+    private fun eventReceived(list: List<ArticleDisplayableItem>) {
+        showProgress.postValue(View.INVISIBLE)
+        listArticles.postValue(list)
     }
 
-    private fun updateCacheAndShowArticles(list: List<ArticleDisplayableItem>) {
-        cache.showProgress = false
-        cache.articleList.clear()
-        cache.articleList.addAll(list)
-        view?.getData(list)
-        view?.hideProgress()
+    private fun errorDuringTheUpdate(error: Throwable) {
+        showError.call()
     }
 
-    private fun showError(t: Throwable) {
-        view?.showError()
-        cache.showProgress = false
-    }
-
-    private fun refreshStarted() {
-        view?.disableRefreshButton()
-        cache.showProgress = true
-        view?.showProgress()
-    }
-
-    private fun refreshFinished() {
-        cache.showProgress = false
-        view?.hideProgress()
-        view?.enableRefreshButton()
+    private fun successfullyUpdated() {
+        showUpdated.call()
     }
 }

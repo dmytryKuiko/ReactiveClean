@@ -1,14 +1,14 @@
 package com.example.dimi.reactiveclean.di.components
 
-import com.example.dimi.reactiveclean.base.App
+import com.example.dimi.reactiveclean.App
 import com.example.dimi.reactiveclean.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-@Component(modules = [(AndroidSupportInjectionModule::class), (BuildersModule::class),
-    (AppModule::class), (NetworkModule::class), (NetworkAbstractModule::class), (ViewModelFactoryModule::class)])
+@Component(modules = [(AndroidSupportInjectionModule::class), (AppModule::class),
+    (NetworkModule::class), (NetworkAbstractModule::class)])
 
 @Singleton
 interface AppComponent {

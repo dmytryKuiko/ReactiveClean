@@ -1,11 +1,16 @@
 package com.example.dimi.reactiveclean.presentation.FirstScreen.presenter
 
-import com.example.dimi.reactiveclean.base.BasePresenter
-import com.example.dimi.reactiveclean.presentation.FirstScreen.view.FirstScreenView
+import android.arch.lifecycle.LiveData
+import com.example.dimi.reactiveclean.base.BaseViewModel
+import com.example.dimi.reactiveclean.models.ArticleDisplayableItem
 
-interface FirstScreenPresenter : BasePresenter<FirstScreenView> {
+interface FirstScreenPresenter : BaseViewModel<List<ArticleDisplayableItem>> {
+
+    fun getProgress(): LiveData<Int>
+
+    fun getError(): LiveData<Unit>
+
+    fun getSuccess(): LiveData<Unit>
 
     fun onRefreshClicked()
-
-    fun clearSubscriptions()
 }

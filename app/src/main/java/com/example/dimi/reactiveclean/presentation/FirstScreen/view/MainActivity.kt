@@ -3,11 +3,10 @@ package com.example.dimi.reactiveclean.presentation.FirstScreen.view
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.widget.Toast
-import com.example.dimi.reactiveclean.ComponentManager
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.base.App
+import com.example.dimi.reactiveclean.App
 import com.example.dimi.reactiveclean.base.BaseActivity
-import com.example.dimi.reactiveclean.presentation.FirstScreen.presenter.FirstScreenViewModel
+import com.example.dimi.reactiveclean.presentation.FirstScreen.presenter.FirstScreenPresenter
 import com.squareup.leakcanary.RefWatcher
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -15,13 +14,25 @@ import javax.inject.Inject
 class MainActivity : BaseActivity() {
     @Inject lateinit var refWatcher: RefWatcher
 
-    @Inject lateinit var viewModel: FirstScreenViewModel
+    @Inject lateinit var presenter: FirstScreenPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        bindData()
+    }
 
-        viewModel.apply {
+    override fun injectModule() {
+        (application as App).getMainActivityComponent(this).inject(this)
+    }
+
+    override fun releaseModule() {
+        presenter.disposeSubscriptions()
+        (application as App).releaseMainActivityComponent(this)
+    }
+
+    private fun bindData() {
+        presenter.apply {
             getData().observe(this@MainActivity, Observer { articleList ->
                 val list = articleList
                 val a = 3
@@ -44,25 +55,8 @@ class MainActivity : BaseActivity() {
             })
         }
 
-        refresh_button.setOnClickListener { _ -> viewModel.onRefreshClicked() }
+        refresh_button.setOnClickListener { _ -> presenter.onRefreshClicked() }
 
-        refWatcher.watch(viewModel)
-    }
-
-//    override fun onDestroy() {
-////        super.onDestroy()
-////        if(isFinishing) {
-////            viewModel.disposeSubscriptions()
-////            (application as App).releaseMainActivityComponent(this)
-////        }
-//    }
-
-    override fun injectModule() {
-        (application as App).getMainActivityComponent(this).inject(this)
-    }
-
-    override fun releaseModule() {
-        viewModel.disposeSubscriptions()
-        (application as App).releaseMainActivityComponent(this)
+        refWatcher.watch(presenter)
     }
 }

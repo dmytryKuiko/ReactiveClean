@@ -14,6 +14,12 @@ class FirstScreenInterractorImpl
 constructor(private val firstScreenRepository: FirstScreenRepository) :
         FirstScreenInterractor<Nothing, List<Article>> {
 
+    init {
+        var a = 2
+        a++
+        val b = 2
+    }
+
     override fun getArticlesStream(params: Nothing?): Flowable<kotlin.collections.List<Article>> =
             firstScreenRepository.getAllArticles()
                     .flatMapSingle(this::fetchWhenNoneAndThenDrafts)

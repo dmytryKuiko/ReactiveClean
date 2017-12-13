@@ -8,15 +8,9 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //New initialization disabled
-        //AndroidInjection.inject(this)
-
         injectModule()
         super.onCreate(savedInstanceState)
     }
@@ -27,8 +21,6 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
             releaseModule()
         }
     }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     abstract fun injectModule()
 
