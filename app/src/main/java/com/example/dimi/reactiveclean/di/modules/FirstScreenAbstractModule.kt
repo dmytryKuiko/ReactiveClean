@@ -51,14 +51,7 @@ abstract class FirstScreenAbstractModule {
 
     @Binds
     @FirstScreen
-    @IntoMap
-    @ViewModelKey(FirstScreenViewModelImpl::class)
-    abstract fun bindMainViewModel(firstScreenViewModelImpl: FirstScreenViewModelImpl): ViewModel
-
-    @Binds
-    @FirstScreen
-    internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
+    internal abstract fun provideViewModel(viewModelImpl: FirstScreenViewModelImpl): FirstScreenViewModel
 
     @Module
     companion object {

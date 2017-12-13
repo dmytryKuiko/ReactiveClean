@@ -56,7 +56,7 @@ constructor(private val firstScreenInterractor: FirstScreenInterractor<Nothing, 
         if(cache.showProgress) {
             view.showProgress()
         }
-        view.updateModel(cache.articleList)
+        view.getData(cache.articleList)
     }
 
     private fun showSuccessfullyUpdated() {
@@ -67,7 +67,7 @@ constructor(private val firstScreenInterractor: FirstScreenInterractor<Nothing, 
         cache.showProgress = false
         cache.articleList.clear()
         cache.articleList.addAll(list)
-        view?.updateModel(list)
+        view?.getData(list)
         view?.hideProgress()
     }
 

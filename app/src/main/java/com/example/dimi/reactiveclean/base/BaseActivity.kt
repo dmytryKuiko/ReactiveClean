@@ -3,7 +3,6 @@ package com.example.dimi.reactiveclean.base
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -18,10 +17,20 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
         //New initialization disabled
         //AndroidInjection.inject(this)
 
-        initDagger()
+        injectModule()
         super.onCreate(savedInstanceState)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isFinishing) {
+            releaseModule()
+        }
+    }
+
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
-    abstract fun initDagger()
+    abstract fun injectModule()
+
+    abstract fun releaseModule()
 }

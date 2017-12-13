@@ -2,6 +2,7 @@ package com.example.dimi.reactiveclean.di.modules
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.example.dimi.reactiveclean.ComponentManager
 import com.example.dimi.reactiveclean.base.App
 import com.example.dimi.reactiveclean.di.components.FirstScreenComponent
 import com.example.dimi.reactiveclean.data.db.AppDatabase
@@ -30,4 +31,8 @@ class AppModule {
     @Provides
     @Singleton
     fun provideRefWatcher(app: App): RefWatcher = LeakCanary.install(app)
+
+    @Provides
+    @Singleton
+    fun provideComponentManager(): ComponentManager = ComponentManager()
 }

@@ -1,36 +1,25 @@
 package com.example.dimi.reactiveclean.presentation.FirstScreen.view
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
+import com.example.dimi.reactiveclean.ComponentManager
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.App
 import com.example.dimi.reactiveclean.base.BaseActivity
-import com.example.dimi.reactiveclean.models.ArticleDisplayableItem
-import com.example.dimi.reactiveclean.presentation.FirstScreen.presenter.FirstScreenPresenter
 import com.example.dimi.reactiveclean.presentation.FirstScreen.presenter.FirstScreenViewModel
-import com.example.dimi.reactiveclean.presentation.FirstScreen.presenter.FirstScreenViewModelImpl
 import com.squareup.leakcanary.RefWatcher
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     @Inject lateinit var refWatcher: RefWatcher
 
-    //can inject directly viewModel because we are controlling the lifecycle of a FirstScreenModule
-    //@Inject lateinit var viewM: FirstScreenViewModelImpl
+    @Inject lateinit var viewModel: FirstScreenViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(FirstScreenViewModelImpl::class.java)
 
         viewModel.apply {
             getData().observe(this@MainActivity, Observer { articleList ->
@@ -60,12 +49,20 @@ class MainActivity : BaseActivity() {
         refWatcher.watch(viewModel)
     }
 
-    override fun finish() {
-        super.finish()
-        (application as App).releaseMainActivityComponent()
+//    override fun onDestroy() {
+////        super.onDestroy()
+////        if(isFinishing) {
+////            viewModel.disposeSubscriptions()
+////            (application as App).releaseMainActivityComponent(this)
+////        }
+//    }
+
+    override fun injectModule() {
+        (application as App).getMainActivityComponent(this).inject(this)
     }
 
-    override fun initDagger() {
-        (application as App).getMainActivityComponent().inject(this)
+    override fun releaseModule() {
+        viewModel.disposeSubscriptions()
+        (application as App).releaseMainActivityComponent(this)
     }
 }

@@ -1,10 +1,10 @@
 package com.example.dimi.reactiveclean.presentation.FirstScreen.presenter
 
 import android.arch.lifecycle.LiveData
+import com.example.dimi.reactiveclean.base.BaseViewModel
+import com.example.dimi.reactiveclean.models.ArticleDisplayableItem
 
-interface FirstScreenViewModel<Data> {
-
-    fun getData(): LiveData<Data>
+interface FirstScreenViewModel: BaseViewModel<List<ArticleDisplayableItem>> {
 
     fun getProgress(): LiveData<Int>
 

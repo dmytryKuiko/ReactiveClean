@@ -2,11 +2,10 @@ package com.example.dimi.reactiveclean.base
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
+import com.example.dimi.reactiveclean.ComponentManager
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
-import com.example.dimi.reactiveclean.di.components.FirstScreenComponent
-import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.RefWatcher
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -17,9 +16,11 @@ class App : Application(), HasActivityInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    private var firstScreenComponent: FirstScreenComponent? = null
-
     lateinit var appComponent: AppComponent
+    private set
+
+    @Inject
+    lateinit var componentManager: ComponentManager
 
 
     override fun onCreate() {
@@ -30,15 +31,17 @@ class App : Application(), HasActivityInjector {
         appComponent.inject(this)
     }
 
-    fun getMainActivityComponent(): FirstScreenComponent {
-        if (firstScreenComponent == null) {
-            firstScreenComponent = appComponent.provideMainActivityBuilder().build()
-        }
-        return firstScreenComponent!!
+    fun getMainActivityComponent(activity: Activity): BaseComponent<Context> {
+//        if (firstScreenComponent == null) {
+//            firstScreenComponent = appComponent.provideMainActivityBuilder().build()
+//        }
+//        return firstScreenComponent!!
+        return componentManager.getComponent(activity, this)
     }
 
-    fun releaseMainActivityComponent() {
-        firstScreenComponent = null
+    fun releaseMainActivityComponent(activity: Activity) {
+//        firstScreenComponent = null
+        componentManager.deleteComponent(activity)
     }
 
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector

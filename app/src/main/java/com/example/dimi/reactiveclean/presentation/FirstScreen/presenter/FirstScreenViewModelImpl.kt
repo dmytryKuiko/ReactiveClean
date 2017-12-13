@@ -2,7 +2,6 @@ package com.example.dimi.reactiveclean.presentation.FirstScreen.presenter
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.view.View
 import com.example.dimi.reactiveclean.di.scopes.FirstScreen
 import com.example.dimi.reactiveclean.domain.FirstScreen.FirstScreenInterractor
@@ -15,8 +14,8 @@ import javax.inject.Inject
 class FirstScreenViewModelImpl
 @Inject
 constructor(private val firstScreenInterractor: FirstScreenInterractor<Nothing, List<Article>>,
-            private val firstScreenDomainMapperArticleDisplayable: FirstScreenDomainMapper) : ViewModel(),
-        FirstScreenViewModel<List<ArticleDisplayableItem>> {
+            private val firstScreenDomainMapperArticleDisplayable: FirstScreenDomainMapper) :
+        FirstScreenViewModel {
     private val compositeDisposable = CompositeDisposable()
 
     private val listArticles = MutableLiveData<List<ArticleDisplayableItem>>()
@@ -35,8 +34,7 @@ constructor(private val firstScreenInterractor: FirstScreenInterractor<Nothing, 
         compositeDisposable.add(subscription)
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    override fun disposeSubscriptions() {
         compositeDisposable.dispose()
     }
 
