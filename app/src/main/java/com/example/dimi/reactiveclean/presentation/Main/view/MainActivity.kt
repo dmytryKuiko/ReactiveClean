@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.SupportAppNavigator
+import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {

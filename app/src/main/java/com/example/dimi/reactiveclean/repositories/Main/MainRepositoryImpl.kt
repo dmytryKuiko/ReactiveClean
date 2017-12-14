@@ -2,6 +2,7 @@ package com.example.dimi.reactiveclean.repositories.Main
 
 import com.example.dimi.reactiveclean.data.Main.MainReactiveStore
 import com.example.dimi.reactiveclean.data.network.ServiceNewsApi
+import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.models.Article
 import com.example.dimi.reactiveclean.models.ArticleResponse
 import io.reactivex.Completable
@@ -18,12 +19,7 @@ class MainRepositoryImpl
 constructor
 (private val reactiveStore: MainReactiveStore<Long, Article>,
  private val serviceNewsApi: ServiceNewsApi,
-// private val mapperArticle: MainDataMapper) : MainRepository {
- @Named("mainDataMapper") private val mapperArticle: Function<ArticleResponse, Article>) : MainRepository {
-    init {
-        val a = 3
-        val b = 2
-    }
+ @Named(DiConstants.MAIN_DATA_MAPPER) private val mapperArticle: Function<ArticleResponse, Article>) : MainRepository {
 
     override fun getAllArticles(): Flowable<List<Article>> = reactiveStore.getAll()
 

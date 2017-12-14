@@ -8,6 +8,7 @@ import com.example.dimi.reactiveclean.base.BaseComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import com.example.dimi.reactiveclean.presentation.Main.view.MainActivity
+import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialActivity
 
 object ComponentManager {
 
@@ -44,8 +45,10 @@ object ComponentManager {
 
     private fun createComponent(name: String): BaseComponent<Context> =
             when(name) {
-                MainActivity::class.java.canonicalName ->
-                    appComponent?.provideFirstScreenComponentBuilder()?.build() as BaseComponent<Context>
+                MainActivity::class.qualifiedName ->
+                    appComponent?.mainComponentBuilder()?.build() as BaseComponent<Context>
+                TutorialActivity::class.qualifiedName ->
+                    appComponent?.tutorialComponentBuilder()?.build() as BaseComponent<Context>
                 else -> TODO()
             }
 

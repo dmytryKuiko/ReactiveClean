@@ -26,6 +26,8 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun provideFirstScreenComponentBuilder(): MainComponent.Builder
+    fun mainComponentBuilder(): MainComponent.Builder
+
+    fun tutorialComponentBuilder(): TutorialComponent.Builder
 
 }

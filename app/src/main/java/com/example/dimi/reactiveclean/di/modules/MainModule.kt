@@ -3,6 +3,7 @@ package com.example.dimi.reactiveclean.di.modules
 import com.example.dimi.reactiveclean.data.Main.MainDataMapper
 import com.example.dimi.reactiveclean.data.Main.MainReactiveStore
 import com.example.dimi.reactiveclean.data.Main.MainReactiveStoreImpl
+import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.scopes.MainScope
 import com.example.dimi.reactiveclean.domain.Main.MainInterractor
 import com.example.dimi.reactiveclean.domain.Main.MainInterractorImpl
@@ -34,7 +35,7 @@ abstract class MainModule {
 
     @Binds
     @MainScope
-    @Named("mainDataMapper")
+    @Named(DiConstants.MAIN_DATA_MAPPER)
     internal abstract fun providenDataMapper(mapper: MainDataMapper): Function<ArticleResponse, Article>
 
     @Binds
