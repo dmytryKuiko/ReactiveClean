@@ -2,13 +2,16 @@ package com.example.dimi.reactiveclean.base
 
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 
-class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
-        AndroidSupportInjection.inject(this)
         super.onAttach(context)
+        injectModule(context!!)
     }
+
+    abstract fun injectModule(context: Context)
 }
