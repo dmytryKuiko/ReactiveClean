@@ -1,20 +1,34 @@
-package com.example.dimi.reactiveclean.presentation.FirstScreen.view
+package com.example.dimi.reactiveclean.presentation.Main.view
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.widget.Toast
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.App
+import com.example.dimi.reactiveclean.Navigator.Main.NavigatorBuilder
+import com.example.dimi.reactiveclean.utils.ComponentManager
 import com.example.dimi.reactiveclean.base.BaseActivity
-import com.example.dimi.reactiveclean.presentation.FirstScreen.presenter.FirstScreenPresenter
+import com.example.dimi.reactiveclean.presentation.Main.presenter.MainPresenter
 import com.squareup.leakcanary.RefWatcher
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.Router
+import ru.terrakok.cicerone.android.SupportAppNavigator
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
     @Inject lateinit var refWatcher: RefWatcher
 
-    @Inject lateinit var presenter: FirstScreenPresenter
+    @Inject lateinit var presenter: MainPresenter
+
+    @Inject lateinit var router: Router
+
+    @Inject lateinit var navigator: NavigatorHolder
+
+    @Inject lateinit var navBuilder: NavigatorBuilder
+
+    private val appNavigator: SupportAppNavigator by lazy {
+        navBuilder.buildSupportAppNavigator(this, R.id.refresh_button)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +36,25 @@ class MainActivity : BaseActivity() {
         bindData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        navigator.setNavigator(appNavigator)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        navigator.removeNavigator()
+
+    }
+
     override fun injectModule() {
-        (application as App).getMainActivityComponent(this).inject(this)
+        ComponentManager.getComponent(this).inject(this)
     }
 
     override fun releaseModule() {
         presenter.disposeSubscriptions()
-        (application as App).releaseMainActivityComponent(this)
+        ComponentManager.releaseComponent(this)
     }
 
     private fun bindData() {
@@ -56,6 +82,8 @@ class MainActivity : BaseActivity() {
         }
 
         refresh_button.setOnClickListener { _ -> presenter.onRefreshClicked() }
+
+        exit_button.setOnClickListener { _ -> router.exit() }
 
         refWatcher.watch(presenter)
     }

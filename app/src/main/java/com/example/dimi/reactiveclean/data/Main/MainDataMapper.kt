@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.data.FirstScreen
+package com.example.dimi.reactiveclean.data.Main
 
 import com.example.dimi.reactiveclean.models.Article
 import com.example.dimi.reactiveclean.models.ArticleResponse
@@ -6,7 +6,7 @@ import io.reactivex.functions.Function
 import javax.inject.Inject
 
 //@ActivityScope
-class FirstScreenDataMapper
+class MainDataMapper
 @Inject
 constructor()
     : Function<ArticleResponse, Article> {

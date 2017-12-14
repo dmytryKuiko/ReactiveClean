@@ -1,6 +1,6 @@
-package com.example.dimi.reactiveclean.repositories.FirstScreen
+package com.example.dimi.reactiveclean.repositories.Main
 
-import com.example.dimi.reactiveclean.data.FirstScreen.FirstScreenReactiveStore
+import com.example.dimi.reactiveclean.data.Main.MainReactiveStore
 import com.example.dimi.reactiveclean.data.network.ServiceNewsApi
 import com.example.dimi.reactiveclean.models.Article
 import com.example.dimi.reactiveclean.models.ArticleResponse
@@ -13,13 +13,13 @@ import javax.inject.Inject
 import javax.inject.Named
 
 //@ActivityScope
-class FirstScreenRepositoryImpl
+class MainRepositoryImpl
 @Inject
 constructor
-(private val reactiveStore: FirstScreenReactiveStore<Long, Article>,
+(private val reactiveStore: MainReactiveStore<Long, Article>,
  private val serviceNewsApi: ServiceNewsApi,
-// private val mapperArticle: FirstScreenDataMapper) : FirstScreenRepository {
- @Named("firstScreenDataMapper") private val mapperArticle: Function<ArticleResponse, Article>) : FirstScreenRepository {
+// private val mapperArticle: MainDataMapper) : MainRepository {
+ @Named("mainDataMapper") private val mapperArticle: Function<ArticleResponse, Article>) : MainRepository {
     init {
         val a = 3
         val b = 2

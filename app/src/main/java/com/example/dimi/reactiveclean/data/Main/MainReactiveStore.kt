@@ -1,8 +1,8 @@
-package com.example.dimi.reactiveclean.data.FirstScreen
+package com.example.dimi.reactiveclean.data.Main
 
 import io.reactivex.Flowable
 
-interface FirstScreenReactiveStore<Key, Value> {
+interface MainReactiveStore<Key, Value> {
 
     fun storeSingular(value: Value)
 

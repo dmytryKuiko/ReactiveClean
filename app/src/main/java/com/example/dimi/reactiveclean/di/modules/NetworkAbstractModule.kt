@@ -20,6 +20,6 @@ abstract class NetworkAbstractModule {
     internal abstract fun provideEnvelopeConverterFactory(envelope: EnvelopeConverter): Converter.Factory
 
     @Binds
-    internal abstract fun provideRxOncallCallAdapterFacory(observeComputationRxOnCall: ObserveComputationRxCallAdapter): CallAdapter.Factory
+    internal abstract fun provideRxOncallCallAdapterFacory(adapter: ObserveComputationRxCallAdapter): CallAdapter.Factory
 
 }

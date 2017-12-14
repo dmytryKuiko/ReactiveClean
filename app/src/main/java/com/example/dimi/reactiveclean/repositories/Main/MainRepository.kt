@@ -1,12 +1,11 @@
-package com.example.dimi.reactiveclean.repositories.FirstScreen
+package com.example.dimi.reactiveclean.repositories.Main
 
 import com.example.dimi.reactiveclean.models.Article
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.Single
 
-interface FirstScreenRepository {
+interface MainRepository {
 
     fun getAllArticles(): Flowable<List<Article>>
 

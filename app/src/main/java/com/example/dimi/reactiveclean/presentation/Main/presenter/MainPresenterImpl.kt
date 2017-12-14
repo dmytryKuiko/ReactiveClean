@@ -1,21 +1,21 @@
-package com.example.dimi.reactiveclean.presentation.FirstScreen.presenter
+package com.example.dimi.reactiveclean.presentation.Main.presenter
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.view.View
-import com.example.dimi.reactiveclean.di.scopes.FirstScreen
-import com.example.dimi.reactiveclean.domain.FirstScreen.FirstScreenInterractor
-import com.example.dimi.reactiveclean.domain.FirstScreen.FirstScreenDomainMapper
+import com.example.dimi.reactiveclean.di.scopes.MainScope
+import com.example.dimi.reactiveclean.domain.Main.MainInterractor
+import com.example.dimi.reactiveclean.domain.Main.MainDomainMapper
 import com.example.dimi.reactiveclean.models.*
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-@FirstScreen
-class FirstScreenPresenterImpl
+@MainScope
+class MainPresenterImpl
 @Inject
-constructor(private val firstScreenInterractor: FirstScreenInterractor<Nothing, List<Article>>,
-            private val firstScreenDomainMapperArticleDisplayable: FirstScreenDomainMapper) :
-        FirstScreenPresenter {
+constructor(private val mainInterractor: MainInterractor<Nothing, List<Article>>,
+            private val mainDomainMapperArticleDisplayable: MainDomainMapper) :
+        MainPresenter {
     private val compositeDisposable = CompositeDisposable()
 
     private val listArticles = MutableLiveData<List<ArticleDisplayableItem>>()
@@ -27,10 +27,10 @@ constructor(private val firstScreenInterractor: FirstScreenInterractor<Nothing, 
     private val showUpdated = SingleEventLiveData<Unit>()
 
     init {
-        val subscription = firstScreenInterractor.getArticlesStream(null)
+        val subscription = mainInterractor.getArticlesStream(null)
                 .doOnSubscribe({ showProgress.postValue(View.VISIBLE) })
-                .map(firstScreenDomainMapperArticleDisplayable)
-                .subscribe(this@FirstScreenPresenterImpl::eventReceived, this@FirstScreenPresenterImpl::errorDuringTheUpdate)
+                .map(mainDomainMapperArticleDisplayable)
+                .subscribe(this@MainPresenterImpl::eventReceived, this@MainPresenterImpl::errorDuringTheUpdate)
         compositeDisposable.add(subscription)
     }
 
@@ -47,11 +47,11 @@ constructor(private val firstScreenInterractor: FirstScreenInterractor<Nothing, 
     override fun getSuccess(): LiveData<Unit> = showUpdated
 
     override fun onRefreshClicked() {
-        val subscription = firstScreenInterractor.refreshArticles()
+        val subscription = mainInterractor.refreshArticles()
                 .doOnSubscribe({ showProgress.postValue(View.VISIBLE) })
                 .doFinally { showProgress.postValue(View.INVISIBLE) }
-                .subscribe(this@FirstScreenPresenterImpl::successfullyUpdated,
-                        this@FirstScreenPresenterImpl::errorDuringTheUpdate)
+                .subscribe(this@MainPresenterImpl::successfullyUpdated,
+                        this@MainPresenterImpl::errorDuringTheUpdate)
         compositeDisposable.add(subscription)
     }
 

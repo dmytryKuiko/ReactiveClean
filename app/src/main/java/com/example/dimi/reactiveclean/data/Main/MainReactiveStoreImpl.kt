@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.data.FirstScreen
+package com.example.dimi.reactiveclean.data.Main
 
 import com.example.dimi.reactiveclean.models.Article
 import com.example.dimi.reactiveclean.data.db.NewsDao
@@ -6,9 +6,9 @@ import io.reactivex.Flowable
 import javax.inject.Inject
 
 //@ActivityScope
-class FirstScreenReactiveStoreImpl
+class MainReactiveStoreImpl
 @Inject
-constructor(private val newsDao: NewsDao) : FirstScreenReactiveStore<Long, Article> {
+constructor(private val newsDao: NewsDao) : MainReactiveStore<Long, Article> {
 
     init {
         val a = 3

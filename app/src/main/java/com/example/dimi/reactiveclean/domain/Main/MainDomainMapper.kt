@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.domain.FirstScreen
+package com.example.dimi.reactiveclean.domain.Main
 
 import com.example.dimi.reactiveclean.models.Article
 import com.example.dimi.reactiveclean.models.ArticleDisplayableItem
@@ -8,7 +8,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class FirstScreenDomainMapper
+class MainDomainMapper
 @Inject
 constructor() : Function<List<Article>, List<ArticleDisplayableItem>> {
     override fun apply(articleList: List<Article>): List<ArticleDisplayableItem> {
