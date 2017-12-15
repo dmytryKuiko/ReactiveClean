@@ -25,7 +25,7 @@ object ComponentManager {
         }
     }
 
-    fun getComponent(activity: Activity): BaseComponent<Context> {
+    fun getComponent(activity: Context): BaseComponent<Context> {
         val name = getName(activity)
         var component = componentMap[name]
         if (component == null) {
@@ -35,12 +35,12 @@ object ComponentManager {
         return component
     }
 
-    fun releaseComponent(activity: Activity) {
+    fun releaseComponent(activity: Context) {
         val name = getName(activity)
         componentMap.remove(name)
     }
 
-    private fun getName(activity: Activity): String =
+    private fun getName(activity: Context): String =
             activity::class.qualifiedName ?: throw PackageManager.NameNotFoundException("For activity $activity")
 
     private fun createComponent(name: String): BaseComponent<Context> =

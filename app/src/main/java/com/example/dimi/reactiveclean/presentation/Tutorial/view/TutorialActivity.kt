@@ -1,32 +1,41 @@
 package com.example.dimi.reactiveclean.presentation.Tutorial.view
 
 import android.os.Bundle
+import com.example.dimi.reactiveclean.Navigator.Main.NavigatorBuilder
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseActivity
-import com.example.dimi.reactiveclean.di.DiConstants
-import com.example.dimi.reactiveclean.presentation.Tutorial.presenter.TutorialPresenter
-import com.example.dimi.reactiveclean.presentation.Tutorial.presenter.TutorialPresenterImpl
 import com.example.dimi.reactiveclean.utils.ComponentManager
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.Router
+import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import javax.inject.Inject
-import javax.inject.Named
 
 class TutorialActivity : BaseActivity() {
 
-    @Inject
-    @field:Named(DiConstants.TUTORIAL_SOURCE)
-    lateinit var presenter: TutorialPresenter
+    @Inject lateinit var router: Router
 
-    @Inject
-    @field:Named(DiConstants.TUTORIAL_EVERYTHING)
-    lateinit var presenter2: TutorialPresenter
+    @Inject lateinit var navigatorHolder: NavigatorHolder
 
-    @Inject
-    @field:Named(DiConstants.TUTORIAL_FAVOURITES)
-    lateinit var presenter3: TutorialPresenter
+    @Inject lateinit var navBuilder: NavigatorBuilder
+
+    private val appNavigator: SupportFragmentNavigator by lazy {
+        navBuilder.buildSupportFragmentNavigator(supportFragmentManager, R.id.tutorial_activity_container_layout, this)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tutorial)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        navigatorHolder.setNavigator(appNavigator)
+    }
+
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
     }
 
     override fun injectModule() {
