@@ -1,6 +1,5 @@
 package com.example.dimi.reactiveclean.utils
 
-import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import com.example.dimi.reactiveclean.App

@@ -1,17 +1,18 @@
 package com.example.dimi.reactiveclean.di.modules
 
-import com.example.dimi.reactiveclean.Navigator.Main.NavigatorBuilder
+import com.example.dimi.reactiveclean.utils.NavigatorBuilder
+import com.example.dimi.reactiveclean.utils.NavigatorExtensions.Routers.ExtendedRouter
+import com.example.dimi.reactiveclean.utils.NavigatorExtensions.Routers.ExtendedRouterImpl
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
 import javax.inject.Singleton
 
 @Module
 class NavigationModule {
 
-    private val cicerone = Cicerone.create()
+    private val cicerone = Cicerone.create(ExtendedRouterImpl())
 
     @Provides
     @Singleton
@@ -19,7 +20,7 @@ class NavigationModule {
 
     @Provides
     @Singleton
-    fun provideRouter(): Router = cicerone.router
+    fun provideRouter(): ExtendedRouter = cicerone.router
 
     @Provides
     @Singleton

@@ -15,7 +15,7 @@ class TutorialFavouritesFragment : TutorialFragment() {
 
     @Inject
     @field:Named(DiConstants.TUTORIAL_FAVOURITES)
-    lateinit var presenter: TutorialPresenter
+    override lateinit var presenter: TutorialPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,6 +25,8 @@ class TutorialFavouritesFragment : TutorialFragment() {
     }
 
     override fun injectModule(context: Context) {
-        (ComponentManager.getComponent(context) as? TutorialComponent)?.inject(this)
+        val component = (ComponentManager.getComponent(context) as? TutorialComponent) ?:
+                throw ClassCastException("Component is not an instance of Tutorial Component")
+        component.inject(this)
     }
 }

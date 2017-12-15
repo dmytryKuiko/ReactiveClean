@@ -14,12 +14,12 @@ import javax.inject.Singleton
 abstract class NetworkAbstractModule {
 
     @Binds
-    internal abstract fun provideHeaderInterceptor(header: HeaderInterceptor): Interceptor
+    internal abstract fun bindHeaderInterceptor(header: HeaderInterceptor): Interceptor
 
     @Binds
-    internal abstract fun provideEnvelopeConverterFactory(envelope: EnvelopeConverter): Converter.Factory
+    internal abstract fun bindEnvelopeConverterFactory(envelope: EnvelopeConverter): Converter.Factory
 
     @Binds
-    internal abstract fun provideRxOncallCallAdapterFacory(adapter: ObserveComputationRxCallAdapter): CallAdapter.Factory
+    internal abstract fun bindRxOncallCallAdapterFacory(adapter: ObserveComputationRxCallAdapter): CallAdapter.Factory
 
 }

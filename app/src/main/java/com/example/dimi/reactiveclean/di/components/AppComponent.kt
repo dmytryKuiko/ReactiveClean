@@ -4,7 +4,6 @@ import com.example.dimi.reactiveclean.App
 import com.example.dimi.reactiveclean.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Component(modules = [(AppModule::class), (NavigationModule::class), (NetworkModule::class), (NetworkAbstractModule::class)])

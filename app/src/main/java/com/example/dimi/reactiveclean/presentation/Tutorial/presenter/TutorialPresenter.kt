@@ -5,4 +5,8 @@ import com.example.dimi.reactiveclean.presentation.Tutorial.view.ImageType
 
 interface TutorialPresenter {
     fun getImageType(): LiveData<ImageType>
+
+    fun clickNext()
+
+    fun clickBack()
 }

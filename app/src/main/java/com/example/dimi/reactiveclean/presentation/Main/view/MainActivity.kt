@@ -4,7 +4,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.widget.Toast
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.Navigator.Main.NavigatorBuilder
+import com.example.dimi.reactiveclean.utils.NavigatorBuilder
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import com.example.dimi.reactiveclean.base.BaseActivity
 import com.example.dimi.reactiveclean.presentation.Main.presenter.MainPresenter
@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.SupportAppNavigator
-import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -21,15 +20,15 @@ class MainActivity : BaseActivity() {
 
     @Inject lateinit var presenter: MainPresenter
 
-    @Inject lateinit var router: Router
+//    @Inject lateinit var router: Router
+//
+//    @Inject lateinit var navigator: NavigatorHolder
+//
+//    @Inject lateinit var navBuilder: NavigatorBuilder
 
-    @Inject lateinit var navigator: NavigatorHolder
-
-    @Inject lateinit var navBuilder: NavigatorBuilder
-
-    private val appNavigator: SupportAppNavigator by lazy {
-        navBuilder.buildSupportAppNavigator(this, R.id.refresh_button)
-    }
+//    private val appNavigator: SupportAppNavigator by lazy {
+//        navBuilder.buildSupportAppNavigator(this, R.id.refresh_button)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +38,13 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        navigator.setNavigator(appNavigator)
+       // navigator.setNavigator(appNavigator)
 
     }
 
     override fun onPause() {
         super.onPause()
-        navigator.removeNavigator()
+        //navigator.removeNavigator()
 
     }
 
@@ -84,7 +83,7 @@ class MainActivity : BaseActivity() {
 
         refresh_button.setOnClickListener { _ -> presenter.onRefreshClicked() }
 
-        exit_button.setOnClickListener { _ -> router.exit() }
+        //exit_button.setOnClickListener { _ -> router.exit() }
 
         refWatcher.watch(presenter)
     }

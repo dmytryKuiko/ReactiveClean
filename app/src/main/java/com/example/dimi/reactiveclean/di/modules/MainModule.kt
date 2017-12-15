@@ -22,25 +22,25 @@ abstract class MainModule {
 
     @Binds
     @MainScope
-    internal abstract fun provideRepository(repo: MainRepositoryImpl): MainRepository
+    internal abstract fun bindRepository(repo: MainRepositoryImpl): MainRepository
 
     @Binds
     @MainScope
-    internal abstract fun provideStore(store: MainReactiveStoreImpl): MainReactiveStore<Long, Article>
+    internal abstract fun bindStore(store: MainReactiveStoreImpl): MainReactiveStore<Long, Article>
 
     @Binds
     @MainScope
-    internal abstract fun provideInterractor(interractor: MainInterractorImpl):
+    internal abstract fun bindInterractor(interractor: MainInterractorImpl):
             MainInterractor<Nothing, List<Article>>
 
     @Binds
     @MainScope
     @Named(DiConstants.MAIN_DATA_MAPPER)
-    internal abstract fun providenDataMapper(mapper: MainDataMapper): Function<ArticleResponse, Article>
+    internal abstract fun bindDataMapper(mapper: MainDataMapper): Function<ArticleResponse, Article>
 
     @Binds
     @MainScope
-    internal abstract fun provideFirstScreenPresenter(presenter: MainPresenterImpl): MainPresenter
+    internal abstract fun bindFirstScreenPresenter(presenter: MainPresenterImpl): MainPresenter
 
     /**
      * Dagger generate java.util.List instead of kotlin.collection.List

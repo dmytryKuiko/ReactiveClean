@@ -1,23 +1,33 @@
 package com.example.dimi.reactiveclean.presentation.Tutorial.view
 
 
-import android.content.Context
+import android.arch.lifecycle.Observer
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseFragment
-import com.example.dimi.reactiveclean.utils.ComponentManager
+import com.example.dimi.reactiveclean.presentation.Tutorial.presenter.TutorialPresenter
 import kotlinx.android.synthetic.main.fragment_tutorial.*
 
 abstract class TutorialFragment : BaseFragment() {
 
+    abstract var presenter: TutorialPresenter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_tutorial, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.getImageType().observe(this, Observer { imageType ->
+            imageType?.let { showImage(imageType) }
+        })
+        tutorial_next_button.setOnClickListener { _ -> presenter.clickNext() }
+        tutorial_back_button.setOnClickListener { _ -> presenter.clickBack() }
     }
 
     fun showImage(image: ImageType) {
