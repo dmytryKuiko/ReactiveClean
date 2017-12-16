@@ -7,7 +7,7 @@ import com.example.dimi.reactiveclean.presentation.Main.view.MainActivity
 import dagger.Subcomponent
 
 @MainScope
-@Subcomponent(modules = [(MainModule::class)])
+@Subcomponent(modules = [MainModule::class])
 interface MainComponent : BaseComponent<MainActivity> {
 
     @Subcomponent.Builder

@@ -1,7 +1,7 @@
 package com.example.dimi.reactiveclean.di.modules
 
-import com.example.dimi.reactiveclean.Navigator.Tutorial.TutorialMainNavigator
-import com.example.dimi.reactiveclean.Navigator.Tutorial.TutorialMainNavigatorImpl
+import com.example.dimi.reactiveclean.navigation.Tutorial.TutorialMainNavigator
+import com.example.dimi.reactiveclean.navigation.Tutorial.TutorialMainNavigatorImpl
 import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.scopes.TutorialScope
 import com.example.dimi.reactiveclean.presentation.Tutorial.presenter.TutorialPresenter
@@ -18,19 +18,19 @@ abstract class TutorialModule {
     @Binds
     @TutorialScope
     @Named(DiConstants.TUTORIAL_SOURCE)
-    internal abstract fun bindSourceRepository(
+    internal abstract fun bindSourcePresenter(
             @Named(DiConstants.TUTORIAL_SOURCE) presenter: TutorialPresenterImpl): TutorialPresenter
 
     @Binds
     @TutorialScope
     @Named(DiConstants.TUTORIAL_EVERYTHING)
-    internal abstract fun bindEverythingRepository(
+    internal abstract fun bindEverythingPresenter(
             @Named(DiConstants.TUTORIAL_EVERYTHING) presenter: TutorialPresenterImpl): TutorialPresenter
 
     @Binds
     @TutorialScope
     @Named(DiConstants.TUTORIAL_FAVOURITES)
-    internal abstract fun bindFavouritesRepository(
+    internal abstract fun bindFavouritesPresenter(
             @Named(DiConstants.TUTORIAL_FAVOURITES) presenter: TutorialPresenterImpl): TutorialPresenter
 
     @Binds

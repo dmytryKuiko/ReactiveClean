@@ -6,15 +6,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.widget.Toast
-import com.example.dimi.reactiveclean.Navigator.Tutorial.RouterConstants
+import com.example.dimi.reactiveclean.navigation.RouterConstants
 import com.example.dimi.reactiveclean.presentation.Main.view.MainActivity
 import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialEverythingFragment
 import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialFavouritesFragment
 import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialSourceFragment
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
-import ru.terrakok.cicerone.commands.Command
-import ru.terrakok.cicerone.commands.Forward
 
 
 class NavigatorBuilder {
@@ -25,7 +23,7 @@ class NavigatorBuilder {
         return object : SupportAppNavigator(activity, containerId) {
             override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
                     when (screenKey) {
-                        RouterConstants.MAIN -> Intent(activity, MainActivity::class.java)
+                        RouterConstants.MAIN_ACTIVITY -> Intent(activity, MainActivity::class.java)
                         else -> TODO()
                     }
 

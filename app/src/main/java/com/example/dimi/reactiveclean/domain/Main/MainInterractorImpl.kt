@@ -11,29 +11,26 @@ import javax.inject.Inject
 
 class MainInterractorImpl
 @Inject
-constructor(private val mainRepository: MainRepository) :
+constructor(private val repository: MainRepository) :
         MainInterractor<Nothing, List<Article>> {
 
-    init {
-        var a = 2
-        a++
-        val b = 2
-    }
-
     override fun getArticlesStream(params: Nothing?): Flowable<kotlin.collections.List<Article>> =
-            mainRepository.getAllArticles()
+            repository.getAllArticles()
                     .flatMapSingle(this::fetchWhenNoneAndThenDrafts)
                     .filter { t: List<Article> -> t.isNotEmpty() }
 
     override fun refreshArticles(): Completable =
-            mainRepository.deleteAndFetchArticles().toCompletable()
+            repository.deleteAndFetchArticles()
+                    .toCompletable()
 
     private fun fetchWhenNoneAndThenDrafts(listArticles: List<Article>): Single<List<Article>> =
-            fetchWhenNone(listArticles).andThen(just(listArticles)).observeOn(AndroidSchedulers.mainThread())
+            fetchWhenNone(listArticles)
+                    .andThen(just(listArticles))
+                    .observeOn(AndroidSchedulers.mainThread())
 
     private fun fetchWhenNone(listArticles: List<Article>): Completable =
             when (listArticles.isEmpty()) {
-                true -> mainRepository.fetchArticles()
+                true -> repository.fetchArticles()
                 else -> Completable.complete()
             }
 }

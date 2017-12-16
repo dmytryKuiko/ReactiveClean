@@ -7,6 +7,7 @@ import com.example.dimi.reactiveclean.base.BaseComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import com.example.dimi.reactiveclean.presentation.Main.view.MainActivity
+import com.example.dimi.reactiveclean.presentation.Splash.view.SplashActivity
 import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialActivity
 
 object ComponentManager {
@@ -17,7 +18,7 @@ object ComponentManager {
 
     @Synchronized
     fun initAppComponent(app: App) {
-        if(appComponent == null) {
+        if (appComponent == null) {
             appComponent = DaggerAppComponent.builder().application(app)
                     .baseUrlRetrofit("https://newsapi.org/v2/")
                     .build()
@@ -42,14 +43,18 @@ object ComponentManager {
     private fun getName(activity: Context): String =
             activity::class.qualifiedName ?: throw PackageManager.NameNotFoundException("For activity $activity")
 
-    private fun createComponent(name: String): BaseComponent<Context> =
-            when(name) {
-                MainActivity::class.qualifiedName ->
-                    appComponent?.mainComponentBuilder()?.build() as BaseComponent<Context>
-                TutorialActivity::class.qualifiedName ->
-                    appComponent?.tutorialComponentBuilder()?.build() as BaseComponent<Context>
-                else -> TODO()
-            }
+    private fun createComponent(name: String): BaseComponent<Context> {
+        val component = appComponent ?: throw NullPointerException("App Component is null")
+        return when (name) {
+            SplashActivity::class.qualifiedName ->
+                component.splashComponentBuilder().build() as BaseComponent<Context>
+            MainActivity::class.qualifiedName ->
+                component.mainComponentBuilder().build() as BaseComponent<Context>
+            TutorialActivity::class.qualifiedName ->
+                component.tutorialComponentBuilder().build() as BaseComponent<Context>
+            else -> TODO()
+        }
+    }
 
     private fun storeComponent(name: String, component: BaseComponent<Context>) {
         componentMap.put(name, component)

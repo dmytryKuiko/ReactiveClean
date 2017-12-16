@@ -2,9 +2,7 @@ package com.example.dimi.reactiveclean.base
 
 import android.arch.lifecycle.LiveData
 
-interface BaseViewModel<T> {
+interface BaseDataPresenter<T> : BasePresenter {
 
     fun getData(): LiveData<T>
-
-    fun disposeSubscriptions()
 }

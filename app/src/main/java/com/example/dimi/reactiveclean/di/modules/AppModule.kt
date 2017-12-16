@@ -2,10 +2,14 @@ package com.example.dimi.reactiveclean.di.modules
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.example.dimi.reactiveclean.App
 import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.data.db.AppDatabase
+import com.example.dimi.reactiveclean.di.components.SplashComponent
 import com.example.dimi.reactiveclean.di.components.TutorialComponent
+import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import dagger.Module
@@ -13,7 +17,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 
-@Module(subcomponents = [(MainComponent::class), (TutorialComponent::class)])
+@Module(subcomponents = [SplashComponent::class, MainComponent::class, TutorialComponent::class])
 class AppModule {
 
     @Provides
@@ -31,4 +35,9 @@ class AppModule {
     @Provides
     @Singleton
     fun provideRefWatcher(app: App): RefWatcher = LeakCanary.install(app)
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(context: Context): SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context)
 }

@@ -1,6 +1,7 @@
-package com.example.dimi.reactiveclean.Navigator.Tutorial
+package com.example.dimi.reactiveclean.navigation.Tutorial
 
 import com.example.dimi.reactiveclean.utils.NavigatorExtensions.Routers.ExtendedRouter
+import com.example.dimi.reactiveclean.navigation.RouterConstants
 import javax.inject.Inject
 
 class TutorialMainNavigatorImpl
@@ -9,36 +10,34 @@ class TutorialMainNavigatorImpl
     private var currentStepWizard = TutorialNavigatorStep.NONE
 
     val sourceWizard = object : TutorialNavigator {
-        override fun wizardNext() {
+        override fun navigateNext() {
             currentStepWizard = TutorialNavigatorStep.TUTORIAL_EVERYTHING
             router.navigateTo(RouterConstants.TUTORIAL_EVERYTHING_SCREEN)
         }
 
-        override fun wizardBack() {
+        override fun navigateBack() {
             router.finishChain()
         }
     }
 
     val everythingWizard = object : TutorialNavigator {
-        override fun wizardNext() {
+        override fun navigateNext() {
             currentStepWizard = TutorialNavigatorStep.TUTORIAL_FAVOURITES
             router.navigateTo(RouterConstants.TUTORIAL_FAVOURITES_SCREEN)
         }
 
-        override fun wizardBack() {
+        override fun navigateBack() {
             currentStepWizard = TutorialNavigatorStep.TUTORIAL_SOURCE
             router.backTo(RouterConstants.TUTORIAL_SOURCE_SCREEN)
         }
     }
 
     val favouritesWizard = object : TutorialNavigator {
-        override fun wizardNext() {
-            router.replaceActivity(RouterConstants.MAIN)
-           // router.finishChain()
-            //router.navigateTo(RouterConstants.MAIN)
+        override fun navigateNext() {
+            router.replaceActivity(RouterConstants.MAIN_ACTIVITY)
         }
 
-        override fun wizardBack() {
+        override fun navigateBack() {
             currentStepWizard = TutorialNavigatorStep.TUTORIAL_EVERYTHING
             router.backTo(RouterConstants.TUTORIAL_EVERYTHING_SCREEN)
         }
