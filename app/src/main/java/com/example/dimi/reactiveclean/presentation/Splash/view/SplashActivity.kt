@@ -1,16 +1,11 @@
 package com.example.dimi.reactiveclean.presentation.Splash.view
 
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseActivity
-import com.example.dimi.reactiveclean.presentation.Main.view.MainActivity
-import com.example.dimi.reactiveclean.presentation.Splash.view_model.SplashPresenter
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialActivity
+import com.example.dimi.reactiveclean.presentation.Splash.presenter.SplashPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import com.example.dimi.reactiveclean.utils.NavigatorExtensions.Navigators.ExtendedNavigator
-import kotlinx.android.synthetic.main.activity_splash.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import javax.inject.Inject
@@ -49,6 +44,7 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun releaseModule() {
+        presenter.disposeSubscriptions()
         ComponentManager.releaseComponent(this)
     }
 }
