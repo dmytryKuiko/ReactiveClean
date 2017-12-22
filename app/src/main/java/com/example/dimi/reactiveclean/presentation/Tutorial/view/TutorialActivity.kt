@@ -13,11 +13,11 @@ import javax.inject.Inject
 
 class TutorialActivity : BaseActivity() {
 
+    //@Inject lateinit var navBuilder: NavigatorBuilder
+
     @Inject lateinit var mainNavigator: TutorialMainNavigator
 
     @Inject lateinit var navigatorHolder: NavigatorHolder
-
-    //@Inject lateinit var navBuilder: NavigatorBuilder
 
     private val appNavigator: SupportFragmentNavigator by lazy {
         ExtendedNavigator(this, R.id.tutorial_activity_container_layout)

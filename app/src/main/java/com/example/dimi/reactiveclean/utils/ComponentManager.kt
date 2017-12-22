@@ -7,6 +7,7 @@ import com.example.dimi.reactiveclean.base.BaseComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import com.example.dimi.reactiveclean.presentation.Main.view.MainActivity
+import com.example.dimi.reactiveclean.presentation.NewsMain.view.NewsMainActivity
 import com.example.dimi.reactiveclean.presentation.Splash.view.SplashActivity
 import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialActivity
 
@@ -52,6 +53,8 @@ object ComponentManager {
                 component.mainComponentBuilder().build() as BaseComponent<Context>
             TutorialActivity::class.qualifiedName ->
                 component.tutorialComponentBuilder().build() as BaseComponent<Context>
+            NewsMainActivity::class.qualifiedName ->
+                component.newsMainComponentBuilder().build() as BaseComponent<Context>
             else -> TODO()
         }
     }

@@ -1,5 +1,6 @@
 package com.example.dimi.reactiveclean.presentation.Tutorial.view
 
+
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
@@ -11,10 +12,10 @@ import com.example.dimi.reactiveclean.utils.ComponentManager
 import javax.inject.Inject
 import javax.inject.Named
 
-class TutorialFavouritesFragment : TutorialFragment() {
+class TutorialFirstFragment : TutorialFragment() {
 
     @Inject
-    @field:Named(DiConstants.TUTORIAL_FAVOURITES)
+    @field:Named(DiConstants.TUTORIAL_FIRST_SCREEN)
     override lateinit var presenter: TutorialPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

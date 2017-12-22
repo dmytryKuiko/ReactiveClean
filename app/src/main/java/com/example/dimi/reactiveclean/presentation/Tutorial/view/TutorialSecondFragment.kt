@@ -8,10 +8,10 @@ import com.example.dimi.reactiveclean.utils.ComponentManager
 import javax.inject.Inject
 import javax.inject.Named
 
-class TutorialEverythingFragment : TutorialFragment() {
+class TutorialSecondFragment : TutorialFragment() {
 
     @Inject
-    @field:Named(DiConstants.TUTORIAL_EVERYTHING)
+    @field:Named(DiConstants.TUTORIAL_SECOND_SCREEN)
     override lateinit var presenter: TutorialPresenter
 
     override fun injectModule(context: Context) {

@@ -8,9 +8,9 @@ import android.support.v4.app.FragmentManager
 import android.widget.Toast
 import com.example.dimi.reactiveclean.navigation.RouterConstants
 import com.example.dimi.reactiveclean.presentation.Main.view.MainActivity
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialEverythingFragment
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialFavouritesFragment
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialSourceFragment
+import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialSecondFragment
+import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialThirdFragment
+import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialFirstFragment
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
 
@@ -29,9 +29,9 @@ class NavigatorBuilder {
 
             override fun createFragment(screenKey: String?, data: Any?): Fragment =
                     when (screenKey) {
-                        RouterConstants.TUTORIAL_SOURCE_SCREEN -> TutorialSourceFragment()
-                        RouterConstants.TUTORIAL_EVERYTHING_SCREEN -> TutorialEverythingFragment()
-                        RouterConstants.TUTORIAL_FAVOURITES_SCREEN -> TutorialFavouritesFragment()
+                        RouterConstants.TUTORIAL_FIRST_SCREEN -> TutorialFirstFragment()
+                        RouterConstants.TUTORIAL_SECOND_SCREEN -> TutorialSecondFragment()
+                        RouterConstants.TUTORIAL_THIRD_SCREEN -> TutorialThirdFragment()
                         else -> TODO()
                     }
         }
@@ -42,9 +42,9 @@ class NavigatorBuilder {
         return object : SupportFragmentNavigator(manager, containerId) {
             override fun createFragment(screenKey: String?, data: Any?): Fragment =
                     when (screenKey) {
-                        RouterConstants.TUTORIAL_SOURCE_SCREEN -> TutorialSourceFragment()
-                        RouterConstants.TUTORIAL_EVERYTHING_SCREEN -> TutorialEverythingFragment()
-                        RouterConstants.TUTORIAL_FAVOURITES_SCREEN -> TutorialFavouritesFragment()
+                        RouterConstants.TUTORIAL_FIRST_SCREEN -> TutorialFirstFragment()
+                        RouterConstants.TUTORIAL_SECOND_SCREEN -> TutorialSecondFragment()
+                        RouterConstants.TUTORIAL_THIRD_SCREEN -> TutorialThirdFragment()
                         else -> TODO()
                     }
 

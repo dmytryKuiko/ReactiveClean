@@ -25,8 +25,6 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-        //button.setOnClickListener { view -> startActivity(Intent(this, TutorialActivity::class.java)) }
     }
 
     override fun onResume() {

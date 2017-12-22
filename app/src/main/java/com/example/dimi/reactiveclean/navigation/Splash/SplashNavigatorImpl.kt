@@ -12,6 +12,6 @@ constructor(val router: ExtendedRouter) : SplashNavigator {
     }
 
     override fun navigateToStart() {
-        router.navigateToActivity(RouterConstants.MAIN_ACTIVITY)
+        router.navigateToActivity(RouterConstants.MAIN_NEWS_ACTIVITY)
     }
 }

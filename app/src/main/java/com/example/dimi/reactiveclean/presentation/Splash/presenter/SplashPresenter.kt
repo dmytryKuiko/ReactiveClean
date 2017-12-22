@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.presentation.Splash.view_model
+package com.example.dimi.reactiveclean.presentation.Splash.presenter
 
 import com.example.dimi.reactiveclean.base.BasePresenter
 

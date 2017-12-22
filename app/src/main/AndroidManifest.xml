@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.Splash.view.SplashActivity"
+        <activity
+            android:name=".presentation.Splash.view.SplashActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.Main.view.MainActivity" />
-        <activity android:name=".presentation.Tutorial.view.TutorialActivity"></activity>
+        <activity android:name=".presentation.Tutorial.view.TutorialActivity" />
+        <activity android:name=".presentation.NewsMain.view.NewsMainActivity" />
     </application>
 
 </manifest>

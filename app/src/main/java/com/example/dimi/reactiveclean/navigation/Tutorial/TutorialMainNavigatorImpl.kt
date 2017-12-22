@@ -7,12 +7,12 @@ import javax.inject.Inject
 class TutorialMainNavigatorImpl
 @Inject constructor(val router: ExtendedRouter) : TutorialMainNavigator {
 
-    private var currentStepWizard = TutorialNavigatorStep.NONE
+    private var currentStep = TutorialNavigatorStep.NONE
 
-    val sourceWizard = object : TutorialNavigator {
+    val firstPageTutorial = object : TutorialNavigator {
         override fun navigateNext() {
-            currentStepWizard = TutorialNavigatorStep.TUTORIAL_EVERYTHING
-            router.navigateTo(RouterConstants.TUTORIAL_EVERYTHING_SCREEN)
+            currentStep = TutorialNavigatorStep.TUTORIAL_SECOND
+            router.navigateTo(RouterConstants.TUTORIAL_SECOND_SCREEN)
         }
 
         override fun navigateBack() {
@@ -20,34 +20,34 @@ class TutorialMainNavigatorImpl
         }
     }
 
-    val everythingWizard = object : TutorialNavigator {
+    val secondPageTutorial = object : TutorialNavigator {
         override fun navigateNext() {
-            currentStepWizard = TutorialNavigatorStep.TUTORIAL_FAVOURITES
-            router.navigateTo(RouterConstants.TUTORIAL_FAVOURITES_SCREEN)
+            currentStep = TutorialNavigatorStep.TUTORIAL_THIRD
+            router.navigateTo(RouterConstants.TUTORIAL_THIRD_SCREEN)
         }
 
         override fun navigateBack() {
-            currentStepWizard = TutorialNavigatorStep.TUTORIAL_SOURCE
-            router.backTo(RouterConstants.TUTORIAL_SOURCE_SCREEN)
+            currentStep = TutorialNavigatorStep.TUTORIAL_FIRST
+            router.backTo(RouterConstants.TUTORIAL_FIRST_SCREEN)
         }
     }
 
-    val favouritesWizard = object : TutorialNavigator {
+    val thirdPageTutorial = object : TutorialNavigator {
         override fun navigateNext() {
-            router.replaceActivity(RouterConstants.MAIN_ACTIVITY)
+            router.replaceActivity(RouterConstants.MAIN_NEWS_ACTIVITY)
         }
 
         override fun navigateBack() {
-            currentStepWizard = TutorialNavigatorStep.TUTORIAL_EVERYTHING
-            router.backTo(RouterConstants.TUTORIAL_EVERYTHING_SCREEN)
+            currentStep = TutorialNavigatorStep.TUTORIAL_SECOND
+            router.backTo(RouterConstants.TUTORIAL_SECOND_SCREEN)
         }
     }
 
     override fun startNavigation() {
-        if (currentStepWizard != TutorialNavigatorStep.NONE) {
+        if (currentStep != TutorialNavigatorStep.NONE) {
             return
         }
-        currentStepWizard = TutorialNavigatorStep.TUTORIAL_SOURCE
-        router.navigateTo(RouterConstants.TUTORIAL_SOURCE_SCREEN)
+        currentStep = TutorialNavigatorStep.TUTORIAL_FIRST
+        router.navigateTo(RouterConstants.TUTORIAL_FIRST_SCREEN)
     }
 }

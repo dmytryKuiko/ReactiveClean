@@ -4,15 +4,11 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.widget.Toast
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.utils.NavigatorBuilder
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import com.example.dimi.reactiveclean.base.BaseActivity
 import com.example.dimi.reactiveclean.presentation.Main.presenter.MainPresenter
 import com.squareup.leakcanary.RefWatcher
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
-import ru.terrakok.cicerone.android.SupportAppNavigator
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {

@@ -1,7 +1,6 @@
 package com.example.dimi.reactiveclean.data.Splash
 
 import android.content.SharedPreferences
-import com.f2prateek.rx.preferences2.RxSharedPreferences
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

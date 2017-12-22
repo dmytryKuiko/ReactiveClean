@@ -7,8 +7,8 @@ import com.example.dimi.reactiveclean.domain.Splash.SplashInterractor
 import com.example.dimi.reactiveclean.domain.Splash.SplashInterractorImpl
 import com.example.dimi.reactiveclean.navigation.Splash.SplashNavigator
 import com.example.dimi.reactiveclean.navigation.Splash.SplashNavigatorImpl
-import com.example.dimi.reactiveclean.presentation.Splash.view_model.SplashPresenter
-import com.example.dimi.reactiveclean.presentation.Splash.view_model.SplashPresenterImpl
+import com.example.dimi.reactiveclean.presentation.Splash.presenter.SplashPresenter
+import com.example.dimi.reactiveclean.presentation.Splash.presenter.SplashPresenterImpl
 import com.example.dimi.reactiveclean.repositories.Splash.SplashRepository
 import com.example.dimi.reactiveclean.repositories.Splash.SplashRepositoryImpl
 import dagger.Binds
