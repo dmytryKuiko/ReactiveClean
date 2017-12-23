@@ -13,6 +13,8 @@ import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialActivit
 
 object ComponentManager {
 
+    const val API_URL = "http://content.guardianapis.com/"
+
     private var appComponent: AppComponent? = null
 
     private val componentMap: MutableMap<String, BaseComponent<Context>> = hashMapOf()
@@ -21,7 +23,7 @@ object ComponentManager {
     fun initAppComponent(app: App) {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder().application(app)
-                    .baseUrlRetrofit("https://newsapi.org/v2/")
+                    .baseUrlRetrofit(API_URL)
                     .build()
         }
     }

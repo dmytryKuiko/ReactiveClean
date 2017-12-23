@@ -1,4 +1,4 @@
 package com.example.dimi.reactiveclean.models
 
-class EnvelopeResponse<T>(var status: String, var articles: T)
+class EnvelopeResponse<T>(val response: T)
 

@@ -27,11 +27,15 @@ class AppModule {
 
     @Provides
     fun provideAppDatabase(context: Context): AppDatabase =
-            Room.databaseBuilder(context, AppDatabase::class.java, "reddit_db").build()
+            Room.databaseBuilder(context, AppDatabase::class.java, "database").build()
 
     @Provides
     @Singleton
     fun provideNewsDao(appDatabase: AppDatabase) = appDatabase.newsDao()
+
+    @Provides
+    @Singleton
+    fun provideSectionsDao(appDatabase: AppDatabase) = appDatabase.sectionsDao()
 
     @Provides
     @Singleton

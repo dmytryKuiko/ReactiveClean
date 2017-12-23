@@ -6,6 +6,7 @@ import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigatorStep
 import com.jakewharton.rxbinding2.InitialValueObservable
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class NewsMainInterractorImpl
@@ -26,6 +27,14 @@ class NewsMainInterractorImpl
     }
 
     override fun makeSearchText(textLisnter: InitialValueObservable<TextViewTextChangeEvent>) {
+        textLisnter.debounce(300, TimeUnit.MILLISECONDS)
+                .map { textViewTextChangeEvent -> textViewTextChangeEvent.text().toString() }
+                .filter { string -> string.length > 2 }
+                .distinctUntilChanged()
+//                .switchMap { string -> when(navigator.getCurrentStep()) {
+//                    NewsMainNavigatorStep.CONTENT -> TODO()
+//                    else -> TODO()
+//                } }
 //        when (navigator.getCurrentStep()) {
 //            NewsMainNavigatorStep.CONTENT -> TODO()
 //            NewsMainNavigatorStep.SECTIONS -> TODO()

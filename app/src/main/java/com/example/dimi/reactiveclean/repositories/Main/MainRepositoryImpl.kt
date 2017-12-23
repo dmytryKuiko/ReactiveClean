@@ -13,10 +13,8 @@ import io.reactivex.functions.Function
 import javax.inject.Inject
 import javax.inject.Named
 
-//@ActivityScope
 class MainRepositoryImpl
-@Inject
-constructor
+@Inject constructor
 (private val reactiveStore: MainReactiveStore<Long, Article>,
  private val serviceNewsApi: ServiceNewsApi,
  @Named(DiConstants.MAIN_DATA_MAPPER) private val mapperArticle: Function<ArticleResponse, Article>) : MainRepository {

@@ -1,4 +1,8 @@
 package com.example.dimi.reactiveclean.domain.NewsMain.content
 
-interface NewsMainContentInterractor {
+import io.reactivex.Flowable
+
+interface NewsMainContentInterractor {//<Params, Value> {
+
+//    fun getContentStream(params: Params): Flowable<Value>
 }

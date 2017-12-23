@@ -1,5 +1,7 @@
 package com.example.dimi.reactiveclean.di.modules
 
+import com.example.dimi.reactiveclean.data.NewsMain.sections.NewsMainSectionsStore
+import com.example.dimi.reactiveclean.data.NewsMain.sections.NewsMainSectionsStoreImpl
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.domain.NewsMain.NewsMainInterractor
 import com.example.dimi.reactiveclean.domain.NewsMain.NewsMainInterractorImpl
@@ -7,6 +9,7 @@ import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInt
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractorImpl
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractor
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractorImpl
+import com.example.dimi.reactiveclean.models.Section
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigatorImpl
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.NewsMainPresenter
@@ -51,7 +54,8 @@ abstract class NewsMainModule {
 
     @Binds
     @ActivityScope
-    internal abstract fun bindSectionsInterractor(interractor: NewsMainSectionsInterractorImpl): NewsMainSectionsInterractor
+    internal abstract fun bindSectionsInterractor(interractor: NewsMainSectionsInterractorImpl):
+            NewsMainSectionsInterractor
 
     @Binds
     @ActivityScope
@@ -60,4 +64,8 @@ abstract class NewsMainModule {
     @Binds
     @ActivityScope
     internal abstract fun bindSectionsRepository(repository: NewsMainSectionsRepositoryImpl): NewsMainSectionsRepository
+
+    @Binds
+    @ActivityScope
+    internal abstract fun bindSectionsStore(store: NewsMainSectionsStoreImpl): NewsMainSectionsStore
 }
