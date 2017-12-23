@@ -13,7 +13,7 @@ class EnvelopeConverter: Converter.Factory() {
         return if (retrofit != null && envelopedType != null && annotations != null) {
             val delegate: Converter<ResponseBody, EnvelopeResponse<Any>> = retrofit
                     .nextResponseBodyConverter(this, envelopedType, annotations)
-            Converter<ResponseBody, Any> { value: ResponseBody? -> value?.let { delegate.convert(it).articles } }
+            Converter<ResponseBody, Any> { value: ResponseBody? -> value?.let { delegate.convert(it).response } }
         } else null
     }
 }
