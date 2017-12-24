@@ -1,7 +1,8 @@
 package com.example.dimi.reactiveclean.data.network
 
 import com.example.dimi.reactiveclean.models.ArticleResponse
-import com.example.dimi.reactiveclean.models.SectionResponse
+import com.example.dimi.reactiveclean.models.content.ContentResponse
+import com.example.dimi.reactiveclean.models.sections.SectionResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -16,4 +17,12 @@ interface ServiceNewsApi {
     @GET("sections")
     @Headers("No-Authentication: true")
     fun getAllSections(): Single<SectionResponse>
+
+    @GET("search")
+    @Headers("No-Authentication: true")
+    fun getAllContent(): Single<ContentResponse>
+
+    @GET("search")
+    @Headers("No-Authentication: true")
+    fun getSpecificContent(@Query("q") params: String): Single<ContentResponse>
 }

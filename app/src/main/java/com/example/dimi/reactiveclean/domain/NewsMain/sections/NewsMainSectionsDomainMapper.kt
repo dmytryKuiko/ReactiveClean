@@ -1,7 +1,7 @@
 package com.example.dimi.reactiveclean.domain.NewsMain.sections
 
-import com.example.dimi.reactiveclean.models.Section
-import com.example.dimi.reactiveclean.models.SectionDisplayable
+import com.example.dimi.reactiveclean.models.sections.Section
+import com.example.dimi.reactiveclean.models.sections.SectionDisplayable
 import io.reactivex.functions.Function
 import javax.inject.Inject
 

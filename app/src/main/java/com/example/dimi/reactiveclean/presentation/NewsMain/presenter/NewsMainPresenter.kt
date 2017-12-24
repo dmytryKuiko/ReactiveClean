@@ -10,5 +10,5 @@ interface NewsMainPresenter : BasePresenter {
 
     fun onSectionsClicked()
 
-    fun listenField(textListener: InitialValueObservable<TextViewTextChangeEvent>)
+    fun listenField(textChangeEvents: InitialValueObservable<TextViewTextChangeEvent>)
 }

@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.models
+package com.example.dimi.reactiveclean.models.sections
 
 class SectionResponse(val status: String?,
                       val total: Int?,

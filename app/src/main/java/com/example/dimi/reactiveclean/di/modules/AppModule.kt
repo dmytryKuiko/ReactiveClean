@@ -39,6 +39,10 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideContentDao(appDatabase: AppDatabase) = appDatabase.contentDao()
+
+    @Provides
+    @Singleton
     fun provideRefWatcher(app: App): RefWatcher = LeakCanary.install(app)
 
     @Provides

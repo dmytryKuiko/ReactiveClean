@@ -2,6 +2,7 @@ package com.example.dimi.reactiveclean.domain.NewsMain
 
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractor
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractor
+import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigatorStep
 import com.jakewharton.rxbinding2.InitialValueObservable
@@ -26,15 +27,20 @@ class NewsMainInterractorImpl
         navigator.navigateToSections()
     }
 
-    override fun makeSearchText(textLisnter: InitialValueObservable<TextViewTextChangeEvent>) {
-        textLisnter.debounce(300, TimeUnit.MILLISECONDS)
+    override fun makeSearchText(textListener: InitialValueObservable<TextViewTextChangeEvent>) {
+        textListener.debounce(300, TimeUnit.MILLISECONDS)
                 .map { textViewTextChangeEvent -> textViewTextChangeEvent.text().toString() }
                 .filter { string -> string.length > 2 }
                 .distinctUntilChanged()
-//                .switchMap { string -> when(navigator.getCurrentStep()) {
-//                    NewsMainNavigatorStep.CONTENT -> TODO()
-//                    else -> TODO()
-//                } }
+                .switchMap { string -> when(navigator.getCurrentStep()) {
+                    NewsMainNavigatorStep.CONTENT -> contentInterractor.getSpecificContentStream(string).toObservable()
+                    else -> sectionsInterractor.getSpecificSectionsStream(string).toObservable()
+                } }
+                .subscribe { t: List<Any>? ->
+                    val a = 3
+                    var b = 3
+                    b++
+                }
 //        when (navigator.getCurrentStep()) {
 //            NewsMainNavigatorStep.CONTENT -> TODO()
 //            NewsMainNavigatorStep.SECTIONS -> TODO()

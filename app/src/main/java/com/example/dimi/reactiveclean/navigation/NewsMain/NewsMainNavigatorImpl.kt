@@ -13,7 +13,7 @@ class NewsMainNavigatorImpl
             return
         }
         currentStep = NewsMainNavigatorStep.CONTENT
-        router.navigateTo(RouterConstants.NEWS_MAIN_CONTENT_SCREEN)
+        router.newRootScreen(RouterConstants.NEWS_MAIN_CONTENT_SCREEN)
     }
 
     override fun getCurrentStep(): NewsMainNavigatorStep = currentStep

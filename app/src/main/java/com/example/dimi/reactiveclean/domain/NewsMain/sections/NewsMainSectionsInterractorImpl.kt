@@ -1,6 +1,6 @@
 package com.example.dimi.reactiveclean.domain.NewsMain.sections
 
-import com.example.dimi.reactiveclean.models.Section
+import com.example.dimi.reactiveclean.models.sections.Section
 import com.example.dimi.reactiveclean.repositories.NewsMain.sections.NewsMainSectionsRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -15,7 +15,7 @@ class NewsMainSectionsInterractorImpl
             .filter { list -> list.isNotEmpty() }
 
     override fun getSpecificSectionsStream(params: String): Flowable<List<Section>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return repository.getSpecificSections(params)
     }
 
     private fun fetchWhenNoneThenDrafts(list: List<Section>): Single<List<Section>> =

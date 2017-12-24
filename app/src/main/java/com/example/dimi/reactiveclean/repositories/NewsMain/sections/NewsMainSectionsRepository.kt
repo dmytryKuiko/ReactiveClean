@@ -1,6 +1,6 @@
 package com.example.dimi.reactiveclean.repositories.NewsMain.sections
 
-import com.example.dimi.reactiveclean.models.Section
+import com.example.dimi.reactiveclean.models.sections.Section
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
@@ -11,4 +11,6 @@ interface NewsMainSectionsRepository {
     fun fetchSections(): Completable
 
     fun deleteAndFetchSections(): Completable
+
+    fun getSpecificSections(params: String): Flowable<List<Section>>
 }

@@ -9,5 +9,5 @@ interface NewsMainInterractor {
 
     fun onSectionsClicked()
 
-    fun makeSearchText(textLisnter: InitialValueObservable<TextViewTextChangeEvent>)
+    fun makeSearchText(textListener: InitialValueObservable<TextViewTextChangeEvent>)
 }
