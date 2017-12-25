@@ -25,8 +25,8 @@ class MainRepositoryImpl
             .doOnSuccess(reactiveStore::storeAll)
             .toCompletable()
 
-    override fun deleteAndFetchArticles(): Single<List<Article>> = loadArticles()
-            .doOnSuccess(reactiveStore::deleteAllAndStoreAll)
+    override fun deleteAndFetchArticles(): Completable = loadArticles()
+            .doOnSuccess(reactiveStore::deleteAllAndStoreAll).toCompletable()
 
     private fun loadArticles(): Single<List<Article>> = serviceNewsApi.getHeadlinesFor("techcrunch")
             .flatMapObservable { list -> Observable.fromIterable(list) }

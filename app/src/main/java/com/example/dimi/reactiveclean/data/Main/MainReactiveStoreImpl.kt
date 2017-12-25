@@ -10,11 +10,6 @@ class MainReactiveStoreImpl
 @Inject
 constructor(private val newsDao: NewsDao) : MainReactiveStore<Long, Article> {
 
-    init {
-        val a = 3
-        val b = 2
-    }
-
     override fun storeSingular(value: Article) {
         newsDao.insert(value)
     }

@@ -49,7 +49,6 @@ class NewsMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun releaseModule() {
-        presenter.disposeSubscriptions()
         ComponentManager.releaseComponent(this)
     }
 

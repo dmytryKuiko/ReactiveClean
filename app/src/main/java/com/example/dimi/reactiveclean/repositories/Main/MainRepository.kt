@@ -11,5 +11,5 @@ interface MainRepository {
 
     fun fetchArticles(): Completable
 
-    fun deleteAndFetchArticles(): Single<List<Article>>
+    fun deleteAndFetchArticles(): Completable
 }

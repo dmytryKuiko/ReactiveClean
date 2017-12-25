@@ -36,11 +36,14 @@ class NewsMainInterractorImpl
                     NewsMainNavigatorStep.CONTENT -> contentInterractor.getSpecificContentStream(string).toObservable()
                     else -> sectionsInterractor.getSpecificSectionsStream(string).toObservable()
                 } }
-                .subscribe { t: List<Any>? ->
+                .subscribe ({ t: List<Any>? ->
                     val a = 3
                     var b = 3
                     b++
-                }
+                }, {
+                    var a = 3
+                    a++
+                })
 //        when (navigator.getCurrentStep()) {
 //            NewsMainNavigatorStep.CONTENT -> TODO()
 //            NewsMainNavigatorStep.SECTIONS -> TODO()

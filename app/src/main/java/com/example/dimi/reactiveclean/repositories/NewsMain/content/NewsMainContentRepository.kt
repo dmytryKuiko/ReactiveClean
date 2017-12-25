@@ -1,5 +1,6 @@
 package com.example.dimi.reactiveclean.repositories.NewsMain.content
 
+import com.example.dimi.reactiveclean.base.BaseItem
 import com.example.dimi.reactiveclean.models.content.Content
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -7,9 +8,9 @@ import io.reactivex.Single
 
 interface NewsMainContentRepository {
 
-    fun getAllContent(): Flowable<List<Content>>
+    fun getAllContent(): Flowable<List<BaseItem>>
 
-    fun fetchContent(): Completable
+    fun loadMoreContent(): Completable
 
     fun deleteAndFetchContent(): Completable
 

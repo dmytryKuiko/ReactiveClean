@@ -8,4 +8,6 @@ interface NewsMainContentStore {
     fun storeAll(list: List<Content>)
 
     fun getAll(): Flowable<List<Content>>
+
+    fun deleteAllAndStoreAll(valueList: List<Content>)
 }

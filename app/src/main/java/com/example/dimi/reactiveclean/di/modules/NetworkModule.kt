@@ -9,6 +9,7 @@ import dagger.Provides
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -26,22 +27,25 @@ class NetworkModule {
     fun provideOkHttpClientBuilder(): OkHttpClient.Builder = OkHttpClient.Builder()
 
     @Provides
-    fun provideOkHttpClient(builder: OkHttpClient.Builder, interceptor: Interceptor): OkHttpClient =
-            builder.addInterceptor(interceptor).build()
+    fun provideOkHttpClient(builder: OkHttpClient.Builder, headerInterceptor: Interceptor,
+                            loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+            builder.addInterceptor(headerInterceptor).addInterceptor(loggingInterceptor).build()
 
     @Provides
     fun provideHeaderInterceptor(): HeaderInterceptor = HeaderInterceptor()
 
     @Provides
-    fun provideEnvelopeConverter(): EnvelopeConverter = EnvelopeConverter()
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
 
+    @Provides
+    fun provideEnvelopeConverter(): EnvelopeConverter = EnvelopeConverter()
 
     @Provides
     fun provideGsonConverterFactory() : GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
     fun provideRxObservableOnCallAdapter(): ObserveComputationRxCallAdapter = ObserveComputationRxCallAdapter()
-
 
     @Provides
     fun provideRxJava2CallAdapterFactory() : RxJava2CallAdapterFactory =

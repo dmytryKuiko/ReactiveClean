@@ -21,7 +21,6 @@ constructor(private val repository: MainRepository) :
 
     override fun refreshArticles(): Completable =
             repository.deleteAndFetchArticles()
-                    .toCompletable()
 
     private fun fetchWhenNoneAndThenDrafts(listArticles: List<Article>): Single<List<Article>> =
             fetchWhenNone(listArticles)

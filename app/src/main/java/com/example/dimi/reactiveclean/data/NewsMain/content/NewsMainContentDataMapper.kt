@@ -23,7 +23,7 @@ class NewsMainContentDataMapper
             if (it.id != null && it.type != null && it.sectionId != null && it.sectionName != null
                     && time != null && it.webTitle != null && it.webUrl != null
                     && it.apiUrl != null && it.pillarName != null) {
-                parsedList.add(Content(it.id, it.type, it.sectionName, Date(time.time),
+                parsedList.add(Content(it.webTitle, it.type, it.sectionName, Date(time.time),
                         it.webUrl, it.pillarName))
             }
         }
