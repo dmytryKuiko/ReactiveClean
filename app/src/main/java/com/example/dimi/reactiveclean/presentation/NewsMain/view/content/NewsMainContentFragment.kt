@@ -16,6 +16,7 @@ import com.example.dimi.reactiveclean.presentation.NewsMain.NewsMainContentAdapt
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.NewsMainContentPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
+import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_news_main_content.*
 import javax.inject.Inject
 
@@ -38,9 +39,14 @@ class NewsMainContentFragment : BaseFragment() {
             setHasFixedSize(true)
         }
 
-        presenter.listenRecyclerLastVisiblePosition(
+        presenter.listenRecyclerScrollAndItems(
                 RxRecyclerView.scrollEvents(fragment_news_main_content_recycler_view)
-                        .map { (it.view().layoutManager as LinearLayoutManager).findLastVisibleItemPosition() })
+                        .map {
+                            val lastVisible = (it.view().layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                            val allPositions = it.view().adapter.itemCount
+                            Pair(lastVisible, allPositions)
+                        }
+        )
 
         presenter.getData().observe(this, Observer {
             it?.let {

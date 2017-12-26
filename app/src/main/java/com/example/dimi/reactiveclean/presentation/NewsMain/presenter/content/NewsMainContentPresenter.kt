@@ -10,5 +10,6 @@ interface NewsMainContentPresenter : BaseDataPresenter<Pair<List<BaseItemDisplay
 
     fun getError(): LiveData<Unit>
 
-    fun listenRecyclerLastVisiblePosition(listener: Observable<Int>)
+    fun listenRecyclerScrollAndItems(lastVisibleAndAllItems: Observable<Pair<Int, Int>>)
+
 }

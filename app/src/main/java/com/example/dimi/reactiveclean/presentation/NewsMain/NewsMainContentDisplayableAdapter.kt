@@ -21,8 +21,8 @@ class NewsMainContentDisplayableAdapter : AdapterDelegate<List<BaseItemDisplayab
         return ContentDisplayableViewHolder(view)
     }
 
-    override fun onBindViewHolder(itemDisplayables: List<BaseItemDisplayable>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
-        val item = itemDisplayables[position] as? ContentDisplayable ?: throw ClassCastException("Item is not a ContentDisplayable")
+    override fun onBindViewHolder(itemDisplayable: List<BaseItemDisplayable>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
+        val item = itemDisplayable[position] as? ContentDisplayable ?: throw ClassCastException("Item is not a ContentDisplayable")
         val contentDisplayableHolder = holder as? ContentDisplayableViewHolder ?: throw ClassCastException("not ContentDisplayable")
         contentDisplayableHolder.bind(item, position)
     }

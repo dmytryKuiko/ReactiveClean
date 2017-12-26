@@ -2,7 +2,7 @@ package com.example.dimi.reactiveclean.utils
 
 import android.support.v7.util.DiffUtil
 import com.example.dimi.reactiveclean.base.BaseItemDisplayable
-import com.example.dimi.reactiveclean.models.LoadingDisplayable
+import com.example.dimi.reactiveclean.models.content.LoadingDisplayable
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 
 class DiffUtilContent(private val oldList: List<BaseItemDisplayable>,

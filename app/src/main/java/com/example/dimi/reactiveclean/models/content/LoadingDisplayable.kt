@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.models
+package com.example.dimi.reactiveclean.models.content
 
 import com.example.dimi.reactiveclean.base.BaseItemDisplayable
 

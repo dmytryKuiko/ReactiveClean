@@ -6,15 +6,13 @@ import android.support.v7.util.DiffUtil
 import com.example.dimi.reactiveclean.base.BaseItemDisplayable
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentDomainMapper
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractor
-import com.example.dimi.reactiveclean.models.LoadingDisplayable
+import com.example.dimi.reactiveclean.models.content.LoadingDisplayable
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
+import com.example.dimi.reactiveclean.models.content.ErrorDisplayable
 import com.example.dimi.reactiveclean.utils.DiffUtilContent
-import com.jakewharton.rxbinding2.support.v7.widget.RecyclerViewScrollEvent
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 class NewsMainContentPresenterImpl
@@ -48,14 +46,13 @@ class NewsMainContentPresenterImpl
 
     override fun getError(): LiveData<Unit> = showErrorLiveData
 
-    override fun listenRecyclerLastVisiblePosition(listener: Observable<Int>) {
-        val disposableScrolling = interractor.loadMoreContent(listener).subscribe({
-            var a = 3
-            a++
-        }, { error ->
-            var a = 2
-            a++
-        })
+    override fun listenRecyclerScrollAndItems(lastVisibleAndAllItems: Observable<Pair<Int, Int>>) {
+        val disposableScrolling = interractor.loadMoreContent(lastVisibleAndAllItems)
+                .subscribe({
+                    var a = 3
+                    a++
+                }, (this::showErrorViewHolder))
+
         compositeDisposable.add(disposableScrolling)
     }
 
@@ -69,6 +66,7 @@ class NewsMainContentPresenterImpl
         compositeDisposable.add(disposable)
     }
 
+
     private fun createInitialPair(): Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult> {
         val initialList = listOf(LoadingDisplayable(true))
         val initialCallback = DiffUtilContent(initialList, initialList)
@@ -80,6 +78,22 @@ class NewsMainContentPresenterImpl
         val callback = DiffUtilContent(pair.first, next)
         val result = DiffUtil.calculateDiff(callback, true)
         return Pair(next, result)
+    }
+
+    //TODO CREATE ERROR HOLDER
+    private fun showErrorViewHolder(throwable: Throwable) {
+        sectionDisplayableLiveData.value?.let {
+            val newResults: MutableList<BaseItemDisplayable> = mutableListOf()
+            with(newResults) {
+                addAll(it.first.subList(0, it.first.size - 1))
+                if(it.first.last() !is LoadingDisplayable) {
+                    add(it.first.last())
+                }
+                add(ErrorDisplayable(true))
+            }
+            val newPair = calculateDiffUtilScan(it, newResults)
+            sectionDisplayableLiveData.postValue(newPair)
+        }
     }
 
     private fun eventReceived(list: Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>) =

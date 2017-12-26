@@ -16,5 +16,5 @@ interface NewsMainContentInterractor {
 
     fun getSpecificContentStream(params: String): Single<List<Content>>
 
-    fun loadMoreContent(listener: Observable<Int>): Completable
+    fun loadMoreContent(lastVisibleAndAllItems: Observable<Pair<Int, Int>>): Completable
 }

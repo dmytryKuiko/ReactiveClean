@@ -2,7 +2,7 @@ package com.example.dimi.reactiveclean.domain.NewsMain.content
 
 import com.example.dimi.reactiveclean.base.BaseItemDisplayable
 import com.example.dimi.reactiveclean.base.BaseItem
-import com.example.dimi.reactiveclean.models.LoadingDisplayable
+import com.example.dimi.reactiveclean.models.content.LoadingDisplayable
 import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.models.content.Loading

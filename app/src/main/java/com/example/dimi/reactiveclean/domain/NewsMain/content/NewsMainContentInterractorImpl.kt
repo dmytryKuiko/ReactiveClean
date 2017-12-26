@@ -10,25 +10,27 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class NewsMainContentInterractorImpl
 @Inject constructor(private val repository: NewsMainContentRepository) : NewsMainContentInterractor {
 
-    private var currentListSize: Int = 0
-
     override fun getContentStream(): Flowable<List<BaseItem>> = repository.getAllContent()
-            .doOnNext { list -> currentListSize = list.size }
 
     override fun loadNews(): Completable = repository.deleteAndFetchContent()
 
     override fun getSpecificContentStream(params: String): Single<List<Content>> =
             repository.getSpecificContentStream(params)
 
-    override fun loadMoreContent(listener: Observable<Int>): Completable =
-            listener
-                    .map { position -> position != 0 && currentListSize - position < 5 }
+    override fun loadMoreContent(lastVisibleAndAllItems: Observable<Pair<Int, Int>>): Completable =
+            lastVisibleAndAllItems.skip(1)
+                    .debounce(300, TimeUnit.MILLISECONDS)
+                    .map {
+                        it.second - it.first < 5
+                    }
                     .distinctUntilChanged()
-                    .filter { mapTrue -> mapTrue }
+                    .filter { it }
                     .flatMapCompletable { repository.loadMoreContent() }
 }

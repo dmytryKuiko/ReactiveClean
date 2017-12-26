@@ -1,7 +1,7 @@
 package com.example.dimi.reactiveclean.presentation.NewsMain
 
 import com.example.dimi.reactiveclean.base.BaseItemDisplayable
-import com.example.dimi.reactiveclean.models.LoadingDisplayable
+import com.example.dimi.reactiveclean.models.content.LoadingDisplayable
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 
 class NewsMainContentAdapter(val list: List<BaseItemDisplayable>) : ListDelegationAdapter<List<BaseItemDisplayable>>() {
@@ -9,6 +9,7 @@ class NewsMainContentAdapter(val list: List<BaseItemDisplayable>) : ListDelegati
     init {
         delegatesManager.addDelegate(NewsMainContentDisplayableAdapter())
         delegatesManager.addDelegate(LoadingDisplayableAdapter())
+        delegatesManager.addDelegate(ErrorDisplayableAdapter())
         val mutableList: MutableList<BaseItemDisplayable> = mutableListOf()
         mutableList.addAll(list)
         mutableList.add(LoadingDisplayable(true))

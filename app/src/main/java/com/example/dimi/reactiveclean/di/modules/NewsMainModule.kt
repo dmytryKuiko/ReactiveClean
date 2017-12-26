@@ -1,5 +1,7 @@
 package com.example.dimi.reactiveclean.di.modules
 
+import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentManager
+import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentManagerImpl
 import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentStore
 import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentStoreImpl
 import com.example.dimi.reactiveclean.data.NewsMain.sections.NewsMainSectionsStore
@@ -11,6 +13,7 @@ import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInt
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractorImpl
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractor
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractorImpl
+import com.example.dimi.reactiveclean.models.content.ContentPages
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigatorImpl
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.NewsMainPresenter
@@ -25,6 +28,7 @@ import com.example.dimi.reactiveclean.repositories.NewsMain.sections.NewsMainSec
 import com.example.dimi.reactiveclean.repositories.NewsMain.sections.NewsMainSectionsRepositoryImpl
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 
 @Module
 abstract class NewsMainModule {
@@ -73,4 +77,16 @@ abstract class NewsMainModule {
     @Binds
     @ActivityScope
     internal abstract fun bindContentStore(store: NewsMainContentStoreImpl): NewsMainContentStore
+
+    @Binds
+    @ActivityScope
+    internal abstract fun bindConentManager(manager: NewsMainContentManagerImpl): NewsMainContentManager
+
+    @Module
+    companion object {
+
+        @JvmStatic
+        @Provides
+        fun provideContentPages(): ContentPages = ContentPages(0,0,0, 0, false)
+    }
 }
