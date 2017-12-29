@@ -10,9 +10,9 @@ import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import kotlinx.android.synthetic.main.row_content_dispalayable.view.*
 
-class NewsMainContentDisplayableAdapter : AdapterDelegate<List<BaseItemDisplayable>>() {
+class NewsMainContentDisplayableAdapter : AdapterDelegate<MutableList<BaseItemDisplayable>>() {
 
-    override fun isForViewType(itemDisplayables: List<BaseItemDisplayable>, position: Int): Boolean {
+    override fun isForViewType(itemDisplayables: MutableList<BaseItemDisplayable>, position: Int): Boolean {
         return itemDisplayables[position] is ContentDisplayable
     }
 
@@ -21,7 +21,7 @@ class NewsMainContentDisplayableAdapter : AdapterDelegate<List<BaseItemDisplayab
         return ContentDisplayableViewHolder(view)
     }
 
-    override fun onBindViewHolder(itemDisplayable: List<BaseItemDisplayable>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(itemDisplayable: MutableList<BaseItemDisplayable>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
         val item = itemDisplayable[position] as? ContentDisplayable ?: throw ClassCastException("Item is not a ContentDisplayable")
         val contentDisplayableHolder = holder as? ContentDisplayableViewHolder ?: throw ClassCastException("not ContentDisplayable")
         contentDisplayableHolder.bind(item, position)

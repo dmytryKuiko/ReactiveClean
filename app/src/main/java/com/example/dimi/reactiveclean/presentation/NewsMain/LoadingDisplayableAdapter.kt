@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseItemDisplayable
+import com.example.dimi.reactiveclean.extensions.visible
 import com.example.dimi.reactiveclean.models.content.LoadingDisplayable
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import kotlinx.android.synthetic.main.row_loading_displayable.view.*
 
-class LoadingDisplayableAdapter : AdapterDelegate<List<BaseItemDisplayable>>() {
+class LoadingDisplayableAdapter : AdapterDelegate<MutableList<BaseItemDisplayable>>() {
 
-    override fun isForViewType(itemDisplayables: List<BaseItemDisplayable>, position: Int): Boolean {
+    override fun isForViewType(itemDisplayables: MutableList<BaseItemDisplayable>, position: Int): Boolean {
         return itemDisplayables[position] is LoadingDisplayable
     }
 
@@ -21,22 +22,8 @@ class LoadingDisplayableAdapter : AdapterDelegate<List<BaseItemDisplayable>>() {
         return LoadingDisplayableViewHolder(view)
     }
 
-    override fun onBindViewHolder(itemDisplayable: List<BaseItemDisplayable>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
-        val item = itemDisplayable[position] as? LoadingDisplayable ?: throw ClassCastException("Item is not a LoadingDisplayable")
-        val loadingDisplayableHolder = holder as? LoadingDisplayableViewHolder ?: throw ClassCastException("not LoadingDisplayable")
-        loadingDisplayableHolder.bind(item)
-    }
+    override fun onBindViewHolder(itemDisplayable: MutableList<BaseItemDisplayable>,
+                                  position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {}
 
-    inner class LoadingDisplayableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(item: LoadingDisplayable) {
-            with(itemView) {
-                if(item.showLoading) {
-                    row_loading_displayable_progress_bar.visibility = View.VISIBLE
-                } else {
-                    row_loading_displayable_progress_bar.visibility = View.INVISIBLE
-                }
-            }
-        }
-    }
+    inner class LoadingDisplayableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

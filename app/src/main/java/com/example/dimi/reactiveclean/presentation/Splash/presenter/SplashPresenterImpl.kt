@@ -2,6 +2,7 @@ package com.example.dimi.reactiveclean.presentation.Splash.presenter
 
 import com.example.dimi.reactiveclean.navigation.Splash.SplashNavigator
 import com.example.dimi.reactiveclean.domain.Splash.SplashInterractor
+import com.example.dimi.reactiveclean.extensions.addTo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -14,11 +15,11 @@ constructor(private val navigator: SplashNavigator,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {
-        val disposable = interractor.isFirstLaunch()
+        interractor.isFirstLaunch()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError)
-        compositeDisposable.add(disposable)
+                .addTo(compositeDisposable)
     }
 
     override fun disposeSubscriptions() = compositeDisposable.clear()

@@ -12,9 +12,9 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import kotlinx.android.synthetic.main.row_error_displayable.view.*
 import kotlinx.android.synthetic.main.row_loading_displayable.view.*
 
-class ErrorDisplayableAdapter : AdapterDelegate<List<BaseItemDisplayable>>() {
+class ErrorDisplayableAdapter : AdapterDelegate<MutableList<BaseItemDisplayable>>() {
 
-    override fun isForViewType(itemDisplayables: List<BaseItemDisplayable>, position: Int): Boolean {
+    override fun isForViewType(itemDisplayables: MutableList<BaseItemDisplayable>, position: Int): Boolean {
         return itemDisplayables[position] is ErrorDisplayable
     }
 
@@ -23,7 +23,7 @@ class ErrorDisplayableAdapter : AdapterDelegate<List<BaseItemDisplayable>>() {
         return ErrorDisplayableViewHolder(view)
     }
 
-    override fun onBindViewHolder(itemDisplayable: List<BaseItemDisplayable>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(itemDisplayable: MutableList<BaseItemDisplayable>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
         val item = itemDisplayable[position] as? ErrorDisplayable ?: throw ClassCastException("Item is not a ErrorDisplayable")
         val loadingDisplayableHolder = holder as? ErrorDisplayableViewHolder ?: throw ClassCastException("not ErrorDisplayable")
         loadingDisplayableHolder.bind(item)

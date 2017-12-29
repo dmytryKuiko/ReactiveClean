@@ -1,15 +1,15 @@
 package com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content
 
 import android.arch.lifecycle.LiveData
-import android.support.v7.util.DiffUtil
 import com.example.dimi.reactiveclean.base.BaseDataPresenter
-import com.example.dimi.reactiveclean.base.BaseItemDisplayable
+import com.example.dimi.reactiveclean.models.content.ContentDisplayable
+import com.example.dimi.reactiveclean.models.content.ContentRecyclerData
 import io.reactivex.Observable
 
-interface NewsMainContentPresenter : BaseDataPresenter<Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>> {
+interface NewsMainContentPresenter : BaseDataPresenter<List<ContentDisplayable>> {
 
     fun getError(): LiveData<Unit>
 
-    fun listenRecyclerScrollAndItems(lastVisibleAndAllItems: Observable<Pair<Int, Int>>)
+    fun listenRecyclerScrollAndItems(lastVisibleAndAllItems: Observable<ContentRecyclerData>)
 
 }

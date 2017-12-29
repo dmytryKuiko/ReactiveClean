@@ -18,13 +18,6 @@ class TutorialFirstFragment : TutorialFragment() {
     @field:Named(DiConstants.TUTORIAL_FIRST_SCREEN)
     override lateinit var presenter: TutorialPresenter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        presenter.getImageType().observe(this, Observer { imageType ->
-            imageType?.let { showImage(imageType) }
-        })
-    }
-
     override fun injectModule(context: Context) {
         val component = (ComponentManager.getComponent(context) as? TutorialComponent) ?:
                 throw ClassCastException("Component is not an instance of Tutorial Component")

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseFragment
 import com.example.dimi.reactiveclean.di.components.NewsMainComponent
+import com.example.dimi.reactiveclean.models.content.ContentRecyclerData
 import com.example.dimi.reactiveclean.presentation.NewsMain.NewsMainContentAdapter
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.NewsMainContentPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
@@ -23,7 +24,7 @@ class NewsMainContentFragment : BaseFragment() {
     @Inject
     lateinit var presenter: NewsMainContentPresenter
 
-    private val contentAdapter = NewsMainContentAdapter(emptyList())
+    private val contentAdapter = NewsMainContentAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -43,17 +44,18 @@ class NewsMainContentFragment : BaseFragment() {
                         .map {
                             val lastVisible = (it.view().layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                             val allPositions = it.view().adapter.itemCount
-                            Pair(lastVisible, allPositions)
+                            ContentRecyclerData(lastVisible, allPositions)
                         }
         )
 
         presenter.getData().observe(this, Observer {
-            it?.let {
-                contentAdapter.items = emptyList()
-                contentAdapter.items = it.first
-                it.second.dispatchUpdatesTo(contentAdapter)
-            }
+            it?.let { contentAdapter.updateItems(it) }
         })
+    }
+
+    override fun onDestroy() {
+        contentAdapter.unsubscribe()
+        super.onDestroy()
     }
 
     override fun injectModule(context: Context) {

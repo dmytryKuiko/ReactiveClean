@@ -6,10 +6,9 @@ import android.support.v7.util.DiffUtil
 import com.example.dimi.reactiveclean.base.BaseItemDisplayable
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentDomainMapper
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractor
-import com.example.dimi.reactiveclean.models.content.LoadingDisplayable
+import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
-import com.example.dimi.reactiveclean.models.content.ContentPages
-import com.example.dimi.reactiveclean.models.content.ErrorDisplayable
+import com.example.dimi.reactiveclean.models.content.*
 import com.example.dimi.reactiveclean.utils.DiffUtilContent
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Flowable
@@ -26,7 +25,7 @@ class NewsMainContentPresenterImpl
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val pairLiveData: MutableLiveData<Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>> = MutableLiveData()
+    private val contentLiveData: MutableLiveData<List<ContentDisplayable>> = MutableLiveData()
 
     private val showErrorLiveData = SingleEventLiveData<Unit>()
 
@@ -35,9 +34,7 @@ class NewsMainContentPresenterImpl
     private lateinit var disposableSearch: Disposable
 
     init {
-
-
-        val temp = interractor.loadNews()
+        interractor.loadNews()
                 .doAfterTerminate(this::subscribeToDb)
                 .subscribe({
                     pages = it
@@ -45,77 +42,58 @@ class NewsMainContentPresenterImpl
                 }, { t ->
                     var a = 2
                     a++
-                })
-
-        compositeDisposable.add(temp)
+                }).addTo(compositeDisposable)
     }
 
     override fun disposeSubscriptions() {
         compositeDisposable.clear()
     }
 
-    override fun getData(): LiveData<Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>> = pairLiveData
+    override fun getData(): LiveData<List<ContentDisplayable>> = contentLiveData
 
     override fun getError(): LiveData<Unit> = showErrorLiveData
 
-    override fun listenRecyclerScrollAndItems(lastVisibleAndAllItems: Observable<Pair<Int, Int>>) {
-        val disposableScrolling = interractor.loadMoreContent(lastVisibleAndAllItems, pagesPublishRelay)
+    override fun listenRecyclerScrollAndItems(lastVisibleAndAllItems: Observable<ContentRecyclerData>) {
+        interractor.loadMoreContent(lastVisibleAndAllItems, pagesPublishRelay)
                 .subscribe({
                     pages = it
                     pagesPublishRelay.accept(it)
-                }, (this::showErrorViewHolder))
-
-        compositeDisposable.add(disposableScrolling)
+                }, (this::onErrorContentStream))
+                .addTo(compositeDisposable)
     }
 
     private fun subscribeToDb() {
-        val disposable = interractor.getContentStream()
+        interractor.getContentStream()
                 .map(mapper)
-                .scan(createInitialPair(), this::addLoadingAndCalculateDiff)
-                .skip(1)
-                .subscribe(pairLiveData::postValue, this::onErrorContentStream)
-
-        compositeDisposable.add(disposable)
+                .subscribe(contentLiveData::postValue, this::onErrorContentStream)
+                .addTo(compositeDisposable)
     }
 
-    private fun createInitialPair(): Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult> {
-        val initialList = listOf(LoadingDisplayable(true))
-        val initialCallback = DiffUtilContent(initialList, initialList)
-        return Pair(initialList, DiffUtil.calculateDiff(initialCallback))
-    }
-
-
-    private fun addLoadingAndCalculateDiff(pair: Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>,
-                                           next: List<BaseItemDisplayable>) : Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult> {
-        val newList: MutableList<BaseItemDisplayable> = mutableListOf()
-        newList.addAll(next)
-
-        if (pages.currentPage < pages.pages) {
-            newList.add(LoadingDisplayable())
-        }
-        return calculateDiffUtil(pair, newList)
-    }
-
-    private fun showErrorViewHolder(throwable: Throwable) {
-        pairLiveData.value?.let {
-            val newResults: MutableList<BaseItemDisplayable> = mutableListOf()
-            with(newResults) {
-                addAll(it.first.subList(0, it.first.size - 1))
-                if (it.first.last() !is LoadingDisplayable) {
-                    add(it.first.last())
-                }
-                add(ErrorDisplayable(true))
-            }
-            val newPair = calculateDiffUtil(it, newResults)
-            pairLiveData.postValue(newPair)
-        }
-    }
-
-    private fun calculateDiffUtil(pair: Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>,
-                                  list: List<BaseItemDisplayable>): Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult> {
-        val callback = DiffUtilContent(pair.first, list)
-        val result = DiffUtil.calculateDiff(callback, true)
-        return Pair(list, result)
-    }
     private fun onErrorContentStream(throwable: Throwable) = showErrorLiveData.call()
+//
+//    private fun addLoadingAndCalculateDiff(pair: Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>,
+//                                           next: List<BaseItemDisplayable>): Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult> {
+//        val newList: MutableList<BaseItemDisplayable> = mutableListOf()
+//        newList.addAll(next)
+//
+//        if (pages.currentPage < pages.pages) {
+//            newList.add(LoadingDisplayable())
+//        }
+//        return calculateDiffUtil(pair, newList)
+//    }
+
+//    private fun showErrorViewHolder(throwable: Throwable) {
+//        pairLiveData.value?.let {
+//            val newResults: MutableList<BaseItemDisplayable> = mutableListOf()
+//            with(newResults) {
+//                addAll(it.first.subList(0, it.first.size - 1))
+//                if (it.first.last() !is LoadingDisplayable) {
+//                    add(it.first.last())
+//                }
+//                add(ErrorDisplayable(true))
+//            }
+//            val newPair = calculateDiffUtil(it, newResults)
+//            pairLiveData.postValue(newPair)
+//        }
+//    }
 }
