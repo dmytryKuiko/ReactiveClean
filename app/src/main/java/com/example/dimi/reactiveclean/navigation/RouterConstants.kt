@@ -10,5 +10,5 @@ object RouterConstants {
 
     const val TUTORIAL_ACTIVITY = "tutorial_activity"
     const val MAIN_ACTIVITY = "main_activity"
-    const val MAIN_NEWS_ACTIVITY = "main_news_activity"
+    const val NEWS_MAIN_ACTIVITY = "main_news_activity"
 }

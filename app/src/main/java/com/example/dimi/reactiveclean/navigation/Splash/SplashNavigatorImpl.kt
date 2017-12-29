@@ -1,17 +1,17 @@
 package com.example.dimi.reactiveclean.navigation.Splash
 
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import com.example.dimi.reactiveclean.utils.NavigatorExtensions.Routers.ExtendedRouter
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class SplashNavigatorImpl
 @Inject
-constructor(val router: ExtendedRouter) : SplashNavigator {
+constructor(private val router: Router) : SplashNavigator {
     override fun navigateToTutorial() {
-        router.navigateToActivity(RouterConstants.TUTORIAL_ACTIVITY)
+        router.newRootScreen(RouterConstants.TUTORIAL_ACTIVITY)
     }
 
     override fun navigateToStart() {
-        router.navigateToActivity(RouterConstants.MAIN_NEWS_ACTIVITY)
+        router.newRootScreen(RouterConstants.NEWS_MAIN_ACTIVITY)
     }
 }

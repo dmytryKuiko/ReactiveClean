@@ -9,7 +9,8 @@ import javax.inject.Inject
 
 class SplashPresenterImpl
 @Inject
-constructor(private val navigator: SplashNavigator, private val interractor: SplashInterractor) : SplashPresenter {
+constructor(private val navigator: SplashNavigator,
+            private val interractor: SplashInterractor) : SplashPresenter {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {

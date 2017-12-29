@@ -1,11 +1,11 @@
 package com.example.dimi.reactiveclean.navigation.Tutorial
 
-import com.example.dimi.reactiveclean.utils.NavigatorExtensions.Routers.ExtendedRouter
 import com.example.dimi.reactiveclean.navigation.RouterConstants
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class TutorialMainNavigatorImpl
-@Inject constructor(val router: ExtendedRouter) : TutorialMainNavigator {
+@Inject constructor(val router: Router) : TutorialMainNavigator {
 
     private var currentStep = TutorialNavigatorStep.NONE
 
@@ -34,7 +34,7 @@ class TutorialMainNavigatorImpl
 
     val thirdPageTutorial = object : TutorialNavigator {
         override fun navigateNext() {
-            router.replaceActivity(RouterConstants.MAIN_NEWS_ACTIVITY)
+            router.newRootScreen(RouterConstants.NEWS_MAIN_ACTIVITY)
         }
 
         override fun navigateBack() {

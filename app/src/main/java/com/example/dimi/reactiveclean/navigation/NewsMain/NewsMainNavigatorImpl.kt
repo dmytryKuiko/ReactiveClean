@@ -1,11 +1,11 @@
 package com.example.dimi.reactiveclean.navigation.NewsMain
 
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import com.example.dimi.reactiveclean.utils.NavigatorExtensions.Routers.ExtendedRouter
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class NewsMainNavigatorImpl
-@Inject constructor(private val router: ExtendedRouter) : NewsMainNavigator {
+@Inject constructor(private val router: Router) : NewsMainNavigator {
     private var currentStep = NewsMainNavigatorStep.NONE
 
     override fun startNavigation() {

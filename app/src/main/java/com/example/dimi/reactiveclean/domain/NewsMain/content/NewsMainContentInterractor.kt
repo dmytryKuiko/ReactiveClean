@@ -1,20 +1,19 @@
 package com.example.dimi.reactiveclean.domain.NewsMain.content
 
-import com.example.dimi.reactiveclean.base.BaseItem
 import com.example.dimi.reactiveclean.models.content.Content
-import com.jakewharton.rxbinding2.support.v7.widget.RecyclerViewScrollEvent
-import io.reactivex.Completable
+import com.example.dimi.reactiveclean.models.content.ContentPages
+import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 
 interface NewsMainContentInterractor {
 
-    fun getContentStream(): Flowable<List<BaseItem>>
+    fun getContentStream(): Flowable<List<Content>>
 
-    fun loadNews(): Completable
+    fun loadNews(): Single<ContentPages>
 
-    fun getSpecificContentStream(params: String): Single<List<Content>>
+    //fun getSpecificContentStream(params: String): Single<List<Content>>
 
-    fun loadMoreContent(lastVisibleAndAllItems: Observable<Pair<Int, Int>>): Completable
+    fun loadMoreContent(lastVisibleAndAllItems: Observable<Pair<Int, Int>>, relay: PublishRelay<ContentPages>): Observable<ContentPages>
 }

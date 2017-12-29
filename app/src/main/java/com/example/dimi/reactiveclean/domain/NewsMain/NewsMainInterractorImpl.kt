@@ -33,7 +33,9 @@ class NewsMainInterractorImpl
                 .filter { string -> string.length > 2 }
                 .distinctUntilChanged()
                 .switchMap { string -> when(navigator.getCurrentStep()) {
-                    NewsMainNavigatorStep.CONTENT -> contentInterractor.getSpecificContentStream(string).toObservable()
+                    //TODO TEMPORARY TO REMOVE ERROR
+//                    NewsMainNavigatorStep.CONTENT -> contentInterractor.getSpecificContentStream(string).toObservable()
+                    NewsMainNavigatorStep.CONTENT -> sectionsInterractor.getSpecificSectionsStream(string).toObservable()
                     else -> sectionsInterractor.getSpecificSectionsStream(string).toObservable()
                 } }
                 .subscribe ({ t: List<Any>? ->

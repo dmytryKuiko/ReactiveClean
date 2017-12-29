@@ -1,7 +1,6 @@
 package com.example.dimi.reactiveclean.di.modules
 
 import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentManager
-import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentManagerImpl
 import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentStore
 import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentStoreImpl
 import com.example.dimi.reactiveclean.data.NewsMain.sections.NewsMainSectionsStore
@@ -78,15 +77,11 @@ abstract class NewsMainModule {
     @ActivityScope
     internal abstract fun bindContentStore(store: NewsMainContentStoreImpl): NewsMainContentStore
 
-    @Binds
-    @ActivityScope
-    internal abstract fun bindConentManager(manager: NewsMainContentManagerImpl): NewsMainContentManager
-
     @Module
     companion object {
 
         @JvmStatic
         @Provides
-        fun provideContentPages(): ContentPages = ContentPages(0,0,0, 0, false)
+        fun provideContentPages(): ContentPages = ContentPages()
     }
 }

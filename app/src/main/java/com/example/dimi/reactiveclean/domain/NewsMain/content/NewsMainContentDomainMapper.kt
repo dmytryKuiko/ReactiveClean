@@ -10,14 +10,11 @@ import io.reactivex.functions.Function
 import javax.inject.Inject
 
 class NewsMainContentDomainMapper
-@Inject constructor() : Function<List<BaseItem>, List<BaseItemDisplayable>> {
-    override fun apply(list: List<BaseItem>): List<BaseItemDisplayable> {
-        val parsedList: MutableList<BaseItemDisplayable> = mutableListOf()
+@Inject constructor() : Function<List<Content>, List<ContentDisplayable>> {
+    override fun apply(list: List<Content>): List<ContentDisplayable> {
+        val parsedList: MutableList<ContentDisplayable> = mutableListOf()
         list.forEach {
-            when(it) {
-                is Content -> parsedList.add(ContentDisplayable(it.name, it.webUrl))
-                is Loading -> parsedList.add(LoadingDisplayable(it.showLoading))
-            }
+            parsedList.add(ContentDisplayable(it.name, it.webUrl))
         }
         return parsedList
     }

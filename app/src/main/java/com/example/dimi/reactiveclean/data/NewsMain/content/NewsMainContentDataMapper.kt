@@ -1,32 +1,20 @@
 package com.example.dimi.reactiveclean.data.NewsMain.content
 
-import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.models.content.ContentResponse
+import com.example.dimi.reactiveclean.models.content.ContentPages
 import io.reactivex.functions.Function
-import java.sql.Date
-import java.sql.Timestamp
-import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
+import java.io.NotSerializableException
 import javax.inject.Inject
 
 class NewsMainContentDataMapper
-@Inject constructor(): Function<ContentResponse, List<Content>> {
-    override fun apply(response: ContentResponse): List<Content> {
-        val responseList = response.results
-        val parsedList: MutableList<Content> = mutableListOf()
-        responseList?.forEach {
-            val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-            val time = formatter.parse(it.webPublicationDate)
-            if (it.id != null && it.type != null && it.sectionId != null && it.sectionName != null
-                    && time != null && it.webTitle != null && it.webUrl != null
-                    && it.apiUrl != null && it.pillarName != null) {
-                parsedList.add(Content(it.webTitle, it.type, it.sectionName, Date(time.time),
-                        it.webUrl, it.pillarName))
+@Inject constructor() : Function<ContentResponse, ContentPages> {
+    override fun apply(response: ContentResponse): ContentPages =
+            with(response) {
+                if (status != null && total != null && startIndex != null && pageSize != null
+                        && currentPage != null && pages != null) {
+                    ContentPages(status, total, startIndex, pageSize, currentPage, pages)
+                } else {
+                    throw NotSerializableException("ContentResponse field is missing")
+                }
             }
-        }
-        return parsedList
-    }
 }

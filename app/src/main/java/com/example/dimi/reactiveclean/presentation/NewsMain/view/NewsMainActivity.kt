@@ -1,15 +1,23 @@
 package com.example.dimi.reactiveclean.presentation.NewsMain.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.View
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseActivity
+import com.example.dimi.reactiveclean.navigation.RouterConstants
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.NewsMainPresenter
+import com.example.dimi.reactiveclean.presentation.NewsMain.view.content.NewsMainContentFragment
+import com.example.dimi.reactiveclean.presentation.NewsMain.view.sections.NewsMainSectionsFragment
+import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialFirstFragment
+import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialSecondFragment
+import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialThirdFragment
 import com.example.dimi.reactiveclean.utils.ComponentManager
-import com.example.dimi.reactiveclean.utils.NavigatorExtensions.Navigators.ExtendedNavigator
 import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.activity_news_main.*
 import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import javax.inject.Inject
 
@@ -21,8 +29,14 @@ class NewsMainActivity : BaseActivity(), View.OnClickListener {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    private val appNavigator: SupportFragmentNavigator by lazy {
-        ExtendedNavigator(this, R.id.news_main_activity_container)
+    private val appNavigator = object: SupportAppNavigator(this@NewsMainActivity, R.id.news_main_activity_container) {
+        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = null
+
+        override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
+            RouterConstants.NEWS_MAIN_SECTIONS_SCREEN -> NewsMainSectionsFragment()
+            RouterConstants.NEWS_MAIN_CONTENT_SCREEN -> NewsMainContentFragment()
+            else -> null
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -89,6 +89,9 @@ dependencies {
     //compile 'com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
 
+    //RxRelay
+    compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
