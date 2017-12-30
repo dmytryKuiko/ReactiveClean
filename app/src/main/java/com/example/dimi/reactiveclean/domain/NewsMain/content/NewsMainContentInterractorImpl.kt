@@ -4,7 +4,7 @@ import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.models.content.ContentPages
 import com.example.dimi.reactiveclean.models.content.ContentRecyclerData
 import com.example.dimi.reactiveclean.repositories.NewsMain.content.NewsMainContentRepository
-import com.jakewharton.rxrelay2.PublishRelay
+import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -22,25 +22,30 @@ class NewsMainContentInterractorImpl
 //    override fun getSpecificContentStream(params: String): Single<List<Content>> =
 //            repository.getSpecificContentStream(params)
 
-    override fun loadMoreContent(lastVisibleAndAllItems: Observable<ContentRecyclerData>,
-                                 relay: PublishRelay<ContentPages>): Observable<ContentPages> {
-        return Observable.zip(lastVisibleAndAllItems.skip(1).debounce(300, TimeUnit.MILLISECONDS).map {
-                                    it.itemsCount - it.lastVisible < 5
-                    }. distinctUntilChanged().filter { it },
+    override fun loadMoreContent(rxBinding: Observable<ContentRecyclerData>,
+                                 relay: BehaviorRelay<ContentPages>): Observable<ContentPages> {
+        return Observable.zip(rxBinding.compose(this::transformRxBinding),
                 relay,
                 BiFunction<Boolean, ContentPages, Int> { t1, pages ->
-            pages.currentPage + 1
-        }).flatMapSingle { repository.loadMoreContent(it) }
+                    pages.currentPage + 1
+                }).flatMapSingle { repository.loadMoreContent(it) }
     }
 
+    override fun searchContent(text: Observable<String>): Observable<ContentPages> {
+        return text.debounce(300, TimeUnit.MILLISECONDS)
+                .filter { it.length > 2 }
+                .distinctUntilChanged()
+                .switchMap { repository.searchContent(it).toObservable() }
 
-//            lastVisibleAndAllItems
-//                    .skip(1)
-//                    .debounce(300, TimeUnit.MILLISECONDS)
-//                    .map {
-//                        it.second - it.first < 5
-//                    }
-//                    .distinctUntilChanged()
-//                    .filter { it }
-//                    .flatMapSingle { repository.loadMoreContent(2) }
+    }
+
+    private fun transformRxBinding(rxBinding: Observable<ContentRecyclerData>): Observable<Boolean> {
+        return rxBinding
+                .skip(1)
+                .debounce(100, TimeUnit.MILLISECONDS)
+                .map {
+                    it.itemsCount - it.lastVisible < 5
+                }.distinctUntilChanged()
+                .filter { it }
+    }
 }

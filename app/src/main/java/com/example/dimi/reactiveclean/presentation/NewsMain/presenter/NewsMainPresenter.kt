@@ -9,6 +9,4 @@ interface NewsMainPresenter : BasePresenter {
     fun onContentClicked()
 
     fun onSectionsClicked()
-
-    fun listenField(textChangeEvents: InitialValueObservable<TextViewTextChangeEvent>)
 }

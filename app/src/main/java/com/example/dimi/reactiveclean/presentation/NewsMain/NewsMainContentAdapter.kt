@@ -24,10 +24,9 @@ class NewsMainContentAdapter : ListDelegationAdapter<MutableList<BaseItemDisplay
         disposable = Single.fromCallable { calculateDiff(newList) }
                 .doOnSuccess { updateAdapterData(newList) }
                 .subscribe(this::dispatchResult)
-
     }
 
-    fun unsubscribe() {
+    fun disposeSubscription() {
         disposable.dispose()
     }
 

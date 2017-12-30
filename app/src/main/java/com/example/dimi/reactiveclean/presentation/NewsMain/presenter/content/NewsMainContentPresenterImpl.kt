@@ -2,18 +2,13 @@ package com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.support.v7.util.DiffUtil
-import com.example.dimi.reactiveclean.base.BaseItemDisplayable
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentDomainMapper
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractor
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
 import com.example.dimi.reactiveclean.models.content.*
-import com.example.dimi.reactiveclean.utils.DiffUtilContent
-import com.jakewharton.rxrelay2.PublishRelay
-import io.reactivex.Flowable
+import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
@@ -22,14 +17,15 @@ class NewsMainContentPresenterImpl
 @Inject constructor(private val interractor: NewsMainContentInterractor,
                     private val mapper: NewsMainContentDomainMapper,
                     private var pages: ContentPages) : NewsMainContentPresenter {
-
     private val compositeDisposable = CompositeDisposable()
 
     private val contentLiveData: MutableLiveData<List<ContentDisplayable>> = MutableLiveData()
 
     private val showErrorLiveData = SingleEventLiveData<Unit>()
 
-    private var pagesPublishRelay: PublishRelay<ContentPages> = PublishRelay.create()
+    private var pagesBehaviourRelay: BehaviorRelay<ContentPages> = BehaviorRelay.create()
+
+    private var rxBindingCompositeDisposable = CompositeDisposable()
 
     private lateinit var disposableSearch: Disposable
 
@@ -38,7 +34,7 @@ class NewsMainContentPresenterImpl
                 .doAfterTerminate(this::subscribeToDb)
                 .subscribe({
                     pages = it
-                    pagesPublishRelay.accept(it)
+                    pagesBehaviourRelay.accept(it)
                 }, { t ->
                     var a = 2
                     a++
@@ -53,13 +49,30 @@ class NewsMainContentPresenterImpl
 
     override fun getError(): LiveData<Unit> = showErrorLiveData
 
-    override fun listenRecyclerScrollAndItems(lastVisibleAndAllItems: Observable<ContentRecyclerData>) {
-        interractor.loadMoreContent(lastVisibleAndAllItems, pagesPublishRelay)
+    override fun subscribeRecycler(rxBinding: Observable<ContentRecyclerData>) {
+        interractor.loadMoreContent(rxBinding, pagesBehaviourRelay)
                 .subscribe({
                     pages = it
-                    pagesPublishRelay.accept(it)
+                    pagesBehaviourRelay.accept(it)
                 }, (this::onErrorContentStream))
-                .addTo(compositeDisposable)
+                .addTo(rxBindingCompositeDisposable)
+    }
+
+    override fun subscribeSearchText(text: Observable<String>) {
+        interractor.searchContent(text)
+                .subscribe ({
+                    var a = 3
+                    a++
+                }, {
+                    var a = 3
+                    a++
+                })
+                .addTo(rxBindingCompositeDisposable)
+
+    }
+
+    override fun disposeRxBinding() {
+        rxBindingCompositeDisposable.clear()
     }
 
     private fun subscribeToDb() {

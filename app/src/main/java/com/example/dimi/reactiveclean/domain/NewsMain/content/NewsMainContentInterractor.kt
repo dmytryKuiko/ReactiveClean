@@ -3,6 +3,7 @@ package com.example.dimi.reactiveclean.domain.NewsMain.content
 import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.models.content.ContentPages
 import com.example.dimi.reactiveclean.models.content.ContentRecyclerData
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -14,7 +15,7 @@ interface NewsMainContentInterractor {
 
     fun loadNews(): Single<ContentPages>
 
-    //fun getSpecificContentStream(params: String): Single<List<Content>>
+    fun loadMoreContent(rxBinding: Observable<ContentRecyclerData>, relay: BehaviorRelay<ContentPages>): Observable<ContentPages>
 
-    fun loadMoreContent(lastVisibleAndAllItems: Observable<ContentRecyclerData>, relay: PublishRelay<ContentPages>): Observable<ContentPages>
+    fun searchContent(text: Observable<String>): Observable<ContentPages>
 }

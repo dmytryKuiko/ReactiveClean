@@ -10,6 +10,9 @@ interface NewsMainContentPresenter : BaseDataPresenter<List<ContentDisplayable>>
 
     fun getError(): LiveData<Unit>
 
-    fun listenRecyclerScrollAndItems(lastVisibleAndAllItems: Observable<ContentRecyclerData>)
+    fun subscribeRecycler(rxBinding: Observable<ContentRecyclerData>)
 
+    fun subscribeSearchText(text: Observable<String>)
+
+    fun disposeRxBinding()
 }

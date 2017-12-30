@@ -17,6 +17,7 @@ import com.example.dimi.reactiveclean.presentation.NewsMain.NewsMainContentAdapt
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.NewsMainContentPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.fragment_news_main_content.*
 import javax.inject.Inject
 
@@ -39,7 +40,7 @@ class NewsMainContentFragment : BaseFragment() {
             setHasFixedSize(true)
         }
 
-        presenter.listenRecyclerScrollAndItems(
+        presenter.subscribeRecycler(
                 RxRecyclerView.scrollEvents(fragment_news_main_content_recycler_view)
                         .map {
                             val lastVisible = (it.view().layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
@@ -48,13 +49,17 @@ class NewsMainContentFragment : BaseFragment() {
                         }
         )
 
+        presenter.subscribeSearchText(RxTextView.textChangeEvents(searchText)
+                .map { it.text().toString() })
+
         presenter.getData().observe(this, Observer {
             it?.let { contentAdapter.updateItems(it) }
         })
     }
 
     override fun onDestroy() {
-        contentAdapter.unsubscribe()
+        contentAdapter.disposeSubscription()
+        presenter.disposeRxBinding()
         super.onDestroy()
     }
 

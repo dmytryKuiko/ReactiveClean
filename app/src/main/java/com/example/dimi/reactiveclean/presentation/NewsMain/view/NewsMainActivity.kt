@@ -2,7 +2,9 @@ package com.example.dimi.reactiveclean.presentation.NewsMain.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.view.MenuItem
 import android.view.View
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseActivity
@@ -21,7 +23,7 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import javax.inject.Inject
 
-class NewsMainActivity : BaseActivity(), View.OnClickListener {
+class NewsMainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var presenter: NewsMainPresenter
@@ -29,7 +31,7 @@ class NewsMainActivity : BaseActivity(), View.OnClickListener {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    private val appNavigator = object: SupportAppNavigator(this@NewsMainActivity, R.id.news_main_activity_container) {
+    private val appNavigator = object : SupportAppNavigator(this@NewsMainActivity, R.id.news_main_activity_container) {
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = null
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
@@ -43,9 +45,7 @@ class NewsMainActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_main)
 
-        news_main_activity_content_button.setOnClickListener(this)
-        news_main_activity_sections_button.setOnClickListener(this)
-        presenter.listenField(RxTextView.textChangeEvents(news_main_activity_search_editText))
+        news_main_bottom_bar.setOnNavigationItemSelectedListener(this@NewsMainActivity)
     }
 
     override fun onResume() {
@@ -66,11 +66,16 @@ class NewsMainActivity : BaseActivity(), View.OnClickListener {
         ComponentManager.releaseComponent(this)
     }
 
-    override fun onClick(view: View?) {
-        when(view) {
-            news_main_activity_content_button -> presenter.onContentClicked()
-            news_main_activity_sections_button -> presenter.onSectionsClicked()
-            else -> TODO()
-        }
-    }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean =
+            when (item.itemId) {
+                R.id.content_bottom_bar -> {
+                    presenter.onContentClicked()
+                    true
+                }
+                R.id.sections_bottom_bar -> {
+                    presenter.onSectionsClicked()
+                    true
+                }
+                else -> false
+            }
 }

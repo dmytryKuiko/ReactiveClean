@@ -8,6 +8,7 @@ import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.models.content.ContentResponse
 import com.example.dimi.reactiveclean.models.content.ContentPages
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -32,6 +33,10 @@ class NewsMainContentRepositoryImpl
             serviceNewsApi.getAllContent()
                     .doOnSuccess(this::mapAndDeleteAndStore)
                     .map(mapper)
+
+    override fun searchContent(text: String): Single<ContentPages> {
+        return serviceNewsApi.getSpecificContent(text).map(mapper)
+    }
 
     private fun mapAndStore(response: ContentResponse) {
         val list = mapperDB.apply(response)
