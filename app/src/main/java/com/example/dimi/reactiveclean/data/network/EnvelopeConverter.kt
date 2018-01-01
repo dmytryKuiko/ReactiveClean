@@ -1,6 +1,5 @@
 package com.example.dimi.reactiveclean.data.network
 
-import com.example.dimi.reactiveclean.models.EnvelopeResponse
 import com.google.gson.reflect.TypeToken
 import okhttp3.ResponseBody
 import retrofit2.Converter

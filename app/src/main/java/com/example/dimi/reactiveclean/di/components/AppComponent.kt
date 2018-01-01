@@ -27,8 +27,6 @@ interface AppComponent {
 
     fun splashComponentBuilder(): SplashComponent.Builder
 
-    fun mainComponentBuilder(): MainComponent.Builder
-
     fun tutorialComponentBuilder(): TutorialComponent.Builder
 
     fun newsMainComponentBuilder(): NewsMainComponent.Builder

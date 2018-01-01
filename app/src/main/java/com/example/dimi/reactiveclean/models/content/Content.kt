@@ -3,7 +3,6 @@ package com.example.dimi.reactiveclean.models.content
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import com.example.dimi.reactiveclean.base.BaseItem
 import com.example.dimi.reactiveclean.data.db.TableNames
 import java.sql.Date
 
@@ -23,5 +22,5 @@ class Content(val name: String,
               val pillarName: String,
 
               @PrimaryKey(autoGenerate = true)
-              val id: Int? = null) : BaseItem {
+              val id: Int? = null) {
 }

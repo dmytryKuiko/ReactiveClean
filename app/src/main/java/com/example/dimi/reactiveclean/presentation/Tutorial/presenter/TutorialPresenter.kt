@@ -1,10 +1,9 @@
 package com.example.dimi.reactiveclean.presentation.Tutorial.presenter
 
-import android.arch.lifecycle.LiveData
+import com.example.dimi.reactiveclean.base.BaseDataPresenter
 import com.example.dimi.reactiveclean.presentation.Tutorial.view.ImageType
 
-interface TutorialPresenter {
-    fun getImageType(): LiveData<ImageType>
+interface TutorialPresenter : BaseDataPresenter<ImageType> {
 
     fun clickNext()
 

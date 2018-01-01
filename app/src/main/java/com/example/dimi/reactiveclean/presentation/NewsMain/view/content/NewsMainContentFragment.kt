@@ -12,11 +12,10 @@ import android.view.ViewGroup
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseFragment
 import com.example.dimi.reactiveclean.di.components.NewsMainComponent
-import com.example.dimi.reactiveclean.models.content.ContentRecyclerData
 import com.example.dimi.reactiveclean.presentation.NewsMain.NewsMainContentAdapter
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.NewsMainContentPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
-import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
+import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.fragment_news_main_content.*
 import javax.inject.Inject
@@ -25,7 +24,16 @@ class NewsMainContentFragment : BaseFragment() {
     @Inject
     lateinit var presenter: NewsMainContentPresenter
 
-    private val contentAdapter = NewsMainContentAdapter()
+    @Inject
+    lateinit var schedulers: SchedulersProvider
+
+    private val contentAdapter by lazy {
+        NewsMainContentAdapter(
+                loadNextPage = presenter::loadNextContentPage,
+                scrollTo = { scrollToLastPosition() },
+                schedulers = schedulers
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -40,21 +48,22 @@ class NewsMainContentFragment : BaseFragment() {
             setHasFixedSize(true)
         }
 
-        presenter.subscribeRecycler(
-                RxRecyclerView.scrollEvents(fragment_news_main_content_recycler_view)
-                        .map {
-                            val lastVisible = (it.view().layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                            val allPositions = it.view().adapter.itemCount
-                            ContentRecyclerData(lastVisible, allPositions)
-                        }
-        )
-
         presenter.subscribeSearchText(RxTextView.textChangeEvents(searchText)
                 .map { it.text().toString() })
 
         presenter.getData().observe(this, Observer {
-            it?.let { contentAdapter.updateItems(it) }
+            it?.let { contentAdapter.setNewData(it) }
         })
+
+        content_refresh_button.setOnClickListener { presenter.refreshContent() }
+    }
+
+    override fun onDestroyView() {
+        presenter.setVisibleItem(
+                (fragment_news_main_content_recycler_view.layoutManager as LinearLayoutManager)
+                        .findFirstVisibleItemPosition())
+
+        super.onDestroyView()
     }
 
     override fun onDestroy() {
@@ -67,5 +76,9 @@ class NewsMainContentFragment : BaseFragment() {
         val component = (ComponentManager.getComponent(context) as? NewsMainComponent) ?:
                 throw ClassCastException("Component is not an instance of Tutorial Component")
         component.inject(this)
+    }
+
+    private fun scrollToLastPosition() {
+        fragment_news_main_content_recycler_view.scrollToPosition(presenter.getVisibleItem())
     }
 }

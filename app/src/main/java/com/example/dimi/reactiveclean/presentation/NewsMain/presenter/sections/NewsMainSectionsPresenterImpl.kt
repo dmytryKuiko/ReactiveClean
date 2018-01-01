@@ -2,6 +2,7 @@ package com.example.dimi.reactiveclean.presentation.NewsMain.presenter.sections
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsDomainMapper
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractor
 import com.example.dimi.reactiveclean.models.sections.SectionDisplayable
@@ -9,6 +10,8 @@ import com.example.dimi.reactiveclean.models.SingleEventLiveData
 import com.jakewharton.rxbinding2.InitialValueObservable
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
+import com.jakewharton.rxrelay2.BehaviorRelay
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 

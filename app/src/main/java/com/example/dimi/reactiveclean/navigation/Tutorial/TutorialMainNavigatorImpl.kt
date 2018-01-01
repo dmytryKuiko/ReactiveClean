@@ -11,7 +11,7 @@ class TutorialMainNavigatorImpl
 
     val firstPageTutorial = object : TutorialNavigator {
         override fun navigateNext() {
-            currentStep = TutorialNavigatorStep.TUTORIAL_SECOND
+            currentStep = TutorialNavigatorStep.SECOND
             router.navigateTo(RouterConstants.TUTORIAL_SECOND_SCREEN)
         }
 
@@ -22,12 +22,12 @@ class TutorialMainNavigatorImpl
 
     val secondPageTutorial = object : TutorialNavigator {
         override fun navigateNext() {
-            currentStep = TutorialNavigatorStep.TUTORIAL_THIRD
+            currentStep = TutorialNavigatorStep.THIRD
             router.navigateTo(RouterConstants.TUTORIAL_THIRD_SCREEN)
         }
 
         override fun navigateBack() {
-            currentStep = TutorialNavigatorStep.TUTORIAL_FIRST
+            currentStep = TutorialNavigatorStep.FIRST
             router.backTo(RouterConstants.TUTORIAL_FIRST_SCREEN)
         }
     }
@@ -38,7 +38,7 @@ class TutorialMainNavigatorImpl
         }
 
         override fun navigateBack() {
-            currentStep = TutorialNavigatorStep.TUTORIAL_SECOND
+            currentStep = TutorialNavigatorStep.SECOND
             router.backTo(RouterConstants.TUTORIAL_SECOND_SCREEN)
         }
     }
@@ -47,7 +47,7 @@ class TutorialMainNavigatorImpl
         if (currentStep != TutorialNavigatorStep.NONE) {
             return
         }
-        currentStep = TutorialNavigatorStep.TUTORIAL_FIRST
+        currentStep = TutorialNavigatorStep.FIRST
         router.navigateTo(RouterConstants.TUTORIAL_FIRST_SCREEN)
     }
 }

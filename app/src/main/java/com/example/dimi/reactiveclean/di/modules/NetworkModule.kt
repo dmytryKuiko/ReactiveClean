@@ -4,6 +4,7 @@ import com.example.dimi.reactiveclean.data.network.ServiceNewsApi
 import com.example.dimi.reactiveclean.data.network.EnvelopeConverter
 import com.example.dimi.reactiveclean.data.network.HeaderInterceptor
 import com.example.dimi.reactiveclean.data.network.ObserveComputationRxCallAdapter
+import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
@@ -48,8 +49,8 @@ class NetworkModule {
     fun provideRxObservableOnCallAdapter(): ObserveComputationRxCallAdapter = ObserveComputationRxCallAdapter()
 
     @Provides
-    fun provideRxJava2CallAdapterFactory() : RxJava2CallAdapterFactory =
-            RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
+    fun provideRxJava2CallAdapterFactory(schedulers: SchedulersProvider) : RxJava2CallAdapterFactory =
+            RxJava2CallAdapterFactory.createWithScheduler(schedulers.io())
 
     @Provides
     fun provideRetrofit(retrofitBuilder: Retrofit.Builder,

@@ -1,7 +1,6 @@
 package com.example.dimi.reactiveclean.data.NewsMain.content
 
 import com.example.dimi.reactiveclean.data.db.ContentDao
-import com.example.dimi.reactiveclean.models.Article
 import com.example.dimi.reactiveclean.models.content.Content
 import io.reactivex.Flowable
 import javax.inject.Inject

@@ -10,7 +10,7 @@ class SplashReactiveStoreImpl
 @Inject
 constructor(private val prefs: SharedPreferences) : SplashReactiveStore {
     override fun isFirstLaunch(): Single<Boolean> =
-            Single.just<Boolean>(prefs.getBoolean("FirstLaunch", true))
+            Single.fromCallable({ prefs.getBoolean("FirstLaunch", true) })
 
     override fun setFirstLaunch(): Completable =
             Completable.fromCallable { prefs.edit().putBoolean("FirstLaunch", false).apply() }

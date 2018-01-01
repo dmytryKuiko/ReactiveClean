@@ -22,10 +22,6 @@ class SplashActivity : BaseActivity() {
     @Inject
     lateinit var presenter: SplashPresenter
 
-//    private val appNavigator: SupportFragmentNavigator by lazy {
-//        ExtendedNavigator(this, R.id.splash_activity_layout)
-//    }
-
     private val appNavigator = object : SupportAppNavigator(this@SplashActivity, R.id.splash_activity_layout) {
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
                 when(screenKey) {

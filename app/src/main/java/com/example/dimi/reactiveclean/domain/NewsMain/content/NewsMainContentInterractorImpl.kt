@@ -2,13 +2,11 @@ package com.example.dimi.reactiveclean.domain.NewsMain.content
 
 import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.models.content.ContentPages
-import com.example.dimi.reactiveclean.models.content.ContentRecyclerData
 import com.example.dimi.reactiveclean.repositories.NewsMain.content.NewsMainContentRepository
-import com.jakewharton.rxrelay2.BehaviorRelay
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -17,35 +15,16 @@ class NewsMainContentInterractorImpl
 
     override fun getContentStream(): Flowable<List<Content>> = repository.getAllContent()
 
-    override fun loadNews(): Single<ContentPages> = repository.deleteAndFetchContent()
-
-//    override fun getSpecificContentStream(params: String): Single<List<Content>> =
-//            repository.getSpecificContentStream(params)
-
-    override fun loadMoreContent(rxBinding: Observable<ContentRecyclerData>,
-                                 relay: BehaviorRelay<ContentPages>): Observable<ContentPages> {
-        return Observable.zip(rxBinding.compose(this::transformRxBinding),
-                relay,
-                BiFunction<Boolean, ContentPages, Int> { t1, pages ->
-                    pages.currentPage + 1
-                }).flatMapSingle { repository.loadMoreContent(it) }
-    }
+    override fun loadNews(): Completable = repository.deleteAndFetchContent()
 
     override fun searchContent(text: Observable<String>): Observable<ContentPages> {
         return text.debounce(300, TimeUnit.MILLISECONDS)
                 .filter { it.length > 2 }
                 .distinctUntilChanged()
                 .switchMap { repository.searchContent(it).toObservable() }
-
     }
 
-    private fun transformRxBinding(rxBinding: Observable<ContentRecyclerData>): Observable<Boolean> {
-        return rxBinding
-                .skip(1)
-                .debounce(100, TimeUnit.MILLISECONDS)
-                .map {
-                    it.itemsCount - it.lastVisible < 5
-                }.distinctUntilChanged()
-                .filter { it }
+    override fun loadNextContentPage(page: Int): Completable {
+        return repository.loadNextContentPage(page)
     }
 }

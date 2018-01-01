@@ -23,14 +23,14 @@ abstract class TutorialFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getImageType().observe(this, Observer { imageType ->
+        presenter.getData().observe(this, Observer { imageType ->
             imageType?.let { showImage(imageType) }
         })
         tutorial_next_button.setOnClickListener { _ -> presenter.clickNext() }
         tutorial_back_button.setOnClickListener { _ -> presenter.clickBack() }
     }
 
-    fun showImage(image: ImageType) {
+    private fun showImage(image: ImageType) {
         when (image) {
             ImageType.SOURCE -> tutorial_image.setBackgroundColor(Color.GREEN)
             ImageType.EVERYTHING -> tutorial_image.setBackgroundColor(Color.GRAY)

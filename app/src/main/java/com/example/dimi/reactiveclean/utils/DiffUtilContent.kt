@@ -1,12 +1,10 @@
 package com.example.dimi.reactiveclean.utils
 
 import android.support.v7.util.DiffUtil
-import com.example.dimi.reactiveclean.base.BaseItemDisplayable
-import com.example.dimi.reactiveclean.models.content.LoadingDisplayable
-import com.example.dimi.reactiveclean.models.content.ContentDisplayable
+import com.example.dimi.reactiveclean.models.content.Item
 
-class DiffUtilContent(private val oldList: List<BaseItemDisplayable>,
-                      private val newList: List<BaseItemDisplayable>) : DiffUtil.Callback() {
+class DiffUtilContent(private val oldList: List<Item>,
+                      private val newList: List<Item>) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
 
@@ -15,14 +13,20 @@ class DiffUtilContent(private val oldList: List<BaseItemDisplayable>,
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
-        return if (oldItem is ContentDisplayable && newItem is ContentDisplayable) {
+        return if (oldItem is Item.Content && newItem is Item.Content) {
             oldItem.title == newItem.title
         } else {
-            oldItem is LoadingDisplayable && newItem is LoadingDisplayable
+            oldItem is Item.Progress && newItem is Item.Progress || oldItem is Item.Error && newItem is Item.Error
         }
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        val oldItem = oldList[oldItemPosition]
+        val newItem = newList[newItemPosition]
+        return if (oldItem is Item.Content && newItem is Item.Content) {
+            oldItem.title == newItem.title
+        } else {
+            oldItem is Item.Progress && newItem is Item.Progress || oldItem is Item.Error && newItem is Item.Error
+        }
     }
 }

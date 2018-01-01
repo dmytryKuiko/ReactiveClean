@@ -1,77 +1,74 @@
 package com.example.dimi.reactiveclean.presentation.NewsMain
 
 import android.support.v7.util.DiffUtil
-import com.example.dimi.reactiveclean.base.BaseItemDisplayable
+import android.support.v7.widget.RecyclerView
+import com.example.dimi.reactiveclean.models.content.Item
+import com.example.dimi.reactiveclean.models.content.ContentDisplayable
+import com.example.dimi.reactiveclean.models.content.ContentState
 import com.example.dimi.reactiveclean.utils.DiffUtilContent
+import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 
-class NewsMainContentAdapter : ListDelegationAdapter<MutableList<BaseItemDisplayable>>() {
+class NewsMainContentAdapter(
+        private val loadNextPage: () -> Unit,
+        private val scrollTo: () -> Unit,
+        private val schedulers: SchedulersProvider) : ListDelegationAdapter<MutableList<Item>>() {
 
-    private lateinit var disposable: Disposable
+    private val deltaPositionLoading = 5
+
+    private var disposable: Disposable? = null
+
+    private var needsScrolling = true
 
     init {
         items = mutableListOf()
         delegatesManager.addDelegate(NewsMainContentDisplayableAdapter())
-        delegatesManager.addDelegate(LoadingDisplayableAdapter())
-        delegatesManager.addDelegate(ErrorDisplayableAdapter())
+                .addDelegate(ProgressAdapter())
+                .addDelegate(ErrorAdapter(loadNextPage))
     }
 
-    fun updateItems(newList: List<BaseItemDisplayable>) {
-        if (this::disposable.isInitialized) disposable.dispose()
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int, payloads: MutableList<Any?>?) {
+        super.onBindViewHolder(holder, position, payloads)
+        if (position == items.size - deltaPositionLoading && !isError()) loadNextPage.invoke()
+    }
 
-        disposable = Single.fromCallable { calculateDiff(newList) }
-                .doOnSuccess { updateAdapterData(newList) }
-                .subscribe(this::dispatchResult)
+    fun setNewData(model: ContentDisplayable) {
+        disposable?.dispose()
+        val newList: MutableList<Item> = mutableListOf()
+        newList.addAll(model.content)
+        when (model.state) {
+            ContentState.DATA -> {}
+            ContentState.PROGRESS -> newList.add(Item.Progress())
+            ContentState.ERROR -> newList.add(Item.Error())
+       }
+        disposable = updateItemsDisposable(newList)
     }
 
     fun disposeSubscription() {
-        disposable.dispose()
+        disposable?.dispose()
     }
 
-    private fun calculateDiff(newList: List<BaseItemDisplayable>): DiffUtil.DiffResult {
-        return DiffUtil.calculateDiff(DiffUtilContent(items, newList))
+    private fun isError() = items.last() is Item.Error
+
+    private fun updateItemsDisposable(newList: List<Item>): Disposable {
+        return Single.fromCallable { DiffUtil.calculateDiff(DiffUtilContent(items, newList)) }
+                .subscribeOn(schedulers.computation())
+                .observeOn(schedulers.ui())
+                .subscribe({
+                    items.apply { clear() }.addAll(newList)
+                    it.dispatchUpdatesTo(this@NewsMainContentAdapter)
+                    checkAndScroll()
+                },
+                        { throw Exception(it.message) }
+                )
     }
 
-    private fun updateAdapterData(newList: List<BaseItemDisplayable>) {
-        items.clear()
-        items.addAll(newList)
-    }
-
-    private fun dispatchResult(result: DiffUtil.DiffResult) {
-        result.dispatchUpdatesTo(this@NewsMainContentAdapter)
+    private fun checkAndScroll() {
+        if (needsScrolling) {
+            scrollTo.invoke()
+            needsScrolling = false
+        }
     }
 }
-
-//    private fun addLoadingAndCalculateDiff(pair: Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>,
-//                                           next: List<BaseItemDisplayable>): Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult> {
-//        val newList: MutableList<BaseItemDisplayable> = mutableListOf()
-//        newList.addAll(next)
-//
-//        if (pages.currentPage < pages.pages) {
-//            newList.add(LoadingDisplayable())
-//        }
-//        return calculateDiffUtil(pair, newList)
-//    }
-
-//    private fun showErrorViewHolder(throwable: Throwable) {
-//        pairLiveData.value?.let {
-//            val newResults: MutableList<BaseItemDisplayable> = mutableListOf()
-//            with(newResults) {
-//                addAll(it.first.subList(0, it.first.size - 1))
-//                if (it.first.last() !is LoadingDisplayable) {
-//                    add(it.first.last())
-//                }
-//                add(ErrorDisplayable(true))
-//            }
-//            val newPair = calculateDiffUtil(it, newResults)
-//            pairLiveData.postValue(newPair)
-//        }
-//    }
-
-//    private fun calculateDiffUtil(pair: Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult>,
-//                                  list: List<BaseItemDisplayable>): Pair<List<BaseItemDisplayable>, DiffUtil.DiffResult> {
-//        val callback = DiffUtilContent(pair.first, list)
-//        val result = DiffUtil.calculateDiff(callback, true)
-//        return Pair(list, result)

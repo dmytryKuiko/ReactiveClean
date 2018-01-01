@@ -9,6 +9,5 @@ object RouterConstants {
     const val NEWS_MAIN_SECTIONS_SCREEN = "news_main_sources_screen"
 
     const val TUTORIAL_ACTIVITY = "tutorial_activity"
-    const val MAIN_ACTIVITY = "main_activity"
     const val NEWS_MAIN_ACTIVITY = "main_news_activity"
 }

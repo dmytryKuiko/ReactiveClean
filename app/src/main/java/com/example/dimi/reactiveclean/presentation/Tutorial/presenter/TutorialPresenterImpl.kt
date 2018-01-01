@@ -13,7 +13,11 @@ class TutorialPresenterImpl(private val navigator: TutorialNavigator, imageType:
         imageTypeLiveData.value = imageType
     }
 
-    override fun getImageType(): LiveData<ImageType> = imageTypeLiveData
+    override fun getData(): LiveData<ImageType> = imageTypeLiveData
+
+    override fun disposeSubscriptions() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun clickNext() {
         navigator.navigateNext()

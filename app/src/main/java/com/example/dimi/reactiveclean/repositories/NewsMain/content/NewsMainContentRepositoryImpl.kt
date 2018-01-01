@@ -7,6 +7,7 @@ import com.example.dimi.reactiveclean.data.network.ServiceNewsApi
 import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.models.content.ContentResponse
 import com.example.dimi.reactiveclean.models.content.ContentPages
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -18,33 +19,23 @@ class NewsMainContentRepositoryImpl
                     private val mapper: NewsMainContentDataMapper,
                     private val mapperDB: NewsMainContentDataMapperForDB) : NewsMainContentRepository {
 
-//    override fun getSpecificContentStream(params: String): Single<List<Content>> =
-//            serviceNewsApi.getSpecificContent(params).map(mapper)
-
     override fun getAllContent(): Flowable<List<Content>> =
             store.getAll()
 
-    override fun loadMoreContent(page: Int): Single<ContentPages> =
-            serviceNewsApi.getNextContent(page)
-                    .doOnSuccess(this::mapAndStore)
-                    .map(mapper)
-
-    override fun deleteAndFetchContent(): Single<ContentPages> =
+    override fun deleteAndFetchContent(): Completable =
             serviceNewsApi.getAllContent()
-                    .doOnSuccess(this::mapAndDeleteAndStore)
-                    .map(mapper)
+                    .map(mapperDB)
+                    .doOnSuccess(store::deleteAllAndStoreAll)
+                    .toCompletable()
 
     override fun searchContent(text: String): Single<ContentPages> {
         return serviceNewsApi.getSpecificContent(text).map(mapper)
     }
 
-    private fun mapAndStore(response: ContentResponse) {
-        val list = mapperDB.apply(response)
-        store.storeAll(list)
-    }
-
-    private fun mapAndDeleteAndStore(response: ContentResponse) {
-        val list = mapperDB.apply(response)
-        store.deleteAllAndStoreAll(list)
+    override fun loadNextContentPage(page: Int): Completable {
+        return serviceNewsApi.getNextContent(page)
+                .map(mapperDB)
+                .doOnSuccess(store::storeAll)
+                .toCompletable()
     }
 }
