@@ -1,7 +1,10 @@
 package com.example.dimi.reactiveclean.utils
 
+import com.example.dimi.reactiveclean.extensions.addTo
+import com.example.dimi.reactiveclean.models.RecyclerUpdate
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 class Paginator<T>(
@@ -15,7 +18,7 @@ class Paginator<T>(
         fun showEmptyProgress(show: Boolean)
         fun showDatabaseMessage(error: Throwable? = null)
         fun showEmptyView(show: Boolean)
-        fun showData(show: Boolean, data: List<T> = emptyList())
+        fun showData(show: Boolean, data: List<T> = emptyList(), recyclerUpdate: RecyclerUpdate = RecyclerUpdate.DIFF_UTIL)
         fun showErrorMessage(error: Throwable, data: List<T> = emptyList())
         fun showRefreshProgress(show: Boolean)
         fun showPageProgress(data: List<T> = emptyList())
@@ -27,9 +30,7 @@ class Paginator<T>(
     private var currentPage = 0
     private val currentData = mutableListOf<T>()
     private var requestDisposable: Disposable? = null
-    private var databaseDisposable: Disposable? = null
-
-    private var shouldSubscribe = true
+    private var databaseDisposable: CompositeDisposable = CompositeDisposable()
 
     fun refresh() {
         currentState.refresh()
@@ -39,7 +40,7 @@ class Paginator<T>(
         currentState.loadNewPage()
     }
 
-    fun release() {
+    fun disposeSubscriptions() {
         currentState.release()
     }
 
@@ -55,27 +56,24 @@ class Paginator<T>(
     private fun makeInitRequest() {
         requestDisposable?.dispose()
         requestDisposable = initRequest.invoke()
-                .doAfterTerminate {
-                        if(shouldSubscribe) {
-                            shouldSubscribe = false
-                            subscribeToDB()
-                        }
-                }
+                .doAfterTerminate(this::checkDataBaseDisposable)
                 .subscribe(
                         { },
                         { currentState.fail(it) }
                 )
     }
 
+    private fun checkDataBaseDisposable() {
+        if (databaseDisposable.size() == 0) subscribeToDB()
+    }
+
     private fun subscribeToDB() {
-        databaseDisposable?.dispose()
-        databaseDisposable = databaseStream.invoke()
-                .subscribe (
-                        {
-                            currentState.newData(it)
-                        },
+        databaseStream.invoke()
+                .subscribe(
+                        { currentState.newData(it) },
                         { currentState.fail(it) }
                 )
+                .addTo(databaseDisposable)
     }
 
     private interface State<T> {
@@ -99,7 +97,7 @@ class Paginator<T>(
         override fun release() {
             currentState = RELEASED()
             requestDisposable?.dispose()
-            databaseDisposable?.dispose()
+            databaseDisposable.clear()
         }
     }
 
@@ -132,7 +130,7 @@ class Paginator<T>(
         override fun release() {
             currentState = RELEASED()
             requestDisposable?.dispose()
-            databaseDisposable?.dispose()
+            databaseDisposable.clear()
         }
     }
 
@@ -161,7 +159,7 @@ class Paginator<T>(
         override fun release() {
             currentState = RELEASED()
             requestDisposable?.dispose()
-            databaseDisposable?.dispose()
+            databaseDisposable.clear()
         }
     }
 
@@ -177,7 +175,7 @@ class Paginator<T>(
         override fun release() {
             currentState = RELEASED()
             requestDisposable?.dispose()
-            databaseDisposable?.dispose()
+            databaseDisposable.clear()
         }
     }
 
@@ -198,7 +196,7 @@ class Paginator<T>(
         override fun release() {
             currentState = RELEASED()
             requestDisposable?.dispose()
-            databaseDisposable?.dispose()
+            databaseDisposable.clear()
         }
     }
 
@@ -211,7 +209,7 @@ class Paginator<T>(
                 currentData.addAll(data)
                 currentPage = FIRST_PAGE
                 viewController.showRefreshProgress(false)
-                viewController.showData(true, currentData)
+                viewController.showData(true, currentData, recyclerUpdate = RecyclerUpdate.NOTIFY_RANGES)
             } else {
                 currentState = EMPTY_DATA()
                 currentData.clear()
@@ -230,7 +228,7 @@ class Paginator<T>(
         override fun release() {
             currentState = RELEASED()
             requestDisposable?.dispose()
-            databaseDisposable?.dispose()
+            databaseDisposable.clear()
         }
     }
 
@@ -263,7 +261,7 @@ class Paginator<T>(
         override fun release() {
             currentState = RELEASED()
             requestDisposable?.dispose()
-            databaseDisposable?.dispose()
+            databaseDisposable.clear()
         }
     }
 
@@ -278,7 +276,7 @@ class Paginator<T>(
         override fun release() {
             currentState = RELEASED()
             requestDisposable?.dispose()
-            databaseDisposable?.dispose()
+            databaseDisposable.clear()
         }
     }
 

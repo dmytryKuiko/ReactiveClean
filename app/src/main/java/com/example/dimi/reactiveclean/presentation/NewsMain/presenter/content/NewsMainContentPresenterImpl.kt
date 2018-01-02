@@ -6,6 +6,7 @@ import com.example.dimi.reactiveclean.models.content.Item
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentDomainMapper
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractor
 import com.example.dimi.reactiveclean.extensions.addTo
+import com.example.dimi.reactiveclean.models.RecyclerUpdate
 import com.example.dimi.reactiveclean.models.content.*
 import com.example.dimi.reactiveclean.utils.Paginator
 import io.reactivex.Completable
@@ -32,6 +33,7 @@ class NewsMainContentPresenterImpl
 
                 /**
                  * Appears like an additional view on the top of recycler with animation
+                 * almost the same as showRefreshProgress
                  */
                 override fun showEmptyProgress(show: Boolean) {
                     var a = 2
@@ -54,23 +56,36 @@ class NewsMainContentPresenterImpl
                     a++
                 }
 
-                override fun showData(show: Boolean, data: List<Item.Content>) {
+                override fun showData(show: Boolean, data: List<Item.Content>, recyclerUpdate: RecyclerUpdate) {
                     val newList: MutableList<Item> = mutableListOf()
                     newList.addAll(data)
-                    contentLiveData.postValue(ContentDisplayable(content = newList, state = ContentState.DATA))
+                    contentLiveData.postValue(
+                            ContentDisplayable(content = newList, state = ContentState.DATA,
+                                    recyclerUpdate = recyclerUpdate)
+                    )
                 }
 
 
                 override fun showErrorMessage(error: Throwable, data: List<Item.Content>) {
-                    contentLiveData.postValue(ContentDisplayable(data, state = ContentState.ERROR))
+                    contentLiveData.postValue(
+                            ContentDisplayable(data, state = ContentState.ERROR,
+                                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL)
+                    )
                 }
 
+                /**
+                 * Appears like an addtional view on the top of recycler, means global refreshing
+                 * almost the same as showEmptyProgress
+                 */
                 override fun showRefreshProgress(show: Boolean) {
 
                 }
 
                 override fun showPageProgress(data: List<Item.Content>) {
-                    contentLiveData.postValue(ContentDisplayable(data, state = ContentState.PROGRESS))
+                    contentLiveData.postValue(
+                            ContentDisplayable(data, state = ContentState.PROGRESS,
+                                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL)
+                    )
                 }
             })
 
@@ -83,7 +98,7 @@ class NewsMainContentPresenterImpl
 
     override fun disposeSubscriptions() {
         compositeDisposable.clear()
-        paginator.release()
+        paginator.disposeSubscriptions()
     }
 
     override fun refreshContent() {
