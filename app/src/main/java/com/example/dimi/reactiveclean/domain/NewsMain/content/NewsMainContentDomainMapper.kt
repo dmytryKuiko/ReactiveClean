@@ -1,16 +1,19 @@
 package com.example.dimi.reactiveclean.domain.NewsMain.content
 
-import com.example.dimi.reactiveclean.models.content.Item
+import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.models.content.Content
 import io.reactivex.functions.Function
+import org.joda.time.DateTime
+import java.util.*
 import javax.inject.Inject
 
 class NewsMainContentDomainMapper
-@Inject constructor() : Function<List<Content>, List<Item.Content>> {
-    override fun apply(list: List<Content>): List<Item.Content> {
-        val parsedList: MutableList<Item.Content> = mutableListOf()
+@Inject constructor() : Function<List<Content>, List<ContentDisplayable.Content>> {
+    override fun apply(list: List<Content>): List<ContentDisplayable.Content> {
+        val parsedList: MutableList<ContentDisplayable.Content> = mutableListOf()
         list.forEach {
-            parsedList.add(Item.Content(it.name, it.webUrl))
+            val temp = DateTime(it.publicationMills).toString("dd-MM-yyyy HH:mm:ss")
+            parsedList.add(ContentDisplayable.Content(title = it.name, url = it.webUrl, time = temp, sectionName = it.sectionName))
         }
         return parsedList
     }

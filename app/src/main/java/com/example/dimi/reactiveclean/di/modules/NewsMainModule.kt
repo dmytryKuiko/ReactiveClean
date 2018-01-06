@@ -1,10 +1,10 @@
 package com.example.dimi.reactiveclean.di.modules
 
-import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentManager
 import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentStore
 import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentStoreImpl
 import com.example.dimi.reactiveclean.data.NewsMain.sections.NewsMainSectionsStore
 import com.example.dimi.reactiveclean.data.NewsMain.sections.NewsMainSectionsStoreImpl
+import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.domain.NewsMain.NewsMainInterractor
 import com.example.dimi.reactiveclean.domain.NewsMain.NewsMainInterractorImpl
@@ -12,7 +12,7 @@ import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInt
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractorImpl
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractor
 import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractorImpl
-import com.example.dimi.reactiveclean.models.content.ContentPages
+import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigatorImpl
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.NewsMainPresenter
@@ -25,9 +25,12 @@ import com.example.dimi.reactiveclean.repositories.NewsMain.content.NewsMainCont
 import com.example.dimi.reactiveclean.repositories.NewsMain.content.NewsMainContentRepositoryImpl
 import com.example.dimi.reactiveclean.repositories.NewsMain.sections.NewsMainSectionsRepository
 import com.example.dimi.reactiveclean.repositories.NewsMain.sections.NewsMainSectionsRepositoryImpl
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorChanged
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorChangedImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 
 @Module
 abstract class NewsMainModule {
@@ -77,11 +80,11 @@ abstract class NewsMainModule {
     @ActivityScope
     internal abstract fun bindContentStore(store: NewsMainContentStoreImpl): NewsMainContentStore
 
-    @Module
-    companion object {
+    @Binds
+    @ActivityScope
+    @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR)
+    internal abstract fun bindContentPaginator(pag: PaginatorChangedImpl<ContentDisplayable>): PaginatorChanged<ContentDisplayable>
 
-        @JvmStatic
-        @Provides
-        fun provideContentPages(): ContentPages = ContentPages()
-    }
+    @Module
+    companion object {}
 }
