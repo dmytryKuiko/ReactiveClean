@@ -8,4 +8,6 @@ interface NewsMainNavigator {
     fun navigateToContent()
 
     fun navigateToSections()
+
+    fun openUrl(url: String)
 }

@@ -1,11 +1,11 @@
 package com.example.dimi.reactiveclean.navigation.NewsMain
 
+import com.example.dimi.reactiveclean.navigation.extended.ExtendedRouter
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class NewsMainNavigatorImpl
-@Inject constructor(private val router: Router) : NewsMainNavigator {
+@Inject constructor(private val router: ExtendedRouter) : NewsMainNavigator {
     private var currentStep = NewsMainNavigatorStep.NONE
 
     override fun startNavigation() {
@@ -26,5 +26,9 @@ class NewsMainNavigatorImpl
     override fun navigateToSections() {
         currentStep = NewsMainNavigatorStep.SECTIONS
         router.newRootScreen(RouterConstants.NEWS_MAIN_SECTIONS_SCREEN)
+    }
+
+    override fun openUrl(url: String) {
+        router.openInBrowser(url)
     }
 }

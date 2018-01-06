@@ -37,7 +37,7 @@ class NewsMainContentFragment : BaseFragment() {
         NewsMainContentAdapter(
                 loadNextPage = presenter::loadNextContentPage,
                 scrollTo = this::scrollToLastPosition,
-                openCurrentContent = this::openCustomTabs,
+                openCurrentContent = presenter::openCurrentContent,
                 schedulers = schedulers
         )
     }
@@ -111,14 +111,5 @@ class NewsMainContentFragment : BaseFragment() {
 
     private fun scrollToLastPosition() {
         fragment_news_main_content_recycler_view.scrollToPosition(presenter.getVisibleItem())
-    }
-
-    private fun openCustomTabs(content: ContentDisplayable.Content) {
-        val customTabs = CustomTabsIntent.Builder()
-                .addDefaultShareMenuItem()
-                .setShowTitle(true)
-                .build()
-
-        customTabs.launchUrl(activity, Uri.parse(content.url))
     }
 }

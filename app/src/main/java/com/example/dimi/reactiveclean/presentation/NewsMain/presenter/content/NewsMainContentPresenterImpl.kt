@@ -7,6 +7,7 @@ import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentDomainMapper
 import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractor
 import com.example.dimi.reactiveclean.extensions.addTo
+import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import com.example.dimi.reactiveclean.utils.paginator.PaginatorChanged
 import com.example.dimi.reactiveclean.utils.paginator.PaginatorResult
 import io.reactivex.Completable
@@ -20,7 +21,8 @@ import javax.inject.Named
 class NewsMainContentPresenterImpl
 @Inject constructor(private val interractor: NewsMainContentInterractor,
                     private val mapper: NewsMainContentDomainMapper,
-                    @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorChanged<ContentDisplayable>
+                    @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorChanged<ContentDisplayable>,
+                    private val navigator: NewsMainNavigator
 ) : NewsMainContentPresenter {
 
     private var lastPosition: Int = 0
@@ -53,8 +55,7 @@ class NewsMainContentPresenterImpl
     }
 
     override fun openCurrentContent(content: ContentDisplayable.Content) {
-        Timber.d("POSITION CLICKED %s", content.url)
-
+        navigator.openUrl(content.url)
     }
 
     override fun setVisibleItem(position: Int) {

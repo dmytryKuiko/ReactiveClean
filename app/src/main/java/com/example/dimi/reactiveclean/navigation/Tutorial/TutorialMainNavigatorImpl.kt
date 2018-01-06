@@ -1,11 +1,11 @@
 package com.example.dimi.reactiveclean.navigation.Tutorial
 
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import ru.terrakok.cicerone.Router
+import com.example.dimi.reactiveclean.navigation.extended.ExtendedRouter
 import javax.inject.Inject
 
 class TutorialMainNavigatorImpl
-@Inject constructor(val router: Router) : TutorialMainNavigator {
+@Inject constructor(val router: ExtendedRouter) : TutorialMainNavigator {
 
     private var currentStep = TutorialNavigatorStep.NONE
 
