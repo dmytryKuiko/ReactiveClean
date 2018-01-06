@@ -3,19 +3,21 @@ package com.example.dimi.reactiveclean.presentation.NewsMain
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import com.example.dimi.reactiveclean.models.RecyclerUpdate
-import com.example.dimi.reactiveclean.models.content.Item
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.models.content.ContentState
 import com.example.dimi.reactiveclean.utils.DiffUtilContent
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorData
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
+import timber.log.Timber
 
 class NewsMainContentAdapter(
         private val loadNextPage: () -> Unit,
         private val scrollTo: () -> Unit,
-        private val schedulers: SchedulersProvider) : ListDelegationAdapter<MutableList<Item>>() {
+        val openCurrentContent: (ContentDisplayable.Content) -> Unit,
+        private val schedulers: SchedulersProvider) : ListDelegationAdapter<MutableList<ContentDisplayable>>() {
 
     private val deltaPositionLoading = 5
 
@@ -25,7 +27,7 @@ class NewsMainContentAdapter(
 
     init {
         items = mutableListOf()
-        delegatesManager.addDelegate(NewsMainContentDisplayableAdapter())
+        delegatesManager.addDelegate(NewsMainContentDisplayableAdapter(openCurrentContent))
                 .addDelegate(ProgressAdapter())
                 .addDelegate(ErrorAdapter(loadNextPage))
     }
@@ -35,14 +37,15 @@ class NewsMainContentAdapter(
         if (position == items.size - deltaPositionLoading && !isError()) loadNextPage.invoke()
     }
 
-    fun setNewData(model: ContentDisplayable) {
+    fun setNewData(model: PaginatorData<ContentDisplayable>) {
         disposable?.dispose()
-        val newList: MutableList<Item> = mutableListOf()
+        val newList: MutableList<ContentDisplayable> = mutableListOf()
         newList.addAll(model.content)
+        Timber.d("setNewData %s", "${model.content.size} ${model.state.name}")
         when (model.state) {
             ContentState.DATA -> {}
-            ContentState.PROGRESS -> newList.add(Item.Progress())
-            ContentState.ERROR -> newList.add(Item.Error())
+            ContentState.PROGRESS -> newList.add(ContentDisplayable.Progress())
+            ContentState.ERROR -> newList.add(ContentDisplayable.Error())
         }
         when (model.recyclerUpdate) {
             RecyclerUpdate.DIFF_UTIL -> disposable = notifyDiffUtil(newList)
@@ -55,9 +58,9 @@ class NewsMainContentAdapter(
         disposable?.dispose()
     }
 
-    private fun isError() = items.last() is Item.Error
+    private fun isError() = items.last() is ContentDisplayable.Error
 
-    private fun notifyDiffUtil(newList: List<Item>): Disposable {
+    private fun notifyDiffUtil(newList: List<ContentDisplayable>): Disposable {
         return Single.fromCallable { DiffUtil.calculateDiff(DiffUtilContent(items, newList)) }
                 .compose(::composeSchedulers)
                 .subscribe({
@@ -69,7 +72,7 @@ class NewsMainContentAdapter(
                 )
     }
 
-    private fun notifyRanges(newList: List<Item>) {
+    private fun notifyRanges(newList: List<ContentDisplayable>) {
         val oldSize = items.size
         val newSize = newList.size
         items.apply { clear() }.addAll(newList)

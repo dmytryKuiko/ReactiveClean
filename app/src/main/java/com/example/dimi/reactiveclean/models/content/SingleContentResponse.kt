@@ -8,5 +8,4 @@ class SingleContentResponse(val id: String?,
                             val webTitle: String?,
                             val webUrl: String?,
                             val apiUrl: String?,
-                            val pillarName: String?) {
-}
+                            val pillarName: String?)
