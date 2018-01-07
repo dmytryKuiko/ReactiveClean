@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.presentation.NewsMain
+package com.example.dimi.reactiveclean.presentation.NewsMain.adapters
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
@@ -49,7 +49,7 @@ class NewsMainContentAdapter(
         }
         when (model.recyclerUpdate) {
             RecyclerUpdate.DIFF_UTIL -> disposable = notifyDiffUtil(newList)
-            RecyclerUpdate.NOTIFY_RANGES -> notifyRanges(newList)
+            RecyclerUpdate.NOTIFY -> notifyRanges(newList)
         }
 
     }
@@ -73,11 +73,8 @@ class NewsMainContentAdapter(
     }
 
     private fun notifyRanges(newList: List<ContentDisplayable>) {
-        val oldSize = items.size
-        val newSize = newList.size
         items.apply { clear() }.addAll(newList)
-        notifyItemRangeRemoved(0, oldSize)
-        notifyItemRangeInserted(0, newSize)
+        notifyDataSetChanged()
     }
 
     private fun checkAndScroll() {

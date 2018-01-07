@@ -1,9 +1,12 @@
 package com.example.dimi.reactiveclean.utils.paginator
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.RecyclerUpdate
+import com.example.dimi.reactiveclean.models.SingleEventLiveData
 import com.example.dimi.reactiveclean.models.content.ContentState
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -12,7 +15,7 @@ import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class PaginatorChangedImpl<T>
-    @Inject constructor(): PaginatorChanged<T> {
+@Inject constructor() : PaginatorChanged<T> {
 
     private lateinit var initRequest: () -> Completable
     private lateinit var databaseStream: () -> Flowable<List<T>>
@@ -24,9 +27,15 @@ class PaginatorChangedImpl<T>
         set(value) {
             field = value
             dataLiveData.postValue(value)
+            value?.let {
+                it.showDatabaseMessage?.let {
+                    databaseMessageLiveData.postValue("DATABASE")
+                }
+            }
         }
 
-    private var dataLiveData: MutableLiveData<PaginatorResult<T>> = MutableLiveData()
+    private val dataLiveData: MutableLiveData<PaginatorResult<T>> = MutableLiveData()
+    private val databaseMessageLiveData = SingleEventLiveData<String>()
 
     private var currentData: MutableList<T> = mutableListOf()
     private var currentState: State<T> = EMPTY()
@@ -35,6 +44,8 @@ class PaginatorChangedImpl<T>
     private var databaseDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getData(): LiveData<PaginatorResult<T>> = dataLiveData
+
+    override fun getSingleEvent(): LiveData<String> = databaseMessageLiveData
 
     override fun disposeSubscriptions() {
         currentState.release()
@@ -130,7 +141,9 @@ class PaginatorChangedImpl<T>
 
         override fun fail(error: Throwable) {
             currentState = DATABASE()
-            paginatorResult = PaginatorResult(showEmptyProgress = false, showDatabaseMessage = "DAtabaseMesage")
+            paginatorResult = PaginatorResult(showEmptyProgress = false, showDatabaseMessage = true, paginatorData = PaginatorData(
+                    content = currentData, state = ContentState.DATA, recyclerUpdate = RecyclerUpdate.DIFF_UTIL
+            ))
         }
 
         override fun release() {
@@ -219,14 +232,14 @@ class PaginatorChangedImpl<T>
                 currentData.addAll(data)
                 currentPage = FIRST_PAGE
                 val paginatorData = PaginatorData(
-                        content = data, recyclerUpdate = RecyclerUpdate.NOTIFY_RANGES, state = ContentState.DATA
+                        content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
                 )
                 PaginatorResult(paginatorData = paginatorData, showRefreshProgress = false)
             } else {
                 currentState = EMPTY_DATA()
                 currentData.clear()
                 val paginatorData = PaginatorData(
-                        content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY_RANGES, state = ContentState.DATA
+                        content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
                 )
                 PaginatorResult(
                         showEmptyView = true, showRefreshProgress = false, paginatorData = paginatorData)

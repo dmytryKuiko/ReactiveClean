@@ -33,6 +33,10 @@ class NewsMainContentPresenterImpl
         return paginator.getData()
     }
 
+    override fun getSingleEventData(): LiveData<String> {
+        return paginator.getSingleEvent()
+    }
+
     init {
         paginator.setCallbacks(
                 init = this::initRequest, database = this::getDatabaseStream,

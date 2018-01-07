@@ -3,27 +3,25 @@ package com.example.dimi.reactiveclean.presentation.NewsMain.view.content
 
 import android.arch.lifecycle.Observer
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.support.customtabs.CustomTabsIntent
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseFragment
 import com.example.dimi.reactiveclean.di.components.NewsMainComponent
-import com.example.dimi.reactiveclean.models.content.ContentDisplayable
-import com.example.dimi.reactiveclean.presentation.NewsMain.NewsMainContentAdapter
+import com.example.dimi.reactiveclean.extensions.displayToast
+import com.example.dimi.reactiveclean.extensions.visible
+import com.example.dimi.reactiveclean.presentation.NewsMain.adapters.NewsMainContentAdapter
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.NewsMainContentPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.fragment_news_main_content.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class NewsMainContentFragment : BaseFragment() {
@@ -55,6 +53,9 @@ class NewsMainContentFragment : BaseFragment() {
             setHasFixedSize(true)
         }
 
+        content_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button).setOnClickListener { presenter.refreshContent() }
+        content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
+
         presenter.subscribeSearchText(RxTextView.textChangeEvents(searchText)
                 .map { it.text().toString() })
 
@@ -64,29 +65,21 @@ class NewsMainContentFragment : BaseFragment() {
                     contentAdapter.setNewData(it)
                 }
 
-                it.showDatabaseMessage?.let {
-                    var a = 2
-                    a++
-                }
-
                 it.showEmptyProgress?.let {
-                    var a = 2
-                    a++
+                    refresh_progress.visible(it)
                 }
 
                 it.showEmptyView?.let {
-                    var a = 2
-                    a++
+                    empty_view.visible(it)
                 }
 
                 it.showRefreshProgress?.let {
-                    var a = 2
-                    a++
+                    refresh_progress.visible(it)
                 }
             }
         })
 
-        content_refresh_button.setOnClickListener { presenter.refreshContent() }
+        presenter.getSingleEventData().observe(this, Observer { it?.displayToast(activity!!) })
     }
 
     override fun onDestroyView() {
@@ -105,7 +98,7 @@ class NewsMainContentFragment : BaseFragment() {
 
     override fun injectModule(context: Context) {
         val component = (ComponentManager.getComponent(context) as? NewsMainComponent) ?:
-                throw ClassCastException("Component is not an instance of Tutorial Component")
+                throw ClassCastException("Component is not an instance of NewsMainComponent")
         component.inject(this)
     }
 

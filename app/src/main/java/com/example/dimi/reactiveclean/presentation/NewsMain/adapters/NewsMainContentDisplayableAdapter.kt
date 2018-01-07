@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.presentation.NewsMain
+package com.example.dimi.reactiveclean.presentation.NewsMain.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -20,7 +20,8 @@ class NewsMainContentDisplayableAdapter(private val callback: (ContentDisplayabl
         return ContentViewHolder(view, callback)
     }
 
-    override fun onBindViewHolder(items: MutableList<ContentDisplayable>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(items: MutableList<ContentDisplayable>, position: Int,
+                                  holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
         val item = items[position] as? ContentDisplayable.Content ?: throw ClassCastException("ContentDisplayable is not a Content")
         val contentDisplayableHolder = holder as? ContentViewHolder ?: throw ClassCastException("not a ContentHolder")
         contentDisplayableHolder.bind(item, position)
@@ -37,7 +38,7 @@ class NewsMainContentDisplayableAdapter(private val callback: (ContentDisplayabl
             content = item
             with(itemView) {
                 val text = "$position  ${item.title}"
-                row_content_displayable_name_text_view.text = text
+                row_content_displayable_title.text = text
             }
         }
     }
