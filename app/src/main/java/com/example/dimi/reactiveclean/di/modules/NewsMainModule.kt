@@ -1,35 +1,34 @@
 package com.example.dimi.reactiveclean.di.modules
 
-import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentStore
-import com.example.dimi.reactiveclean.data.NewsMain.content.NewsMainContentStoreImpl
-import com.example.dimi.reactiveclean.data.NewsMain.sections.NewsMainSectionsStore
-import com.example.dimi.reactiveclean.data.NewsMain.sections.NewsMainSectionsStoreImpl
+import com.example.dimi.reactiveclean.data.NewsMain.content.ContentStore
+import com.example.dimi.reactiveclean.data.NewsMain.content.ContentStoreImpl
+import com.example.dimi.reactiveclean.data.NewsMain.section.SectionStore
+import com.example.dimi.reactiveclean.data.NewsMain.section.SectionStoreImpl
 import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.domain.NewsMain.NewsMainInterractor
 import com.example.dimi.reactiveclean.domain.NewsMain.NewsMainInterractorImpl
-import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractor
-import com.example.dimi.reactiveclean.domain.NewsMain.content.NewsMainContentInterractorImpl
-import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractor
-import com.example.dimi.reactiveclean.domain.NewsMain.sections.NewsMainSectionsInterractorImpl
+import com.example.dimi.reactiveclean.domain.NewsMain.content.ContentInterractor
+import com.example.dimi.reactiveclean.domain.NewsMain.content.ContentInterractorImpl
+import com.example.dimi.reactiveclean.domain.NewsMain.section.NewsMainSectionsInterractor
+import com.example.dimi.reactiveclean.domain.NewsMain.section.NewsMainSectionsInterractorImpl
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigatorImpl
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.NewsMainPresenter
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.NewsMainPresenterImpl
-import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.NewsMainContentPresenter
-import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.NewsMainContentPresenterImpl
-import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.sections.NewsMainSectionsPresenter
-import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.sections.NewsMainSectionsPresenterImpl
-import com.example.dimi.reactiveclean.repositories.NewsMain.content.NewsMainContentRepository
-import com.example.dimi.reactiveclean.repositories.NewsMain.content.NewsMainContentRepositoryImpl
-import com.example.dimi.reactiveclean.repositories.NewsMain.sections.NewsMainSectionsRepository
-import com.example.dimi.reactiveclean.repositories.NewsMain.sections.NewsMainSectionsRepositoryImpl
+import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.ContentPresenter
+import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.content.ContentPresenterImpl
+import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.section.SectionPresenter
+import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.section.SectionPresenterImpl
+import com.example.dimi.reactiveclean.repositories.NewsMain.content.ContentRepository
+import com.example.dimi.reactiveclean.repositories.NewsMain.content.ContentRepositoryImpl
+import com.example.dimi.reactiveclean.repositories.NewsMain.section.SectionRepository
+import com.example.dimi.reactiveclean.repositories.NewsMain.section.SectionRepositoryImpl
 import com.example.dimi.reactiveclean.utils.paginator.PaginatorChanged
 import com.example.dimi.reactiveclean.utils.paginator.PaginatorChangedImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import javax.inject.Named
 
 @Module
@@ -41,11 +40,11 @@ abstract class NewsMainModule {
 
     @Binds
     @ActivityScope
-    internal abstract fun bindContentPresenter(presenter: NewsMainContentPresenterImpl): NewsMainContentPresenter
+    internal abstract fun bindContentPresenter(presenter: ContentPresenterImpl): ContentPresenter
 
     @Binds
     @ActivityScope
-    internal abstract fun bindSectionsPresenter(presenter: NewsMainSectionsPresenterImpl): NewsMainSectionsPresenter
+    internal abstract fun bindSectionsPresenter(presenter: SectionPresenterImpl): SectionPresenter
 
     @Binds
     @ActivityScope
@@ -57,7 +56,7 @@ abstract class NewsMainModule {
 
     @Binds
     @ActivityScope
-    internal abstract fun bindContentInterractor(interractor: NewsMainContentInterractorImpl): NewsMainContentInterractor
+    internal abstract fun bindContentInterractor(interractor: ContentInterractorImpl): ContentInterractor
 
     @Binds
     @ActivityScope
@@ -66,19 +65,19 @@ abstract class NewsMainModule {
 
     @Binds
     @ActivityScope
-    internal abstract fun bindContentRepository(repository: NewsMainContentRepositoryImpl): NewsMainContentRepository
+    internal abstract fun bindContentRepository(repository: ContentRepositoryImpl): ContentRepository
 
     @Binds
     @ActivityScope
-    internal abstract fun bindSectionsRepository(repository: NewsMainSectionsRepositoryImpl): NewsMainSectionsRepository
+    internal abstract fun bindSectionsRepository(repository: SectionRepositoryImpl): SectionRepository
 
     @Binds
     @ActivityScope
-    internal abstract fun bindSectionsStore(store: NewsMainSectionsStoreImpl): NewsMainSectionsStore
+    internal abstract fun bindSectionsStore(store: SectionStoreImpl): SectionStore
 
     @Binds
     @ActivityScope
-    internal abstract fun bindContentStore(store: NewsMainContentStoreImpl): NewsMainContentStore
+    internal abstract fun bindContentStore(store: ContentStoreImpl): ContentStore
 
     @Binds
     @ActivityScope

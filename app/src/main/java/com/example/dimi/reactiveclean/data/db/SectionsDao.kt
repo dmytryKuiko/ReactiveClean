@@ -3,7 +3,7 @@ package com.example.dimi.reactiveclean.data.db
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Query
 import com.example.dimi.reactiveclean.base.BaseDao
-import com.example.dimi.reactiveclean.models.sections.Section
+import com.example.dimi.reactiveclean.models.section.Section
 import io.reactivex.Flowable
 
 @Dao

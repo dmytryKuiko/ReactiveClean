@@ -6,6 +6,9 @@ import javax.inject.Inject
 
 class NewsMainNavigatorImpl
 @Inject constructor(private val router: ExtendedRouter) : NewsMainNavigator {
+
+    private val startPath = "search"
+
     private var currentStep = NewsMainNavigatorStep.NONE
 
     override fun startNavigation() {
@@ -13,10 +16,8 @@ class NewsMainNavigatorImpl
             return
         }
         currentStep = NewsMainNavigatorStep.CONTENT
-        router.newRootScreen(RouterConstants.NEWS_MAIN_CONTENT_SCREEN)
+        router.newRootScreen(RouterConstants.NEWS_MAIN_CONTENT_SCREEN, startPath)
     }
-
-    override fun getCurrentStep(): NewsMainNavigatorStep = currentStep
 
     override fun navigateToContent() {
         currentStep = NewsMainNavigatorStep.CONTENT

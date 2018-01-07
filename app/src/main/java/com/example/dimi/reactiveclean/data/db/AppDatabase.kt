@@ -4,7 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.example.dimi.reactiveclean.models.content.Content
-import com.example.dimi.reactiveclean.models.sections.Section
+import com.example.dimi.reactiveclean.models.section.Section
 
 @Database(entities = [Section::class, Content::class], version = 1)
 @TypeConverters(DateTypeConverter::class)

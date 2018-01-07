@@ -4,8 +4,8 @@ import com.example.dimi.reactiveclean.base.BaseComponent
 import com.example.dimi.reactiveclean.di.modules.NewsMainModule
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.presentation.NewsMain.view.NewsMainActivity
-import com.example.dimi.reactiveclean.presentation.NewsMain.view.content.NewsMainContentFragment
-import com.example.dimi.reactiveclean.presentation.NewsMain.view.sections.NewsMainSectionsFragment
+import com.example.dimi.reactiveclean.presentation.NewsMain.view.content.ContentFragment
+import com.example.dimi.reactiveclean.presentation.NewsMain.view.section.SectionFragment
 import dagger.Subcomponent
 
 @ActivityScope
@@ -17,6 +17,6 @@ interface NewsMainComponent : BaseComponent<NewsMainActivity> {
         fun build(): NewsMainComponent
     }
 
-    fun inject(fragment: NewsMainContentFragment)
-    fun inject(fragment: NewsMainSectionsFragment)
+    fun inject(fragment: ContentFragment)
+    fun inject(fragment: SectionFragment)
 }

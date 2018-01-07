@@ -11,8 +11,8 @@ import com.example.dimi.reactiveclean.base.BaseActivity
 import com.example.dimi.reactiveclean.navigation.extended.ExtendedNavigator
 import com.example.dimi.reactiveclean.navigation.RouterConstants
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.NewsMainPresenter
-import com.example.dimi.reactiveclean.presentation.NewsMain.view.content.NewsMainContentFragment
-import com.example.dimi.reactiveclean.presentation.NewsMain.view.sections.NewsMainSectionsFragment
+import com.example.dimi.reactiveclean.presentation.NewsMain.view.content.ContentFragment
+import com.example.dimi.reactiveclean.presentation.NewsMain.view.section.SectionFragment
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import kotlinx.android.synthetic.main.activity_news_main.*
 import ru.terrakok.cicerone.NavigatorHolder
@@ -30,8 +30,8 @@ class NewsMainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSe
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = null
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
-            RouterConstants.NEWS_MAIN_SECTIONS_SCREEN -> NewsMainSectionsFragment()
-            RouterConstants.NEWS_MAIN_CONTENT_SCREEN -> NewsMainContentFragment()
+            RouterConstants.NEWS_MAIN_SECTIONS_SCREEN -> SectionFragment()
+            RouterConstants.NEWS_MAIN_CONTENT_SCREEN -> ContentFragment()
             else -> null
         }
 

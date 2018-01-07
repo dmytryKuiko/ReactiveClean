@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.models.sections.SectionDisplayable
+import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import kotlinx.android.synthetic.main.row_section_displayable.view.*
 

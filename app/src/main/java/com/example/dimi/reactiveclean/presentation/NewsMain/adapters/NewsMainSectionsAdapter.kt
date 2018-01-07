@@ -1,6 +1,6 @@
 package com.example.dimi.reactiveclean.presentation.NewsMain.adapters
 
-import com.example.dimi.reactiveclean.models.sections.SectionDisplayable
+import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 
 class NewsMainSectionsAdapter(openCurrentSection: (SectionDisplayable.Section) -> Unit)

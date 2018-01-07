@@ -2,7 +2,7 @@ package com.example.dimi.reactiveclean.data.network
 
 import com.example.dimi.reactiveclean.data.network.HeaderInterceptor.Companion.DEFAULT_PAGE_SIZE
 import com.example.dimi.reactiveclean.models.content.ContentResponse
-import com.example.dimi.reactiveclean.models.sections.SectionResponse
+import com.example.dimi.reactiveclean.models.section.SectionResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
