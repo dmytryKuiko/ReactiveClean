@@ -12,7 +12,7 @@ class NewsMainSectionsDataMapper
         val listParsed: MutableList<Section> = mutableListOf()
         listResults?.forEach {
             if (it.id != null && it.apiUrl != null && it.webTitle != null && it.webUrl != null) {
-                listParsed.add(Section(it.id, it.webTitle, it.webUrl, it.apiUrl))
+                listParsed.add(Section(name = it.id, webTitle = it.webTitle, webUrl = it.webUrl, apiUrl = it.apiUrl))
             } else {
                 throw NoSuchFieldException("While parsing Section")
             }

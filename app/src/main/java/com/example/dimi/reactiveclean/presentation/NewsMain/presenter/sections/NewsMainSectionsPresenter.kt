@@ -9,5 +9,7 @@ import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent
 
 interface NewsMainSectionsPresenter : BaseDataPresenter<List<SectionDisplayable>> {
 
-    fun getError(): LiveData<Unit>
+    fun getSingleEventLiveData(): LiveData<String>
+
+    fun openCurrentSection(section: SectionDisplayable.Section)
 }

@@ -1,5 +1,5 @@
 package com.example.dimi.reactiveclean.models.sections
 
-class SectionDisplayable(val title: String,
-                         val url: String) {
+sealed class SectionDisplayable {
+    class Section(val title: String, val url: String) : SectionDisplayable()
 }
