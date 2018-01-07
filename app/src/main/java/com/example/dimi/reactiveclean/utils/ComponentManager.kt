@@ -2,11 +2,15 @@ package com.example.dimi.reactiveclean.utils
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.support.v4.app.Fragment
 import com.example.dimi.reactiveclean.App
 import com.example.dimi.reactiveclean.base.BaseComponent
+import com.example.dimi.reactiveclean.base.TempComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
+import com.example.dimi.reactiveclean.di.components.NewsMainComponent
 import com.example.dimi.reactiveclean.presentation.NewsMain.view.NewsMainActivity
+import com.example.dimi.reactiveclean.presentation.NewsMain.view.section_chosen.SectionChosenFragment
 import com.example.dimi.reactiveclean.presentation.Splash.view.SplashActivity
 import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialActivity
 
@@ -17,6 +21,8 @@ object ComponentManager {
     private var appComponent: AppComponent? = null
 
     private val componentMap: MutableMap<String, BaseComponent<Context>> = hashMapOf()
+
+    private val tempComponentMap: MutableMap<String, TempComponent> = hashMapOf()
 
     @Synchronized
     fun initAppComponent(app: App) {
@@ -37,13 +43,29 @@ object ComponentManager {
         return component
     }
 
+    fun getTempComponent(activity: Context, fragment: Fragment, data: Any?): TempComponent {
+        val name = getName(fragment)
+        val componentName = getName(activity)
+        var component = tempComponentMap[name]
+        if (component == null) {
+            component = createTempComponent(componentName, name, data)
+            storeTempComponent(name, component)
+        }
+        return component
+    }
+
     fun releaseComponent(activity: Context) {
         val name = getName(activity)
         componentMap.remove(name)
     }
 
-    private fun getName(activity: Context): String =
-            activity::class.qualifiedName ?: throw PackageManager.NameNotFoundException("For activity $activity")
+    fun releaseTempComponent(fragment: Fragment) {
+        val name = getName(fragment)
+        tempComponentMap.remove(name)
+    }
+
+    private fun getName(creator: Any): String =
+            creator::class.qualifiedName ?: throw PackageManager.NameNotFoundException("For activity $creator")
 
     private fun createComponent(name: String): BaseComponent<Context> {
         val component = appComponent ?: throw NullPointerException("App Component is null")
@@ -58,7 +80,24 @@ object ComponentManager {
         }
     }
 
+    private fun createTempComponent(componentName: String, tempName: String, data: Any?): TempComponent {
+
+        return when(componentName) {
+            NewsMainActivity::class.qualifiedName -> {
+                val component = componentMap[componentName] as? NewsMainComponent ?:
+                        throw NullPointerException("Parent component is null for temp component")
+                val url = data as? String ?: throw IllegalArgumentException("Wrong parameter passed")
+                component.sectionChosenBuilder().sectionUrl(url).build()
+            }
+            else -> throw UninitializedPropertyAccessException("This component is not initialized yet")
+        }
+    }
+
     private fun storeComponent(name: String, component: BaseComponent<Context>) {
         componentMap.put(name, component)
+    }
+
+    private fun storeTempComponent(name: String, component: TempComponent) {
+        tempComponentMap.put(name, component)
     }
 }

@@ -38,7 +38,7 @@ class SectionPresenterImpl
     override fun getSingleEventLiveData(): LiveData<String> = errorLiveData
 
     override fun openCurrentSection(section: SectionDisplayable.Section) {
-        
+        navigator.openChosenSection(section.url)
     }
 
     private fun eventReceived(list: List<SectionDisplayable>) {

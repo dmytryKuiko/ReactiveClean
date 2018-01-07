@@ -5,8 +5,9 @@ object RouterConstants {
     const val TUTORIAL_SECOND_SCREEN = "tutorial_second_screen"
     const val TUTORIAL_THIRD_SCREEN = "tutorial_third_screen"
 
-    const val NEWS_MAIN_CONTENT_SCREEN = "news_main_content_screen"
-    const val NEWS_MAIN_SECTIONS_SCREEN = "news_main_sources_screen"
+    const val CONTENT_SCREEN = "content_screen"
+    const val SECTION_SCREEN = "section_screen"
+    const val SECTION_CHOSEN_SCREEN = "section_specific_screen"
 
     const val TUTORIAL_ACTIVITY = "tutorial_activity"
     const val NEWS_MAIN_ACTIVITY = "main_news_activity"

@@ -23,6 +23,6 @@ class NewsMainPresenterImpl
     }
 
     override fun onSectionsClicked() {
-        navigator.navigateToSections()
+        navigator.navigateToSection()
     }
 }

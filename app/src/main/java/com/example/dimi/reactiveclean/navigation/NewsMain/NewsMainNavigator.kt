@@ -5,7 +5,9 @@ interface NewsMainNavigator {
 
     fun navigateToContent()
 
-    fun navigateToSections()
+    fun navigateToSection()
 
-    fun openUrl(url: String)
+    fun openContentUrl(url: String)
+
+    fun openChosenSection(sectionUrl: String)
 }

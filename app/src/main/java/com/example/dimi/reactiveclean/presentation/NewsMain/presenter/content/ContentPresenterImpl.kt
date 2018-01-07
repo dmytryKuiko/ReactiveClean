@@ -57,7 +57,7 @@ class ContentPresenterImpl
     }
 
     override fun openCurrentContent(content: ContentDisplayable.Content) {
-        navigator.openUrl(content.url)
+        navigator.openContentUrl(content.url)
     }
 
     override fun setVisibleItem(position: Int) {

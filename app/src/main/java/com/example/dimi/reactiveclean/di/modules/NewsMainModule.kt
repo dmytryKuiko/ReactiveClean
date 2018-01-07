@@ -5,6 +5,7 @@ import com.example.dimi.reactiveclean.data.NewsMain.content.ContentStoreImpl
 import com.example.dimi.reactiveclean.data.NewsMain.section.SectionStore
 import com.example.dimi.reactiveclean.data.NewsMain.section.SectionStoreImpl
 import com.example.dimi.reactiveclean.di.DiConstants
+import com.example.dimi.reactiveclean.di.components.SectionChosenComponent
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.domain.NewsMain.NewsMainInterractor
 import com.example.dimi.reactiveclean.domain.NewsMain.NewsMainInterractorImpl
@@ -31,7 +32,7 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Named
 
-@Module
+@Module(subcomponents = [SectionChosenComponent::class])
 abstract class NewsMainModule {
 
     @Binds
