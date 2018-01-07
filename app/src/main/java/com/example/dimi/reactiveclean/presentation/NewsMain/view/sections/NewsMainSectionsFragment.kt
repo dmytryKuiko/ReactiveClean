@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.base.BaseFragment
 import com.example.dimi.reactiveclean.di.components.NewsMainComponent
+import com.example.dimi.reactiveclean.extensions.displayToast
 import com.example.dimi.reactiveclean.extensions.visible
 import com.example.dimi.reactiveclean.presentation.NewsMain.adapters.NewsMainSectionsAdapter
 import com.example.dimi.reactiveclean.presentation.NewsMain.adapters.NewsMainSectionsDisplayableAdapter
@@ -55,7 +56,7 @@ class NewsMainSectionsFragment : BaseFragment() {
         })
 
         presenter.getSingleEventLiveData().observe(this, Observer {
-            val temp = it
+            it?.displayToast(activity!!)
         })
     }
 
