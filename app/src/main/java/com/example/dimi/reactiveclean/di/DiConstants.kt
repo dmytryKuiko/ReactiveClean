@@ -9,5 +9,8 @@ object DiConstants {
 
     const val NEWS_MAIN_CONTENT_PAGINATOR = "news_main_content_paginator"
 
+    const val SECTION_CHOSEN_PAGINATOR = "section_chosen_paginator"
+    const val SECTION_CHOSEN_URL = "section_chosen_url"
+
 
 }
