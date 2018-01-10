@@ -6,7 +6,7 @@ import com.example.dimi.reactiveclean.models.SingleEventLiveData
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-interface PaginatorChanged<T> : BaseDataPresenter<PaginatorResult<T>> {
+interface PaginatorDB<T> : BaseDataPresenter<PaginatorResult<T>> {
 
     fun setCallbacks(init: () -> Completable,
                      database: () -> Flowable<List<T>>,

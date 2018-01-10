@@ -1,9 +1,7 @@
 package com.example.dimi.reactiveclean.utils.paginator
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.RecyclerUpdate
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
@@ -14,8 +12,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class PaginatorChangedImpl<T>
-@Inject constructor() : PaginatorChanged<T> {
+class PaginatorDBImpl<T>
+@Inject constructor() : PaginatorDB<T> {
 
     private lateinit var initRequest: () -> Completable
     private lateinit var databaseStream: () -> Flowable<List<T>>
@@ -28,7 +26,7 @@ class PaginatorChangedImpl<T>
             field = value
             dataLiveData.postValue(value)
             value?.let {
-                it.showDatabaseMessage?.let {
+                it.showErrorMessage?.let {
                     databaseMessageLiveData.postValue("DATABASE")
                 }
             }
@@ -141,7 +139,7 @@ class PaginatorChangedImpl<T>
 
         override fun fail(error: Throwable) {
             currentState = DATABASE()
-            paginatorResult = PaginatorResult(showEmptyProgress = false, showDatabaseMessage = true, paginatorData = PaginatorData(
+            paginatorResult = PaginatorResult(showEmptyProgress = false, showErrorMessage = true, paginatorData = PaginatorData(
                     content = currentData, state = ContentState.DATA, recyclerUpdate = RecyclerUpdate.DIFF_UTIL
             ))
         }
@@ -317,7 +315,7 @@ class PaginatorChangedImpl<T>
     private inner class RELEASED : State<T>
 }
 
-//private var paginator: PaginatorChanged<ContentDisplayable> = PaginatorChangedContent()
+//private var paginator: PaginatorDB<ContentDisplayable> = PaginatorChangedContent()
 //    initRequest = this::initRequest,
 //    databaseStream = this::getDatabaseStream, pageRequest = this::getContentPage
 
@@ -339,7 +337,7 @@ class PaginatorChangedImpl<T>
 //                /**
 //                 * Appears like a toast, when shown old data from DB, Request was failed
 //                 */
-//                override fun showDatabaseMessage(error: Throwable?) {
+//                override fun showErrorMessage(error: Throwable?) {
 //                    var a = 2
 //                    a++
 //                }

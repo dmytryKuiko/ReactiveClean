@@ -16,7 +16,7 @@
 //
 //    interface ViewController<T> {
 //        fun showEmptyProgress(show: Boolean)
-//        fun showDatabaseMessage(error: Throwable? = null)
+//        fun showErrorMessage(error: Throwable? = null)
 //        fun showEmptyView(show: Boolean)
 //        fun showData(show: Boolean, data: List<T> = emptyList(), recyclerUpdate: RecyclerUpdate = RecyclerUpdate.DIFF_UTIL)
 //        fun showErrorMessage(error: Throwable, data: List<T> = emptyList())
@@ -123,7 +123,7 @@
 //
 //            //TODO()
 //            viewController.showEmptyProgress(false)
-//            viewController.showDatabaseMessage(error)
+//            viewController.showErrorMessage(error)
 //            //------------------------------------------------
 //        }
 //
