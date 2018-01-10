@@ -10,7 +10,7 @@ class NewsMainSectionsDomainMapper
     override fun apply(list: List<Section>): List<SectionDisplayable> {
         val convertedList: MutableList<SectionDisplayable> = mutableListOf()
         list.forEach {
-            convertedList.add(SectionDisplayable.Section(it.webTitle, it.apiUrl))
+            convertedList.add(SectionDisplayable.Section(it.webTitle, it.name))
         }
         return convertedList
     }
