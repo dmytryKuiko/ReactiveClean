@@ -7,7 +7,7 @@ import com.example.dimi.reactiveclean.domain.NewsMain.content.ContentDomainMappe
 import com.example.dimi.reactiveclean.domain.NewsMain.content.ContentInterractor
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
-import com.example.dimi.reactiveclean.utils.paginator.PaginatorChanged
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorDB
 import com.example.dimi.reactiveclean.utils.paginator.PaginatorResult
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -19,7 +19,7 @@ import javax.inject.Named
 class ContentPresenterImpl
 @Inject constructor(private val interractor: ContentInterractor,
                     private val mapper: ContentDomainMapper,
-                    @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorChanged<ContentDisplayable>,
+                    @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorDB<ContentDisplayable>,
                     private val navigator: NewsMainNavigator
 ) : ContentPresenter {
 

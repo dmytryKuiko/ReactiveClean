@@ -8,7 +8,6 @@ import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import io.reactivex.disposables.CompositeDisposable
-import timber.log.Timber
 import javax.inject.Inject
 
 class SectionPresenterImpl
@@ -38,7 +37,7 @@ class SectionPresenterImpl
     override fun getSingleEventLiveData(): LiveData<String> = errorLiveData
 
     override fun openCurrentSection(section: SectionDisplayable.Section) {
-        navigator.openChosenSection(section.url)
+        navigator.openChosenSection(section.id)
     }
 
     private fun eventReceived(list: List<SectionDisplayable>) {

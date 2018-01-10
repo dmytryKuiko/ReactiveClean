@@ -6,6 +6,7 @@ import com.example.dimi.reactiveclean.models.section.SectionResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ServiceNewsApi {
@@ -25,4 +26,9 @@ interface ServiceNewsApi {
     @GET("search")
     @Headers("No-Authentication: true")
     fun getSpecificContent(@Query("q") params: String): Single<ContentResponse>
+
+    @GET("{section}")
+    @Headers("$DEFAULT_PAGE_SIZE: true")
+    fun getSectionChosen(@Path("section") section: String,
+                         @Query("page") page: Int): Single<ContentResponse>
 }

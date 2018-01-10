@@ -11,11 +11,12 @@ import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.section_ch
 import com.example.dimi.reactiveclean.presentation.NewsMain.presenter.section_chosen.SectionChosenPresenterImpl
 import com.example.dimi.reactiveclean.repositories.NewsMain.section_chosen.SectionChosenRepository
 import com.example.dimi.reactiveclean.repositories.NewsMain.section_chosen.SectionChosenRepositoryImpl
-import com.example.dimi.reactiveclean.utils.paginator.PaginatorChanged
-import com.example.dimi.reactiveclean.utils.paginator.PaginatorChangedImpl
+import com.example.dimi.reactiveclean.utils.paginator.Paginator
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorDB
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorDBImpl
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import javax.inject.Named
 
 @Module
@@ -41,7 +42,7 @@ abstract class SectionChosenModule {
     @CustomScope
     @Named(DiConstants.SECTION_CHOSEN_PAGINATOR)
     abstract internal fun bindPaginator(
-            pag: PaginatorChangedImpl<ContentDisplayable>): PaginatorChanged<ContentDisplayable>
+            pag: PaginatorImpl<ContentDisplayable>): Paginator<ContentDisplayable>
 
     @Module
     companion object {
@@ -49,6 +50,6 @@ abstract class SectionChosenModule {
 //        @Provides
 //        @JvmStatic
 //        @Named(DiConstants.SECTION_CHOSEN_PAGINATOR)
-//        fun providePaginator(): PaginatorChangedImpl<ContentDisplayable> = PaginatorChangedImpl()
+//        fun providePaginator(): PaginatorDBImpl<ContentDisplayable> = PaginatorDBImpl()
     }
 }

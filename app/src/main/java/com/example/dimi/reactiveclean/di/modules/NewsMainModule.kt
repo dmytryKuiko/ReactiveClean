@@ -26,8 +26,8 @@ import com.example.dimi.reactiveclean.repositories.NewsMain.content.ContentRepos
 import com.example.dimi.reactiveclean.repositories.NewsMain.content.ContentRepositoryImpl
 import com.example.dimi.reactiveclean.repositories.NewsMain.section.SectionRepository
 import com.example.dimi.reactiveclean.repositories.NewsMain.section.SectionRepositoryImpl
-import com.example.dimi.reactiveclean.utils.paginator.PaginatorChanged
-import com.example.dimi.reactiveclean.utils.paginator.PaginatorChangedImpl
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorDB
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorDBImpl
 import dagger.Binds
 import dagger.Module
 import javax.inject.Named
@@ -83,7 +83,7 @@ abstract class NewsMainModule {
     @Binds
     @ActivityScope
     @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR)
-    internal abstract fun bindContentPaginator(pag: PaginatorChangedImpl<ContentDisplayable>): PaginatorChanged<ContentDisplayable>
+    internal abstract fun bindContentPaginator(pag: PaginatorDBImpl<ContentDisplayable>): PaginatorDB<ContentDisplayable>
 
     @Module
     companion object {}
