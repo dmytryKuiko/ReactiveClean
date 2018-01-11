@@ -1,7 +1,7 @@
 package com.example.dimi.reactiveclean.models.content
 
 /**
- * Classes that represents items in PaginatorData content for different delegate adapters
+ * Classes that represents items in PaginatorModelData content for different delegate adapters
  */
 sealed class ContentDisplayable {
 
