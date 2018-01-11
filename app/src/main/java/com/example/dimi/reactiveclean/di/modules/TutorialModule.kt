@@ -1,12 +1,12 @@
 package com.example.dimi.reactiveclean.di.modules
 
-import com.example.dimi.reactiveclean.navigation.Tutorial.TutorialMainNavigator
-import com.example.dimi.reactiveclean.navigation.Tutorial.TutorialMainNavigatorImpl
+import com.example.dimi.reactiveclean.navigation.tutorial.TutorialMainNavigator
+import com.example.dimi.reactiveclean.navigation.tutorial.TutorialMainNavigatorImpl
 import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
-import com.example.dimi.reactiveclean.presentation.Tutorial.presenter.TutorialPresenter
-import com.example.dimi.reactiveclean.presentation.Tutorial.presenter.TutorialPresenterImpl
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.ImageType
+import com.example.dimi.reactiveclean.presentation.tutorial.presenter.TutorialPresenter
+import com.example.dimi.reactiveclean.presentation.tutorial.presenter.TutorialPresenterImpl
+import com.example.dimi.reactiveclean.models.tutorial.ImageType
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

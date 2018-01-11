@@ -1,7 +1,7 @@
-package com.example.dimi.reactiveclean.presentation.Tutorial.presenter
+package com.example.dimi.reactiveclean.presentation.tutorial.presenter
 
-import com.example.dimi.reactiveclean.base.BaseDataPresenter
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.ImageType
+import com.example.dimi.reactiveclean.presentation.BaseDataPresenter
+import com.example.dimi.reactiveclean.models.tutorial.ImageType
 
 interface TutorialPresenter : BaseDataPresenter<ImageType> {
 

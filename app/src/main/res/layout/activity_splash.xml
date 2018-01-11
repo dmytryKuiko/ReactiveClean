@@ -5,7 +5,7 @@
     android:id="@+id/splash_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dimi.reactiveclean.presentation.Splash.view.SplashActivity">
+    tools:context="com.example.dimi.reactiveclean.presentation.splash.view.SplashActivity">
 
     <TextView
         android:layout_width="wrap_content"

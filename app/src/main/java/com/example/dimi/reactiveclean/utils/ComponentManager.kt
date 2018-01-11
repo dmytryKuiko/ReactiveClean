@@ -4,15 +4,14 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.support.v4.app.Fragment
 import com.example.dimi.reactiveclean.App
-import com.example.dimi.reactiveclean.base.BaseComponent
-import com.example.dimi.reactiveclean.base.TempComponent
+import com.example.dimi.reactiveclean.di.BaseComponent
+import com.example.dimi.reactiveclean.di.TempComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import com.example.dimi.reactiveclean.di.components.NewsMainComponent
-import com.example.dimi.reactiveclean.presentation.NewsMain.view.NewsMainActivity
-import com.example.dimi.reactiveclean.presentation.NewsMain.view.section_chosen.SectionChosenFragment
-import com.example.dimi.reactiveclean.presentation.Splash.view.SplashActivity
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.TutorialActivity
+import com.example.dimi.reactiveclean.presentation.main.view.NewsMainActivity
+import com.example.dimi.reactiveclean.presentation.splash.view.SplashActivity
+import com.example.dimi.reactiveclean.presentation.tutorial.view.TutorialActivity
 
 object ComponentManager {
 

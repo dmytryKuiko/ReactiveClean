@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dimi.reactiveclean.presentation.NewsMain.view.NewsMainActivity">
+    tools:context="com.example.dimi.reactiveclean.presentation.main.view.NewsMainActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/news_main_activity_container"

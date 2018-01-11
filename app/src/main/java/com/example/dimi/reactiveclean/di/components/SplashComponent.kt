@@ -1,9 +1,9 @@
 package com.example.dimi.reactiveclean.di.components
 
-import com.example.dimi.reactiveclean.base.BaseComponent
+import com.example.dimi.reactiveclean.di.BaseComponent
 import com.example.dimi.reactiveclean.di.modules.SplashModule
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
-import com.example.dimi.reactiveclean.presentation.Splash.view.SplashActivity
+import com.example.dimi.reactiveclean.presentation.splash.view.SplashActivity
 import dagger.Subcomponent
 
 @ActivityScope

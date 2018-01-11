@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.Splash.view.SplashActivity"
+            android:name=".presentation.splash.view.SplashActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.Main.view.MainActivity" />
-        <activity android:name=".presentation.Tutorial.view.TutorialActivity" />
-        <activity android:name=".presentation.NewsMain.view.NewsMainActivity" />
+        <activity android:name=".presentation.tutorial.view.TutorialActivity" />
+        <activity android:name=".presentation.main.view.NewsMainActivity" />
     </application>
 
 </manifest>

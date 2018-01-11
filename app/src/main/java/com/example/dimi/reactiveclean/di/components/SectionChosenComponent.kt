@@ -1,10 +1,10 @@
 package com.example.dimi.reactiveclean.di.components
 
-import com.example.dimi.reactiveclean.base.TempComponent
+import com.example.dimi.reactiveclean.di.TempComponent
 import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.modules.SectionChosenModule
 import com.example.dimi.reactiveclean.di.scopes.CustomScope
-import com.example.dimi.reactiveclean.presentation.NewsMain.view.section_chosen.SectionChosenFragment
+import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 import javax.inject.Named

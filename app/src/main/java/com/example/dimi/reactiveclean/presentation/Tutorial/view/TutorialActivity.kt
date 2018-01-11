@@ -1,13 +1,13 @@
-package com.example.dimi.reactiveclean.presentation.Tutorial.view
+package com.example.dimi.reactiveclean.presentation.tutorial.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.example.dimi.reactiveclean.navigation.Tutorial.TutorialMainNavigator
+import com.example.dimi.reactiveclean.navigation.tutorial.TutorialMainNavigator
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.base.BaseActivity
+import com.example.dimi.reactiveclean.presentation.BaseActivity
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import com.example.dimi.reactiveclean.presentation.NewsMain.view.NewsMainActivity
+import com.example.dimi.reactiveclean.presentation.main.view.NewsMainActivity
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator

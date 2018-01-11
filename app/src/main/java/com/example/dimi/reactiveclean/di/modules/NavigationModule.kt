@@ -1,11 +1,10 @@
 package com.example.dimi.reactiveclean.di.modules
 
-import com.example.dimi.reactiveclean.navigation.extended.ExtendedRouter
+import com.example.dimi.reactiveclean.extensions.navigator.ExtendedRouter
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
 import javax.inject.Singleton
 
 @Module

@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.navigation.Tutorial
+package com.example.dimi.reactiveclean.navigation.tutorial
 
 enum class TutorialNavigatorStep {
     NONE,

@@ -1,9 +1,9 @@
-package com.example.dimi.reactiveclean.presentation.Tutorial.presenter
+package com.example.dimi.reactiveclean.presentation.tutorial.presenter
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import com.example.dimi.reactiveclean.navigation.Tutorial.TutorialNavigator
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.ImageType
+import com.example.dimi.reactiveclean.navigation.tutorial.TutorialNavigator
+import com.example.dimi.reactiveclean.models.tutorial.ImageType
 
 class TutorialPresenterImpl(private val navigator: TutorialNavigator, imageType: ImageType) : TutorialPresenter {
 

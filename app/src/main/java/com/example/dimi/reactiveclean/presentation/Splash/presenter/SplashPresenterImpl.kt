@@ -1,12 +1,10 @@
-package com.example.dimi.reactiveclean.presentation.Splash.presenter
+package com.example.dimi.reactiveclean.presentation.splash.presenter
 
-import com.example.dimi.reactiveclean.navigation.Splash.SplashNavigator
-import com.example.dimi.reactiveclean.domain.Splash.SplashInterractor
+import com.example.dimi.reactiveclean.navigation.splash.SplashNavigator
+import com.example.dimi.reactiveclean.domain.splash.SplashInterractor
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SplashPresenterImpl

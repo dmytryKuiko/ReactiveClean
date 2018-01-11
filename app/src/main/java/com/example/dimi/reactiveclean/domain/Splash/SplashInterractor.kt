@@ -1,6 +1,5 @@
-package com.example.dimi.reactiveclean.domain.Splash
+package com.example.dimi.reactiveclean.domain.splash
 
-import io.reactivex.Observable
 import io.reactivex.Single
 
 interface SplashInterractor {

@@ -1,9 +1,9 @@
-package com.example.dimi.reactiveclean.presentation.Tutorial.view
+package com.example.dimi.reactiveclean.presentation.tutorial.view
 
 import android.content.Context
 import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.components.TutorialComponent
-import com.example.dimi.reactiveclean.presentation.Tutorial.presenter.TutorialPresenter
+import com.example.dimi.reactiveclean.presentation.tutorial.presenter.TutorialPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import javax.inject.Inject
 import javax.inject.Named

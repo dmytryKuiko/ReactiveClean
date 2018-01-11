@@ -1,8 +1,7 @@
-package com.example.dimi.reactiveclean.data.Splash
+package com.example.dimi.reactiveclean.data.splash
 
 import android.content.SharedPreferences
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 

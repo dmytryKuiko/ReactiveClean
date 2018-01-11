@@ -1,16 +1,16 @@
 package com.example.dimi.reactiveclean.di.modules
 
-import com.example.dimi.reactiveclean.data.Splash.SplashReactiveStore
-import com.example.dimi.reactiveclean.data.Splash.SplashReactiveStoreImpl
+import com.example.dimi.reactiveclean.data.splash.SplashReactiveStore
+import com.example.dimi.reactiveclean.data.splash.SplashReactiveStoreImpl
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
-import com.example.dimi.reactiveclean.domain.Splash.SplashInterractor
-import com.example.dimi.reactiveclean.domain.Splash.SplashInterractorImpl
-import com.example.dimi.reactiveclean.navigation.Splash.SplashNavigator
-import com.example.dimi.reactiveclean.navigation.Splash.SplashNavigatorImpl
-import com.example.dimi.reactiveclean.presentation.Splash.presenter.SplashPresenter
-import com.example.dimi.reactiveclean.presentation.Splash.presenter.SplashPresenterImpl
-import com.example.dimi.reactiveclean.repositories.Splash.SplashRepository
-import com.example.dimi.reactiveclean.repositories.Splash.SplashRepositoryImpl
+import com.example.dimi.reactiveclean.domain.splash.SplashInterractor
+import com.example.dimi.reactiveclean.domain.splash.SplashInterractorImpl
+import com.example.dimi.reactiveclean.navigation.splash.SplashNavigator
+import com.example.dimi.reactiveclean.navigation.splash.SplashNavigatorImpl
+import com.example.dimi.reactiveclean.presentation.splash.presenter.SplashPresenter
+import com.example.dimi.reactiveclean.presentation.splash.presenter.SplashPresenterImpl
+import com.example.dimi.reactiveclean.data.splash.SplashRepository
+import com.example.dimi.reactiveclean.data.splash.SplashRepositoryImpl
 import dagger.Binds
 import dagger.Module
 

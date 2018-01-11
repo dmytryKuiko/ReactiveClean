@@ -1,6 +1,6 @@
-package com.example.dimi.reactiveclean.domain.Splash
+package com.example.dimi.reactiveclean.domain.splash
 
-import com.example.dimi.reactiveclean.repositories.Splash.SplashRepository
+import com.example.dimi.reactiveclean.data.splash.SplashRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.Single.just

@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.navigation.Splash
+package com.example.dimi.reactiveclean.navigation.splash
 
 interface SplashNavigator {
 

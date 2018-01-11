@@ -1,9 +1,9 @@
 package com.example.dimi.reactiveclean.di.components
 
-import com.example.dimi.reactiveclean.base.BaseComponent
+import com.example.dimi.reactiveclean.di.BaseComponent
 import com.example.dimi.reactiveclean.di.modules.TutorialModule
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
-import com.example.dimi.reactiveclean.presentation.Tutorial.view.*
+import com.example.dimi.reactiveclean.presentation.tutorial.view.*
 import dagger.Subcomponent
 
 @ActivityScope

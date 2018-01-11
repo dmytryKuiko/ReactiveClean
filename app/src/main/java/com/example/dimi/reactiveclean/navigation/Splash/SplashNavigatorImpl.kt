@@ -1,7 +1,7 @@
-package com.example.dimi.reactiveclean.navigation.Splash
+package com.example.dimi.reactiveclean.navigation.splash
 
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import com.example.dimi.reactiveclean.navigation.extended.ExtendedRouter
+import com.example.dimi.reactiveclean.extensions.navigator.ExtendedRouter
 import javax.inject.Inject
 
 class SplashNavigatorImpl

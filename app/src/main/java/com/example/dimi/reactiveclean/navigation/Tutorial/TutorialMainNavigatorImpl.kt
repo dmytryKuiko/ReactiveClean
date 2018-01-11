@@ -1,7 +1,7 @@
-package com.example.dimi.reactiveclean.navigation.Tutorial
+package com.example.dimi.reactiveclean.navigation.tutorial
 
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import com.example.dimi.reactiveclean.navigation.extended.ExtendedRouter
+import com.example.dimi.reactiveclean.extensions.navigator.ExtendedRouter
 import javax.inject.Inject
 
 class TutorialMainNavigatorImpl

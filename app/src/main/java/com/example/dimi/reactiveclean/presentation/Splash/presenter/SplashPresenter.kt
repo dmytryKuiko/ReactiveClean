@@ -1,6 +1,6 @@
-package com.example.dimi.reactiveclean.presentation.Splash.presenter
+package com.example.dimi.reactiveclean.presentation.splash.presenter
 
-import com.example.dimi.reactiveclean.base.BasePresenter
+import com.example.dimi.reactiveclean.presentation.BasePresenter
 
 interface SplashPresenter : BasePresenter {
 }

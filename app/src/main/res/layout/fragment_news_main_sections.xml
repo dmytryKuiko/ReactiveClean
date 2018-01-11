@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dimi.reactiveclean.presentation.NewsMain.view.section.SectionFragment">
+    tools:context="com.example.dimi.reactiveclean.presentation.main.view.section.SectionFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

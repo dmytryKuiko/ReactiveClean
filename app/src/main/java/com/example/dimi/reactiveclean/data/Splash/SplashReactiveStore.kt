@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.data.Splash
+package com.example.dimi.reactiveclean.data.splash
 
 import io.reactivex.Completable
 import io.reactivex.Single

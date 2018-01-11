@@ -1,4 +1,4 @@
-package com.example.dimi.reactiveclean.presentation.Tutorial.view
+package com.example.dimi.reactiveclean.presentation.tutorial.view
 
 
 import android.arch.lifecycle.Observer
@@ -8,8 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.base.BaseFragment
-import com.example.dimi.reactiveclean.presentation.Tutorial.presenter.TutorialPresenter
+import com.example.dimi.reactiveclean.presentation.BaseFragment
+import com.example.dimi.reactiveclean.models.tutorial.ImageType
+import com.example.dimi.reactiveclean.presentation.tutorial.presenter.TutorialPresenter
 import kotlinx.android.synthetic.main.fragment_tutorial.*
 
 abstract class TutorialFragment : BaseFragment() {
