@@ -88,6 +88,7 @@ object ComponentManager {
                 val url = data as? String ?: throw IllegalArgumentException("Wrong parameter passed")
                 component.sectionChosenBuilder().sectionUrl(url).build()
             }
+
             else -> throw UninitializedPropertyAccessException("This component is not initialized yet")
         }
     }

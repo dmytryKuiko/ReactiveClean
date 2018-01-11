@@ -27,7 +27,10 @@ class NewsMainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSe
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    private val appNavigator = object : ExtendedNavigator(this@NewsMainActivity, R.id.news_main_activity_container) {
+    private val appNavigator = object : ExtendedNavigator(
+            activity = this@NewsMainActivity,
+            containerId = R.id.news_main_activity_container
+    ) {
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = null
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {

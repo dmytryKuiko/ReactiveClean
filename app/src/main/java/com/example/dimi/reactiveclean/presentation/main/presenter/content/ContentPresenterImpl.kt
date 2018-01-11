@@ -17,19 +17,19 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class ContentPresenterImpl
-@Inject constructor(private val interractor: ContentInterractor,
-                    private val mapper: ContentDomainMapper,
-                    @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorDB<ContentDisplayable>,
-                    private val navigator: NewsMainNavigator
+@Inject constructor(
+        private val interractor: ContentInterractor,
+        private val mapper: ContentDomainMapper,
+        @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorDB<ContentDisplayable>,
+        private val navigator: NewsMainNavigator
 ) : ContentPresenter {
 
     private var lastPosition: Int = 0
 
     private var compositeDisposable = CompositeDisposable()
 
-    override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> {
-        return paginator.getData()
-    }
+    override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> =
+            paginator.getData()
 
     override fun getSingleEventData(): LiveData<String> {
         return paginator.getSingleEvent()
@@ -68,13 +68,16 @@ class ContentPresenterImpl
 
     override fun subscribeSearchText(text: Observable<String>) {
         interractor.searchContent(text)
-                .subscribe({
-                    var a = 3
-                    a++
-                }, {
-                    var a = 3
-                    a++
-                })
+                .subscribe(
+                        {
+                            var a = 3
+                            a++
+                        },
+                        {
+                            var a = 3
+                            a++
+                        }
+                )
                 .addTo(compositeDisposable)
 
     }
@@ -83,15 +86,11 @@ class ContentPresenterImpl
         compositeDisposable.clear()
     }
 
-    private fun getContentPage(page: Int): Completable {
-        return interractor.loadNextContentPage(page)
-    }
+    private fun getContentPage(page: Int): Completable =
+            interractor.loadNextContentPage(page)
 
-    private fun initRequest(): Completable {
-        return interractor.loadNews()
-    }
+    private fun initRequest(): Completable = interractor.loadNews()
 
-    private fun getDatabaseStream(): Flowable<List<ContentDisplayable>> {
-        return interractor.getContentStream().map(mapper)
-    }
+    private fun getDatabaseStream(): Flowable<List<ContentDisplayable>> =
+            interractor.getContentStream().map(mapper)
 }

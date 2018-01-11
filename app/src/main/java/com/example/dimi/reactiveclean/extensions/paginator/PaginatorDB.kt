@@ -7,9 +7,11 @@ import io.reactivex.Flowable
 
 interface PaginatorDB<T> : BaseDataPresenter<PaginatorModelResult<T>> {
 
-    fun setCallbacks(init: () -> Completable,
-                     database: () -> Flowable<List<T>>,
-                     nextData: (Int) -> Completable)
+    fun setCallbacks(
+            init: () -> Completable,
+            database: () -> Flowable<List<T>>,
+            nextData: (Int) -> Completable
+    )
 
     fun refresh()
 

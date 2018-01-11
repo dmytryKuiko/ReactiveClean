@@ -10,20 +10,22 @@ import java.sql.Date
  * A class for saving Content into a DB
  */
 @Entity(tableName = TableNames.CONTENT)
-class Content(val name: String,
-              val type: String,
+class Content(
+        val name: String,
+        val type: String,
 
-              @ColumnInfo(name = "section_name")
-              val sectionName: String,
+        @ColumnInfo(name = "section_name")
+        val sectionName: String,
 
-              @ColumnInfo(name = "publication_time")
-              val publicationMills: Long,
+        @ColumnInfo(name = "publication_time")
+        val publicationMills: Long,
 
-              @ColumnInfo(name = "web_url")
-              val webUrl: String,
+        @ColumnInfo(name = "web_url")
+        val webUrl: String,
 
-              @ColumnInfo(name = "pillar_name")
-              val pillarName: String,
+        @ColumnInfo(name = "pillar_name")
+        val pillarName: String,
 
-              @PrimaryKey(autoGenerate = true)
-              val id: Int? = null)
+        @PrimaryKey(autoGenerate = true)
+        val id: Int? = null
+)

@@ -5,8 +5,8 @@ import com.example.dimi.reactiveclean.extensions.navigator.ExtendedRouter
 import javax.inject.Inject
 
 class SplashNavigatorImpl
-@Inject
-constructor(private val router: ExtendedRouter) : SplashNavigator {
+@Inject constructor(private val router: ExtendedRouter) : SplashNavigator {
+
     override fun navigateToTutorial() {
         router.newRootScreen(RouterConstants.TUTORIAL_ACTIVITY)
     }

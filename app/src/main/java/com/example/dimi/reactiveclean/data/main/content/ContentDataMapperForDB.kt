@@ -9,6 +9,7 @@ import javax.inject.Inject
 
 class ContentDataMapperForDB
 @Inject constructor() : Function<ContentResponse, List<Content>> {
+
     override fun apply(response: ContentResponse): List<Content> {
         val responseList = response.results
         val parsedList: MutableList<Content> = mutableListOf()

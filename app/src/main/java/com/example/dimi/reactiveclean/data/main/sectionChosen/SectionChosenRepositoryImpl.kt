@@ -9,10 +9,12 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class SectionChosenRepositoryImpl
-@Inject constructor(private val store: SectionChosenStore,
-                    private val serviceNewsApi: ServiceNewsApi,
-                    private val mapper: ContentDataMapperForDB,
-                    @Named(DiConstants.SECTION_CHOSEN_URL) private val sectionChosen: String) : SectionChosenRepository {
+@Inject constructor(
+        private val store: SectionChosenStore,
+        private val serviceNewsApi: ServiceNewsApi,
+        private val mapper: ContentDataMapperForDB,
+        @Named(DiConstants.SECTION_CHOSEN_URL) private val sectionChosen: String
+) : SectionChosenRepository {
 
     override fun getSectionContent(page: Int): Single<List<Content>> {
         return serviceNewsApi.getSectionChosen(sectionChosen, page).map(mapper)

@@ -20,27 +20,28 @@ import javax.inject.Named
 @Module
 abstract class SectionChosenModule {
 
-    @Binds
     @CustomScope
+    @Binds
     abstract internal fun bindPresenter(presenter: SectionChosenPresenterImpl): SectionChosenPresenter
 
-    @Binds
     @CustomScope
+    @Binds
     abstract internal fun bindInterractor(interractor: SectionChosenInterractorImpl): SectionChosenInterractor
 
-    @Binds
     @CustomScope
+    @Binds
     abstract internal fun bindRepository(repo: SectionChosenRepositoryImpl): SectionChosenRepository
 
-    @Binds
     @CustomScope
+    @Binds
     abstract internal fun bindStore(store: SectionChosenStoreImpl): SectionChosenStore
 
-    @Binds
-    @CustomScope
     @Named(DiConstants.SECTION_CHOSEN_PAGINATOR)
+    @CustomScope
+    @Binds
     abstract internal fun bindPaginator(
-            pag: PaginatorImpl<ContentDisplayable>): Paginator<ContentDisplayable>
+            pag: PaginatorImpl<ContentDisplayable>
+    ): Paginator<ContentDisplayable>
 
     @Module
     companion object {

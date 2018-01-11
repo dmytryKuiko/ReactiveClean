@@ -12,11 +12,11 @@ class NavigationModule {
 
     private val cicerone = Cicerone.create(ExtendedRouter())
 
-    @Provides
     @Singleton
+    @Provides
     fun provideNavigator(): NavigatorHolder = cicerone.navigatorHolder
 
-    @Provides
     @Singleton
+    @Provides
     fun provideExtendedRouter(): ExtendedRouter = cicerone.router
 }

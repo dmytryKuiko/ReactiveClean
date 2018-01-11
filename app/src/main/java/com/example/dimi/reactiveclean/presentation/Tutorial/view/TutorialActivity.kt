@@ -22,7 +22,9 @@ class TutorialActivity : BaseActivity() {
     private val appNavigator = object : SupportAppNavigator(this@TutorialActivity, R.id.tutorial_activity_container_layout) {
 
         override fun createActivityIntent(screenKey: String, data: Any?): Intent? = when (screenKey) {
-            RouterConstants.NEWS_MAIN_ACTIVITY -> Intent(this@TutorialActivity, NewsMainActivity::class.java)
+            RouterConstants.NEWS_MAIN_ACTIVITY ->
+                Intent(this@TutorialActivity, NewsMainActivity::class.java)
+
             else -> null
         }
 

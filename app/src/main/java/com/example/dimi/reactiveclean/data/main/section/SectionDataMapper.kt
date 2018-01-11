@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 class SectionDataMapper
 @Inject constructor() : Function<SectionResponse, List<Section>> {
+
     override fun apply(response: SectionResponse): List<Section> {
         val listResults = response.results
         val listParsed: MutableList<Section> = mutableListOf()

@@ -20,4 +20,5 @@ class Section(
         val apiUrl: String,
 
         @PrimaryKey(autoGenerate = true)
-        val id: Int? = null)
+        val id: Int? = null
+)

@@ -3,5 +3,4 @@ package com.example.dimi.reactiveclean.domain.main
 import javax.inject.Inject
 
 class NewsMainInterractorImpl
-@Inject constructor() : NewsMainInterractor {
-}
+@Inject constructor() : NewsMainInterractor

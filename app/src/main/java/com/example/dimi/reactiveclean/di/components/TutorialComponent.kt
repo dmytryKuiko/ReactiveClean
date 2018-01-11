@@ -16,6 +16,8 @@ interface TutorialComponent : BaseComponent<TutorialActivity> {
     }
 
     fun inject(fragment: TutorialFirstFragment)
+
     fun inject(fragment: TutorialSecondFragment)
+
     fun inject(fragment: TutorialThirdFragment)
 }

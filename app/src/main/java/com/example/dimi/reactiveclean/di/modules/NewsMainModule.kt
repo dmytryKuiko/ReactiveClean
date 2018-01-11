@@ -35,54 +35,55 @@ import javax.inject.Named
 @Module(subcomponents = [SectionChosenComponent::class])
 abstract class NewsMainModule {
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindMainPresenter(presenter: NewsMainPresenterImpl): NewsMainPresenter
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindContentPresenter(presenter: ContentPresenterImpl): ContentPresenter
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindSectionsPresenter(presenter: SectionPresenterImpl): SectionPresenter
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindNewsMainNavigator(navigator: NewsMainNavigatorImpl): NewsMainNavigator
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindMainInterractor(interractor: NewsMainInterractorImpl): NewsMainInterractor
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindContentInterractor(interractor: ContentInterractorImpl): ContentInterractor
 
-    @Binds
     @ActivityScope
-    internal abstract fun bindSectionsInterractor(interractor: NewsMainSectionsInterractorImpl):
-            NewsMainSectionsInterractor
+    @Binds
+    internal abstract fun bindSectionsInterractor(
+            interractor: NewsMainSectionsInterractorImpl
+    ): NewsMainSectionsInterractor
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindContentRepository(repository: ContentRepositoryImpl): ContentRepository
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindSectionsRepository(repository: SectionRepositoryImpl): SectionRepository
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindSectionsStore(store: SectionStoreImpl): SectionStore
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindContentStore(store: ContentStoreImpl): ContentStore
 
-    @Binds
-    @ActivityScope
     @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR)
+    @ActivityScope
+    @Binds
     internal abstract fun bindContentPaginator(pag: PaginatorDBImpl<ContentDisplayable>): PaginatorDB<ContentDisplayable>
 
     @Module

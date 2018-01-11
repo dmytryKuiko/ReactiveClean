@@ -53,7 +53,9 @@ class ContentFragment : BaseFragment() {
             setHasFixedSize(true)
         }
 
-        content_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button).setOnClickListener { presenter.refreshContent() }
+        content_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
+                .setOnClickListener { presenter.refreshContent() }
+
         content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
 
         presenter.subscribeSearchText(RxTextView.textChangeEvents(searchText)
@@ -86,7 +88,6 @@ class ContentFragment : BaseFragment() {
         presenter.setVisibleItem(
                 (fragment_news_main_content_recycler_view.layoutManager as LinearLayoutManager)
                         .findFirstVisibleItemPosition())
-
         super.onDestroyView()
     }
 

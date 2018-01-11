@@ -1,7 +1,6 @@
 package com.example.dimi.reactiveclean.di
 
 object DiConstants {
-    const val MAIN_DATA_MAPPER = "main_data_mapper"
 
     const val TUTORIAL_FIRST_SCREEN = "tutorial_first_screen"
     const val TUTORIAL_SECOND_SCREEN = "tutorial_second_screen"
@@ -11,6 +10,4 @@ object DiConstants {
 
     const val SECTION_CHOSEN_PAGINATOR = "section_chosen_paginator"
     const val SECTION_CHOSEN_URL = "section_chosen_url"
-
-
 }

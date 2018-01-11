@@ -5,8 +5,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class SplashRepositoryImpl
-@Inject
-constructor(private val store: SplashReactiveStore) : SplashRepository {
+@Inject constructor(private val store: SplashReactiveStore) : SplashRepository {
+
     override fun isFirstLaunch(): Single<Boolean> = store.isFirstLaunch()
 
     override fun setFirstLaunch(): Completable = store.setFirstLaunch()

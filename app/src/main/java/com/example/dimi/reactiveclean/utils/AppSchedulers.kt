@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 class AppSchedulers
 @Inject constructor(): SchedulersProvider {
+
     override fun ui(): Scheduler = AndroidSchedulers.mainThread()
 
     override fun computation(): Scheduler = Schedulers.computation()

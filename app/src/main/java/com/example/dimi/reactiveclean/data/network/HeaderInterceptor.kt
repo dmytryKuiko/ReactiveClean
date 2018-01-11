@@ -5,19 +5,6 @@ import okhttp3.Response
 
 class HeaderInterceptor : Interceptor {
 
-    companion object {
-
-        private val API_KEY = "api-key"
-
-        private val API_KEY_VALUE = "d474bd2d-2865-4f91-bd31-018ee20422d6"
-
-        private val PAGE_SIZE = "page-size"
-
-        const val DEFAULT_PAGE_SIZE = "DefaultPageSize"
-
-        private val DEFAULT_PAGE_SIZE_VALUE = "25"
-    }
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val httpUrlBuilder = request.url().newBuilder()
@@ -33,5 +20,18 @@ class HeaderInterceptor : Interceptor {
             requestBuilder.addHeader("Authorization", "fooToken")
         }
         return chain.proceed(requestBuilder.build())
+    }
+
+    companion object {
+
+        private val API_KEY = "api-key"
+
+        private val API_KEY_VALUE = "d474bd2d-2865-4f91-bd31-018ee20422d6"
+
+        private val PAGE_SIZE = "page-size"
+
+        const val DEFAULT_PAGE_SIZE = "DefaultPageSize"
+
+        private val DEFAULT_PAGE_SIZE_VALUE = "25"
     }
 }

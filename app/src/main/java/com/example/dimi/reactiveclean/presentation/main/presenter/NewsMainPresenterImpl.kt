@@ -6,9 +6,11 @@ import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
 import javax.inject.Inject
 
 class NewsMainPresenterImpl
-@Inject constructor(val interractor: NewsMainInterractor,
-                    val mapper: NewsMainDomainMapper,
-                    private val navigator: NewsMainNavigator) : NewsMainPresenter {
+@Inject constructor(
+        val interractor: NewsMainInterractor,
+        val mapper: NewsMainDomainMapper,
+        private val navigator: NewsMainNavigator
+) : NewsMainPresenter {
 
     init {
         navigator.startNavigation()

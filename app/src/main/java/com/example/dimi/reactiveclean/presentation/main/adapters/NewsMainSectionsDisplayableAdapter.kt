@@ -9,12 +9,12 @@ import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import kotlinx.android.synthetic.main.row_section_displayable.view.*
 
-class NewsMainSectionsDisplayableAdapter(private val callback: (SectionDisplayable.Section) -> Unit)
-    : AdapterDelegate<MutableList<SectionDisplayable>>() {
+class NewsMainSectionsDisplayableAdapter(
+        private val callback: (SectionDisplayable.Section) -> Unit
+) : AdapterDelegate<MutableList<SectionDisplayable>>() {
 
-    override fun isForViewType(items: MutableList<SectionDisplayable>, position: Int): Boolean {
-        return items[position] is SectionDisplayable.Section
-    }
+    override fun isForViewType(items: MutableList<SectionDisplayable>, position: Int): Boolean =
+            items[position] is SectionDisplayable.Section
 
     override fun onBindViewHolder(items: MutableList<SectionDisplayable>, position: Int,
                                   holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
@@ -24,7 +24,8 @@ class NewsMainSectionsDisplayableAdapter(private val callback: (SectionDisplayab
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.row_section_displayable, parent, false)
+        val view = LayoutInflater.from(parent?.context)
+                .inflate(R.layout.row_section_displayable, parent, false)
         return SectionViewHolder(view, callback)
     }
 

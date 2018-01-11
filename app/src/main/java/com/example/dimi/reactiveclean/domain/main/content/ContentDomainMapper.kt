@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 class ContentDomainMapper
 @Inject constructor() : Function<List<Content>, List<ContentDisplayable.Content>> {
+
     override fun apply(list: List<Content>): List<ContentDisplayable.Content> {
         val parsedList: MutableList<ContentDisplayable.Content> = mutableListOf()
         list.forEach {

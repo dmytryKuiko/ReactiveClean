@@ -24,9 +24,13 @@ class SplashActivity : BaseActivity() {
 
     private val appNavigator = object : SupportAppNavigator(this@SplashActivity, R.id.splash_activity_layout) {
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
-                when(screenKey) {
-                    RouterConstants.TUTORIAL_ACTIVITY -> Intent(this@SplashActivity, TutorialActivity::class.java)
-                    RouterConstants.NEWS_MAIN_ACTIVITY -> Intent(this@SplashActivity, NewsMainActivity::class.java)
+                when (screenKey) {
+                    RouterConstants.TUTORIAL_ACTIVITY ->
+                        Intent(this@SplashActivity, TutorialActivity::class.java)
+
+                    RouterConstants.NEWS_MAIN_ACTIVITY ->
+                        Intent(this@SplashActivity, NewsMainActivity::class.java)
+
                     else -> null
                 }
 

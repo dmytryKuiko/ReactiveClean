@@ -9,10 +9,12 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ContentRepositoryImpl
-@Inject constructor(private val store: ContentStore,
-                    private val serviceNewsApi: ServiceNewsApi,
-                    private val mapper: ContentDataMapper,
-                    private val mapperDB: ContentDataMapperForDB) : ContentRepository {
+@Inject constructor(
+        private val store: ContentStore,
+        private val serviceNewsApi: ServiceNewsApi,
+        private val mapper: ContentDataMapper,
+        private val mapperDB: ContentDataMapperForDB
+) : ContentRepository {
 
     override fun getAllContent(): Flowable<List<Content>> =
             store.getAll()

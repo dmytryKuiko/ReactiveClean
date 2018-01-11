@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_news_main_sections.*
 import javax.inject.Inject
 
 class SectionFragment : BaseFragment() {
+
     @Inject
     lateinit var presenter: SectionPresenter
 

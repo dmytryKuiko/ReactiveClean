@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 class SectionChosenInterractorImpl
 @Inject constructor(private val repositoty: SectionChosenRepository) : SectionChosenInterractor {
+
     override fun getSectionContent(page: Int): Single<List<Content>> {
         return repositoty.getSectionContent(page)
     }

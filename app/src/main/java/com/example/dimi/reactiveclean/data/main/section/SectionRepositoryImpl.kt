@@ -8,9 +8,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class SectionRepositoryImpl
-@Inject constructor(private val store: SectionStore,
-                    private val serviceNewsApi: ServiceNewsApi,
-                    private val mapper: SectionDataMapper) : SectionRepository {
+@Inject constructor(
+        private val store: SectionStore,
+        private val serviceNewsApi: ServiceNewsApi,
+        private val mapper: SectionDataMapper
+) : SectionRepository {
 
     override fun getAllSections(): Flowable<List<Section>> = store.getAllSections()
 

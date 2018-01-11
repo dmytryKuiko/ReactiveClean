@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 class ContentDataMapper
 @Inject constructor() : Function<ContentResponse, ContentPages> {
+
     override fun apply(response: ContentResponse): ContentPages =
             with(response) {
                 if (status != null && total != null && startIndex != null && pageSize != null

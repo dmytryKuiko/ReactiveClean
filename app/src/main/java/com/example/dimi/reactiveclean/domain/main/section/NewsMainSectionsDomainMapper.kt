@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 class NewsMainSectionsDomainMapper
 @Inject constructor() : Function<List<Section>, List<SectionDisplayable>> {
+
     override fun apply(list: List<Section>): List<SectionDisplayable> {
         val convertedList: MutableList<SectionDisplayable> = mutableListOf()
         list.forEach {

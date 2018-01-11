@@ -7,8 +7,8 @@ import io.reactivex.Single.just
 import javax.inject.Inject
 
 class SplashInterractorImpl
-@Inject
-constructor(private val repository: SplashRepository) : SplashInterractor {
+@Inject constructor(private val repository: SplashRepository) : SplashInterractor {
+
     override fun isFirstLaunch(): Single<Boolean> =
             repository.isFirstLaunch()
                     .flatMap(this::getAndWhenFirstSet)

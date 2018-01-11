@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 class NewsMainSectionsInterractorImpl
 @Inject constructor(private val repository: SectionRepository) : NewsMainSectionsInterractor {
+
     override fun getSectionsStream(): Flowable<List<Section>> = repository.getAllSections()
             .flatMapSingle(this::fetchWhenNoneThenDrafts)
             .filter { list -> list.isNotEmpty() }

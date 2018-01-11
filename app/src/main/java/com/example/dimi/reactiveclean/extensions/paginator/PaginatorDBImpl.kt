@@ -15,11 +15,11 @@ import javax.inject.Inject
 class PaginatorDBImpl<T>
 @Inject constructor() : PaginatorDB<T> {
 
+    private val FIRST_PAGE = 1
+
     private lateinit var initRequest: () -> Completable
     private lateinit var databaseStream: () -> Flowable<List<T>>
     private lateinit var pageRequest: (Int) -> Completable
-
-    private val FIRST_PAGE = 1
 
     private var paginatorModelResult: PaginatorModelResult<T>? = null
         set(value) {
@@ -129,8 +129,10 @@ class PaginatorDBImpl<T>
                 val paginatorData = PaginatorModelData(
                         content = data, recyclerUpdate = RecyclerUpdate.DIFF_UTIL, state = ContentState.DATA
                 )
-                paginatorModelResult = PaginatorModelResult(showEmptyProgress = false,
-                        showEmptyView = false, paginatorModelData = paginatorData)
+                paginatorModelResult = PaginatorModelResult(
+                        showEmptyProgress = false,
+                        showEmptyView = false, paginatorModelData = paginatorData
+                )
             } else {
                 currentState = EMPTY_DATA()
                 paginatorModelResult = PaginatorModelResult(showEmptyProgress = false, showEmptyView = true)
@@ -139,9 +141,12 @@ class PaginatorDBImpl<T>
 
         override fun fail(error: Throwable) {
             currentState = DATABASE()
-            paginatorModelResult = PaginatorModelResult(showEmptyProgress = false, showErrorMessage = true, paginatorModelData = PaginatorModelData(
-                    content = currentData, state = ContentState.DATA, recyclerUpdate = RecyclerUpdate.DIFF_UTIL
-            ))
+            paginatorModelResult = PaginatorModelResult(
+                    showEmptyProgress = false, showErrorMessage = true,
+                    paginatorModelData = PaginatorModelData(
+                            content = currentData, state = ContentState.DATA, recyclerUpdate = RecyclerUpdate.DIFF_UTIL
+                    )
+            )
         }
 
         override fun release() {
@@ -240,7 +245,8 @@ class PaginatorDBImpl<T>
                         content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
                 )
                 PaginatorModelResult(
-                        showEmptyView = true, showRefreshProgress = false, paginatorModelData = paginatorData)
+                        showEmptyView = true, showRefreshProgress = false, paginatorModelData = paginatorData
+                )
             }
         }
 
@@ -314,71 +320,3 @@ class PaginatorDBImpl<T>
 
     private inner class RELEASED : State<T>
 }
-
-//private var paginator: PaginatorDB<ContentDisplayable> = PaginatorChangedContent()
-//    initRequest = this::initRequest,
-//    databaseStream = this::getDatabaseStream, pageRequest = this::getContentPage
-
-//    private val paginator = Paginator(
-//            initRequest = this::initRequest,
-//            databaseStream = this::getDatabaseStream,
-//            pageRequest = this::getContentPage,
-//            viewController = object : Paginator.ViewController<ContentDisplayable.Content> {
-//
-//                /**
-//                 * Appears like an additional view on the top of recycler with animation
-//                 * almost the same as showRefreshProgress
-//                 */
-//                override fun showEmptyProgress(show: Boolean) {
-//                    var a = 2
-//                    a++
-//                }
-//
-//                /**
-//                 * Appears like a toast, when shown old data from DB, Request was failed
-//                 */
-//                override fun showErrorMessage(error: Throwable?) {
-//                    var a = 2
-//                    a++
-//                }
-//
-//                /**
-//                 * Appears like an additional view on the top of recycler, means that there is no value
-//                 */
-//                override fun showEmptyView(show: Boolean) {
-//                    var a = 2
-//                    a++
-//                }
-//
-//                override fun showData(show: Boolean, data: List<ContentDisplayable.Content>, recyclerUpdate: RecyclerUpdate) {
-//                    val newList: MutableList<ContentDisplayable> = mutableListOf()
-//                    newList.addAll(data)
-//                    contentLiveData.postValue(
-//                            ContentDisplayable(content = newList, state = ContentState.DATA,
-//                                    recyclerUpdate = recyclerUpdate)
-//                    )
-//                }
-//
-//
-//                override fun showErrorMessage(error: Throwable, data: List<ContentDisplayable.Content>) {
-//                    contentLiveData.postValue(
-//                            ContentDisplayable(data, state = ContentState.ERROR,
-//                                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL)
-//                    )
-//                }
-//
-//                /**
-//                 * Appears like an addtional view on the top of recycler, means global refreshing
-//                 * almost the same as showEmptyProgress
-//                 */
-//                override fun showRefreshProgress(show: Boolean) {
-//
-//                }
-//
-//                override fun showPageProgress(data: List<ContentDisplayable.Content>) {
-//                    contentLiveData.postValue(
-//                            ContentDisplayable(data, state = ContentState.PROGRESS,
-//                                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL)
-//                    )
-//                }
-//            })

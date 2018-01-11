@@ -19,8 +19,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 
-@Module(subcomponents = [SplashComponent::class, TutorialComponent::class,
-    NewsMainComponent::class])
+@Module(subcomponents = [SplashComponent::class, TutorialComponent::class, NewsMainComponent::class])
 abstract class AppModule {
 
     @Binds
@@ -30,36 +29,36 @@ abstract class AppModule {
     companion object {
 
         @JvmStatic
-        @Provides
         @Singleton
+        @Provides
         fun provideContext(app: App): Context = app.applicationContext
 
         @JvmStatic
-        @Provides
         @Singleton
+        @Provides
         fun provideAppDatabase(context: Context): AppDatabase =
-                Room.databaseBuilder(context, AppDatabase::class.java, "database").build()
+                Room.databaseBuilder(context, AppDatabase::class.java, "database")
+                        .build()
 
         @JvmStatic
-        @Provides
         @Singleton
+        @Provides
         fun provideSectionsDao(appDatabase: AppDatabase) = appDatabase.sectionsDao()
 
         @JvmStatic
-        @Provides
         @Singleton
+        @Provides
         fun provideContentDao(appDatabase: AppDatabase) = appDatabase.contentDao()
 
         @JvmStatic
-        @Provides
         @Singleton
+        @Provides
         fun provideRefWatcher(app: App): RefWatcher = LeakCanary.install(app)
 
         @JvmStatic
-        @Provides
         @Singleton
+        @Provides
         fun provideSharedPreferences(context: Context): SharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context)
     }
-
 }

@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import java.lang.reflect.Type
 
 class EnvelopeConverter: Converter.Factory() {
+
     override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): Converter<ResponseBody, Any>? {
         val envelopedType = TypeToken.getParameterized(EnvelopeResponse::class.java, type).type
         return if (retrofit != null && envelopedType != null && annotations != null) {

@@ -6,8 +6,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class SplashReactiveStoreImpl
-@Inject
-constructor(private val prefs: SharedPreferences) : SplashReactiveStore {
+@Inject constructor(private val prefs: SharedPreferences) : SplashReactiveStore {
+
     override fun isFirstLaunch(): Single<Boolean> =
             Single.fromCallable({ prefs.getBoolean("FirstLaunch", true) })
 

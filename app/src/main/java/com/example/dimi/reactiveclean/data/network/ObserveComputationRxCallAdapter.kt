@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import java.lang.reflect.Type
 
 class ObserveComputationRxCallAdapter : CallAdapter.Factory() {
+
     override fun get(returnType: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): CallAdapter<*, *>? {
         if (getRawType(returnType!!) != Observable::class.java || retrofit == null) {
             return null

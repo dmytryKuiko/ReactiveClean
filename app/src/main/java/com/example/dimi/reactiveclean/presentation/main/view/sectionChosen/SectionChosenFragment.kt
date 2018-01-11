@@ -51,7 +51,9 @@ class SectionChosenFragment : BaseFragment() {
             setHasFixedSize(true)
         }
 
-        content_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button).setOnClickListener { presenter.refreshContent() }
+        content_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
+                .setOnClickListener { presenter.refreshContent() }
+
         content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = presenter.getSectionChosen()
 
         presenter.getData().observe(this, Observer { data ->
@@ -79,7 +81,7 @@ class SectionChosenFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if(isRemoving) {
+        if (isRemoving) {
             ComponentManager.releaseTempComponent(this)
         }
     }

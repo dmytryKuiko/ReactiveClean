@@ -17,24 +17,24 @@ import dagger.Module
 @Module
 abstract class SplashModule {
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindReactiveStore(store: SplashReactiveStoreImpl): SplashReactiveStore
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindRepository(repository: SplashRepositoryImpl): SplashRepository
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindInterractor(interractor: SplashInterractorImpl): SplashInterractor
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindPresenter(presenter: SplashPresenterImpl): SplashPresenter
 
-    @Binds
     @ActivityScope
+    @Binds
     internal abstract fun bindNavigator(navigator: SplashNavigatorImpl): SplashNavigator
 
 }

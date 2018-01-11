@@ -25,10 +25,10 @@ abstract class TutorialFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getData().observe(this, Observer { imageType ->
-            imageType?.let { showImage(imageType) }
+            imageType?.let { showImage(it) }
         })
-        tutorial_next_button.setOnClickListener { _ -> presenter.clickNext() }
-        tutorial_back_button.setOnClickListener { _ -> presenter.clickBack() }
+        tutorial_next_button.setOnClickListener { presenter.clickNext() }
+        tutorial_back_button.setOnClickListener { presenter.clickBack() }
     }
 
     private fun showImage(image: ImageType) {

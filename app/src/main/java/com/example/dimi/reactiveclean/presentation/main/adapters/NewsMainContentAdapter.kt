@@ -17,9 +17,10 @@ class NewsMainContentAdapter(
         private val loadNextPage: () -> Unit,
         private val scrollTo: () -> Unit,
         val openCurrentContent: (ContentDisplayable.Content) -> Unit,
-        private val schedulers: SchedulersProvider) : ListDelegationAdapter<MutableList<ContentDisplayable>>() {
+        private val schedulers: SchedulersProvider
+) : ListDelegationAdapter<MutableList<ContentDisplayable>>() {
 
-    private val deltaPositionLoading = 5
+    private val DELTA_POSITION_LOADING = 5
 
     private var disposable: Disposable? = null
 
@@ -34,7 +35,7 @@ class NewsMainContentAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int, payloads: MutableList<Any?>?) {
         super.onBindViewHolder(holder, position, payloads)
-        if (position == items.size - deltaPositionLoading && !isError()) loadNextPage.invoke()
+        if (position == items.size - DELTA_POSITION_LOADING && !isError()) loadNextPage.invoke()
     }
 
     fun setNewData(model: PaginatorModelData<ContentDisplayable>) {
@@ -63,11 +64,12 @@ class NewsMainContentAdapter(
     private fun notifyDiffUtil(newList: List<ContentDisplayable>): Disposable {
         return Single.fromCallable { DiffUtil.calculateDiff(DiffUtilContent(items, newList)) }
                 .compose(::composeSchedulers)
-                .subscribe({
-                    items.apply { clear() }.addAll(newList)
-                    it.dispatchUpdatesTo(this@NewsMainContentAdapter)
-                    checkAndScroll()
-                },
+                .subscribe(
+                        {
+                            items.apply { clear() }.addAll(newList)
+                            it.dispatchUpdatesTo(this@NewsMainContentAdapter)
+                            checkAndScroll()
+                        },
                         { throw Exception(it.message) }
                 )
     }

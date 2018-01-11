@@ -13,11 +13,12 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class SectionChosenPresenterImpl
-@Inject constructor(private val interractor: SectionChosenInterractor,
-                    private val mapper: ContentDomainMapper,
-                    @Named(DiConstants.SECTION_CHOSEN_PAGINATOR) private val paginator: Paginator<ContentDisplayable>,
-                    private val navigator: NewsMainNavigator,
-                    @Named(DiConstants.SECTION_CHOSEN_URL) private val sectionChosen: String
+@Inject constructor(
+        private val interractor: SectionChosenInterractor,
+        private val mapper: ContentDomainMapper,
+        @Named(DiConstants.SECTION_CHOSEN_PAGINATOR) private val paginator: Paginator<ContentDisplayable>,
+        private val navigator: NewsMainNavigator,
+        @Named(DiConstants.SECTION_CHOSEN_URL) private val sectionChosen: String
 ) : SectionChosenPresenter {
 
     private var lastPosition: Int = 0
@@ -31,7 +32,8 @@ class SectionChosenPresenterImpl
         paginator.disposeSubscriptions()
     }
 
-    override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> = paginator.getData()
+    override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> =
+            paginator.getData()
 
     override fun getNetworkError(): LiveData<String> = paginator.getSingleEvent()
 
@@ -44,7 +46,7 @@ class SectionChosenPresenterImpl
     }
 
     override fun openCurrentContent(content: ContentDisplayable.Content) {
-       navigator.openContentUrl(content.url)
+        navigator.openContentUrl(content.url)
     }
 
     override fun setVisibleItem(position: Int) {
@@ -55,7 +57,6 @@ class SectionChosenPresenterImpl
 
     override fun getSectionChosen(): String = sectionChosen
 
-    private fun getSectionContent(page: Int): Single<List<ContentDisplayable>> {
-        return interractor.getSectionContent(page).map(mapper)
-    }
+    private fun getSectionContent(page: Int): Single<List<ContentDisplayable>> =
+            interractor.getSectionContent(page).map(mapper)
 }
