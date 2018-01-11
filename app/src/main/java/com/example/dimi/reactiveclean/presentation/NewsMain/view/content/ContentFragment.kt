@@ -61,7 +61,7 @@ class ContentFragment : BaseFragment() {
 
         presenter.getData().observe(this, Observer { data ->
             data?.let {
-                it.paginatorData?.let {
+                it.paginatorModelData?.let {
                     contentAdapter.setNewData(it)
                 }
 

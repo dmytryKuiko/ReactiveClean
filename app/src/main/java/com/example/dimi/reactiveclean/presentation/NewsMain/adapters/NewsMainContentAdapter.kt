@@ -6,7 +6,7 @@ import com.example.dimi.reactiveclean.models.RecyclerUpdate
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.models.content.ContentState
 import com.example.dimi.reactiveclean.utils.DiffUtilContent
-import com.example.dimi.reactiveclean.utils.paginator.PaginatorData
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorModelData
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import io.reactivex.Single
@@ -37,7 +37,7 @@ class NewsMainContentAdapter(
         if (position == items.size - deltaPositionLoading && !isError()) loadNextPage.invoke()
     }
 
-    fun setNewData(model: PaginatorData<ContentDisplayable>) {
+    fun setNewData(model: PaginatorModelData<ContentDisplayable>) {
         disposable?.dispose()
         val newList: MutableList<ContentDisplayable> = mutableListOf()
         newList.addAll(model.content)

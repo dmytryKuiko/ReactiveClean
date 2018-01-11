@@ -8,7 +8,7 @@ import com.example.dimi.reactiveclean.domain.NewsMain.content.ContentInterractor
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.navigation.NewsMain.NewsMainNavigator
 import com.example.dimi.reactiveclean.utils.paginator.PaginatorDB
-import com.example.dimi.reactiveclean.utils.paginator.PaginatorResult
+import com.example.dimi.reactiveclean.utils.paginator.PaginatorModelResult
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -27,7 +27,7 @@ class ContentPresenterImpl
 
     private var compositeDisposable = CompositeDisposable()
 
-    override fun getData(): LiveData<PaginatorResult<ContentDisplayable>> {
+    override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> {
         return paginator.getData()
     }
 
