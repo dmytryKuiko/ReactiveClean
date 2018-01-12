@@ -23,6 +23,9 @@ import javax.inject.Inject
 
 class SectionChosenFragment : BaseFragment() {
 
+    override val layoutId: Int
+        get() = R.layout.fragment_section_chosen
+
     @Inject
     lateinit var presenter: SectionChosenPresenter
 
@@ -36,11 +39,6 @@ class SectionChosenFragment : BaseFragment() {
                 openCurrentContent = presenter::openCurrentContent,
                 schedulers = schedulers
         )
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_section_chosen, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

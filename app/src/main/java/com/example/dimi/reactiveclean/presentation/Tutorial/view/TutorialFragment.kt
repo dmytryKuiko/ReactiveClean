@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.fragment_tutorial.*
 
 abstract class TutorialFragment : BaseFragment() {
 
+    override val layoutId: Int
+        get() = R.layout.fragment_tutorial
+
     abstract var presenter: TutorialPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

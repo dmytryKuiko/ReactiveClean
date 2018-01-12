@@ -24,16 +24,14 @@ import javax.inject.Inject
 
 class SectionFragment : BaseFragment() {
 
+    override val layoutId: Int
+        get() = R.layout.fragment_news_main_sections
+
     @Inject
     lateinit var presenter: SectionPresenter
 
     private val sectionAdapter by lazy {
         NewsMainSectionsAdapter(presenter::openCurrentSection)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_news_main_sections, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
