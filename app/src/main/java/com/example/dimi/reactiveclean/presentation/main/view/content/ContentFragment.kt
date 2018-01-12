@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +58,8 @@ class ContentFragment : BaseFragment() {
                 .setOnClickListener { presenter.refreshContent() }
 
         content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
+
+        content_toolbar.findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openMenu()}
 
         presenter.subscribeSearchText(RxTextView.textChangeEvents(searchText)
                 .map { it.text().toString() })

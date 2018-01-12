@@ -23,4 +23,6 @@ interface ContentPresenter : BaseDataPresenter<PaginatorModelResult<ContentDispl
     fun subscribeSearchText(text: Observable<String>)
 
     fun disposeRxBinding()
+
+    fun openMenu()
 }

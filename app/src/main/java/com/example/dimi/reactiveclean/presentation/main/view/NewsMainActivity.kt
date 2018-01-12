@@ -15,6 +15,7 @@ import com.example.dimi.reactiveclean.presentation.main.view.content.ContentFrag
 import com.example.dimi.reactiveclean.presentation.main.view.section.SectionFragment
 import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
 import com.example.dimi.reactiveclean.utils.ComponentManager
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_news_main.*
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
@@ -26,6 +27,8 @@ class NewsMainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSe
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
+
+    private var menuDisposable: Disposable? = null
 
     private val appNavigator = object : ExtendedNavigator(
             activity = this@NewsMainActivity,
@@ -59,9 +62,24 @@ class NewsMainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSe
         navigatorHolder.setNavigator(appNavigator)
     }
 
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        menuDisposable = presenter.isMenuOpen().subscribe(
+                {
+                    var a = 2
+                    a++
+                },
+                {
+                    var a = 2
+                    a++
+                }
+        )
+    }
+
     override fun onPause() {
         super.onPause()
         navigatorHolder.removeNavigator()
+        menuDisposable?.dispose()
     }
 
     override fun injectModule() {

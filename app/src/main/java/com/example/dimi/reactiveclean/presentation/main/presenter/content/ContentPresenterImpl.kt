@@ -9,6 +9,7 @@ import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDB
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorModelResult
+import com.example.dimi.reactiveclean.presentation.main.presenter.MenuController
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -21,7 +22,8 @@ class ContentPresenterImpl
         private val interractor: ContentInterractor,
         private val mapper: ContentDomainMapper,
         @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorDB<ContentDisplayable>,
-        private val navigator: NewsMainNavigator
+        private val navigator: NewsMainNavigator,
+        private val menuController: MenuController
 ) : ContentPresenter {
 
     private var lastPosition: Int = 0
@@ -84,6 +86,10 @@ class ContentPresenterImpl
 
     override fun disposeRxBinding() {
         compositeDisposable.clear()
+    }
+
+    override fun openMenu() {
+        menuController.open()
     }
 
     private fun getContentPage(page: Int): Completable =
