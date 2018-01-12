@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".presentation.Main.view.MainActivity" />
         <activity android:name=".presentation.tutorial.view.TutorialActivity" />
-        <activity android:name=".presentation.main.view.NewsMainActivity" />
+        <activity android:name=".presentation.main.view.MainActivity" />
     </application>
 
 </manifest>

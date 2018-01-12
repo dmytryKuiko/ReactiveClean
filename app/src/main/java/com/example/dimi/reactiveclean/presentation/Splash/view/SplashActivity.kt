@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.presentation.BaseActivity
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import com.example.dimi.reactiveclean.presentation.main.view.NewsMainActivity
+import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
 import com.example.dimi.reactiveclean.presentation.splash.presenter.SplashPresenter
 import com.example.dimi.reactiveclean.presentation.tutorial.view.TutorialActivity
 import com.example.dimi.reactiveclean.utils.ComponentManager
@@ -29,7 +29,7 @@ class SplashActivity : BaseActivity() {
                         Intent(this@SplashActivity, TutorialActivity::class.java)
 
                     RouterConstants.NEWS_MAIN_ACTIVITY ->
-                        Intent(this@SplashActivity, NewsMainActivity::class.java)
+                        Intent(this@SplashActivity, MainActivity::class.java)
 
                     else -> null
                 }

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_news_main.*
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-class NewsMainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var presenter: NewsMainPresenter
@@ -31,7 +31,7 @@ class NewsMainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSe
     private var menuDisposable: Disposable? = null
 
     private val appNavigator = object : ExtendedNavigator(
-            activity = this@NewsMainActivity,
+            activity = this@MainActivity,
             containerId = R.id.news_main_activity_container
     ) {
         override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = null
@@ -54,16 +54,12 @@ class NewsMainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_main)
 
-        news_main_bottom_bar.setOnNavigationItemSelectedListener(this@NewsMainActivity)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        navigatorHolder.setNavigator(appNavigator)
+        news_main_bottom_bar.setOnNavigationItemSelectedListener(this@MainActivity)
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
+        navigatorHolder.setNavigator(appNavigator)
         menuDisposable = presenter.isMenuOpen().subscribe(
                 {
                     var a = 2

@@ -7,7 +7,7 @@ import com.example.dimi.reactiveclean.navigation.tutorial.TutorialMainNavigator
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.presentation.BaseActivity
 import com.example.dimi.reactiveclean.navigation.RouterConstants
-import com.example.dimi.reactiveclean.presentation.main.view.NewsMainActivity
+import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.SupportAppNavigator
@@ -23,7 +23,7 @@ class TutorialActivity : BaseActivity() {
 
         override fun createActivityIntent(screenKey: String, data: Any?): Intent? = when (screenKey) {
             RouterConstants.NEWS_MAIN_ACTIVITY ->
-                Intent(this@TutorialActivity, NewsMainActivity::class.java)
+                Intent(this@TutorialActivity, MainActivity::class.java)
 
             else -> null
         }

@@ -9,7 +9,7 @@ import com.example.dimi.reactiveclean.di.TempComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import com.example.dimi.reactiveclean.di.components.NewsMainComponent
-import com.example.dimi.reactiveclean.presentation.main.view.NewsMainActivity
+import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
 import com.example.dimi.reactiveclean.presentation.splash.view.SplashActivity
 import com.example.dimi.reactiveclean.presentation.tutorial.view.TutorialActivity
 
@@ -73,7 +73,7 @@ object ComponentManager {
                 component.splashComponentBuilder().build() as BaseComponent<Context>
             TutorialActivity::class.qualifiedName ->
                 component.tutorialComponentBuilder().build() as BaseComponent<Context>
-            NewsMainActivity::class.qualifiedName ->
+            MainActivity::class.qualifiedName ->
                 component.newsMainComponentBuilder().build() as BaseComponent<Context>
             else -> throw UninitializedPropertyAccessException("This component is not initialized yet")
         }
@@ -82,7 +82,7 @@ object ComponentManager {
     private fun createTempComponent(componentName: String, tempName: String, data: Any?): TempComponent {
 
         return when(componentName) {
-            NewsMainActivity::class.qualifiedName -> {
+            MainActivity::class.qualifiedName -> {
                 val component = componentMap[componentName] as? NewsMainComponent ?:
                         throw NullPointerException("Parent component is null for temp component")
                 val url = data as? String ?: throw IllegalArgumentException("Wrong parameter passed")
