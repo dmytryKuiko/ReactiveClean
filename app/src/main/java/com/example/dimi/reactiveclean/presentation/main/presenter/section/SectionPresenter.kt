@@ -9,4 +9,6 @@ interface SectionPresenter : BaseDataPresenter<List<SectionDisplayable>> {
     fun getSingleEventLiveData(): LiveData<String>
 
     fun openCurrentSection(section: SectionDisplayable.Section)
+
+    fun openMenu()
 }

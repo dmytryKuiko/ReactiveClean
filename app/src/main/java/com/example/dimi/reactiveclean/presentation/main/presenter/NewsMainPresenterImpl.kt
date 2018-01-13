@@ -15,11 +15,7 @@ class NewsMainPresenterImpl
 ) : NewsMainPresenter {
 
     init {
-        navigator.startNavigation()
-    }
-
-    override fun disposeSubscriptions() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        navigator.startNavigation()
     }
 
     override fun isMenuOpen(): Observable<Boolean> = menuController.isOpen()

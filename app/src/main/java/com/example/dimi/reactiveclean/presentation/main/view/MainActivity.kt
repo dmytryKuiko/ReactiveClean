@@ -4,28 +4,29 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.view.MenuItem
+import android.support.v4.view.GravityCompat
+import com.example.dimi.reactiveclean.DrawerFragment
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.presentation.BaseActivity
 import com.example.dimi.reactiveclean.extensions.navigator.ExtendedNavigator
 import com.example.dimi.reactiveclean.navigation.RouterConstants
 import com.example.dimi.reactiveclean.presentation.BaseFragment
 import com.example.dimi.reactiveclean.presentation.main.presenter.NewsMainPresenter
-import com.example.dimi.reactiveclean.presentation.main.view.content.ContentFragment
-import com.example.dimi.reactiveclean.presentation.main.view.section.SectionFragment
 import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_news_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
     private val currentFragment
-        get() = supportFragmentManager.findFragmentById(R.id.news_main_activity_container) as? BaseFragment
+        get() = supportFragmentManager.findFragmentById(R.id.main_activity_fragment_container) as? BaseFragment
+
+    private val drawerFragment
+        get() = supportFragmentManager.findFragmentById(R.id.main_activity_drawer_container) as? DrawerFragment
 
     @Inject
     lateinit var presenter: NewsMainPresenter
@@ -37,7 +38,7 @@ class MainActivity : BaseActivity() {
 
     private val appNavigator = object : ExtendedNavigator(
             activity = this@MainActivity,
-            containerId = R.id.news_main_activity_container
+            containerId = R.id.main_activity_fragment_container
     ) {
 
         override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = null
@@ -57,22 +58,19 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_news_main)
+        setContentView(R.layout.activity_main)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_activity_fragment_container, MainFragment())
+                    .replace(R.id.main_activity_drawer_container, DrawerFragment())
+                    .commit()
+        }
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
         navigatorHolder.setNavigator(appNavigator)
-        menuDisposable = presenter.isMenuOpen().subscribe(
-                {
-                    var a = 2
-                    a++
-                },
-                {
-                    var a = 2
-                    a++
-                }
-        )
+        menuDisposable = presenter.isMenuOpen().subscribe(this::openDrawer)
     }
 
     override fun onPause() {
@@ -82,7 +80,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        currentFragment?.onBackPressed()
+        if (main_activity_drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            openDrawer(false)
+        } else {
+            currentFragment?.onBackPressed()
+        }
     }
 
     override fun injectModule() {
@@ -97,5 +99,13 @@ class MainActivity : BaseActivity() {
         val fragment = SectionChosenFragment()
         ComponentManager.getTempComponent(activity = this, fragment = fragment, data = data)
         return fragment
+    }
+
+    private fun openDrawer(open: Boolean) {
+        if(open) {
+            main_activity_drawer_layout.openDrawer(GravityCompat.START, true)
+        } else {
+            main_activity_drawer_layout.closeDrawer(GravityCompat.START, true)
+        }
     }
 }

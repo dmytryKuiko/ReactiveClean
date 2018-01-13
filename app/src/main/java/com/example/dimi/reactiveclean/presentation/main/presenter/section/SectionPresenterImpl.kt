@@ -8,6 +8,7 @@ import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
+import com.example.dimi.reactiveclean.presentation.main.presenter.MenuController
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -15,7 +16,8 @@ class SectionPresenterImpl
 @Inject constructor(
         interractor: NewsMainSectionsInterractor,
         mapper: NewsMainSectionsDomainMapper,
-        private val navigator: NewsMainNavigator
+        private val navigator: NewsMainNavigator,
+        private val menuController: MenuController
 ) : SectionPresenter {
 
     private val compositeDisposable = CompositeDisposable()
@@ -42,6 +44,10 @@ class SectionPresenterImpl
 
     override fun openCurrentSection(section: SectionDisplayable.Section) {
         navigator.openChosenSection(section.id)
+    }
+
+    override fun openMenu() {
+        menuController.open()
     }
 
     private fun eventReceived(list: List<SectionDisplayable>) {

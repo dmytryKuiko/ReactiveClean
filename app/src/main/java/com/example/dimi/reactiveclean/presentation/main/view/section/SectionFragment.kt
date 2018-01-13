@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.example.dimi.reactiveclean.extensions.visible
 import com.example.dimi.reactiveclean.presentation.main.adapters.NewsMainSectionsAdapter
 import com.example.dimi.reactiveclean.presentation.main.presenter.section.SectionPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
+import kotlinx.android.synthetic.main.fragment_news_main_content.*
 import kotlinx.android.synthetic.main.fragment_news_main_sections.*
 import javax.inject.Inject
 
@@ -37,6 +39,8 @@ class SectionFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sections_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = "Sections"
+
+        sections_toolbar.findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openMenu()}
 
         with(sections_recycler_view) {
             layoutManager = LinearLayoutManager(activity)
