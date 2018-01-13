@@ -14,9 +14,5 @@ class NewsMainPresenterImpl
         private val menuController: MenuController
 ) : NewsMainPresenter {
 
-    init {
-//        navigator.startNavigation()
-    }
-
     override fun isMenuOpen(): Observable<Boolean> = menuController.isOpen()
 }

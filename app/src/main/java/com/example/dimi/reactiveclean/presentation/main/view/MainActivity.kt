@@ -102,7 +102,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun openDrawer(open: Boolean) {
-        if(open) {
+        if (open) {
             main_activity_drawer_layout.openDrawer(GravityCompat.START, true)
         } else {
             main_activity_drawer_layout.closeDrawer(GravityCompat.START, true)
