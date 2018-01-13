@@ -39,7 +39,6 @@ class ContentFragment : BaseFragment() {
     private val contentAdapter by lazy {
         NewsMainContentAdapter(
                 loadNextPage = presenter::loadNextContentPage,
-                scrollTo = this::scrollToLastPosition,
                 openCurrentContent = presenter::openCurrentContent,
                 schedulers = schedulers
         )
@@ -86,13 +85,6 @@ class ContentFragment : BaseFragment() {
         presenter.getSingleEventData().observe(this, Observer { it?.displayToast(activity!!) })
     }
 
-    override fun onDestroyView() {
-        presenter.setVisibleItem(
-                (fragment_news_main_content_recycler_view.layoutManager as LinearLayoutManager)
-                        .findFirstVisibleItemPosition())
-        super.onDestroyView()
-    }
-
     override fun onDestroy() {
         contentAdapter.disposeSubscription()
         presenter.disposeRxBinding()
@@ -103,9 +95,5 @@ class ContentFragment : BaseFragment() {
         val component = (ComponentManager.getComponent(context) as? NewsMainComponent) ?:
                 throw ClassCastException("Component is not an instance of NewsMainComponent")
         component.inject(this)
-    }
-
-    private fun scrollToLastPosition() {
-        fragment_news_main_content_recycler_view.scrollToPosition(presenter.getVisibleItem())
     }
 }

@@ -35,7 +35,6 @@ class SectionChosenFragment : BaseFragment() {
     private val contentAdapter by lazy {
         NewsMainContentAdapter(
                 loadNextPage = presenter::loadNextContentPage,
-                scrollTo = this::scrollToLastPosition,
                 openCurrentContent = presenter::openCurrentContent,
                 schedulers = schedulers
         )

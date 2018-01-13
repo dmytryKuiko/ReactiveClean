@@ -15,7 +15,6 @@ import timber.log.Timber
 
 class NewsMainContentAdapter(
         private val loadNextPage: () -> Unit,
-        private val scrollTo: () -> Unit,
         val openCurrentContent: (ContentDisplayable.Content) -> Unit,
         private val schedulers: SchedulersProvider
 ) : ListDelegationAdapter<MutableList<ContentDisplayable>>() {
@@ -23,8 +22,6 @@ class NewsMainContentAdapter(
     private val DELTA_POSITION_LOADING = 5
 
     private var disposable: Disposable? = null
-
-    private var needsScrolling = true
 
     init {
         items = mutableListOf()
@@ -68,7 +65,6 @@ class NewsMainContentAdapter(
                         {
                             items.apply { clear() }.addAll(newList)
                             it.dispatchUpdatesTo(this@NewsMainContentAdapter)
-                            checkAndScroll()
                         },
                         { throw Exception(it.message) }
                 )
@@ -77,13 +73,6 @@ class NewsMainContentAdapter(
     private fun notifyRanges(newList: List<ContentDisplayable>) {
         items.apply { clear() }.addAll(newList)
         notifyDataSetChanged()
-    }
-
-    private fun checkAndScroll() {
-        if (needsScrolling) {
-            scrollTo.invoke()
-            needsScrolling = false
-        }
     }
 
     private fun composeSchedulers(single: Single<DiffUtil.DiffResult>): Single<DiffUtil.DiffResult> =

@@ -26,8 +26,6 @@ class ContentPresenterImpl
         private val menuController: MenuController
 ) : ContentPresenter {
 
-    private var lastPosition: Int = 0
-
     private var compositeDisposable = CompositeDisposable()
 
     override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> =
@@ -61,12 +59,6 @@ class ContentPresenterImpl
     override fun openCurrentContent(content: ContentDisplayable.Content) {
         navigator.openContentUrl(content.url)
     }
-
-    override fun setVisibleItem(position: Int) {
-        lastPosition = position
-    }
-
-    override fun getVisibleItem(): Int = lastPosition
 
     override fun subscribeSearchText(text: Observable<String>) {
         interractor.searchContent(text)

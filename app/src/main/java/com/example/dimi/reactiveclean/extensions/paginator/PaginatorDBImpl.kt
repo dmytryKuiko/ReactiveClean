@@ -127,7 +127,7 @@ class PaginatorDBImpl<T>
                 currentData.addAll(data)
                 currentPage = FIRST_PAGE
                 val paginatorData = PaginatorModelData(
-                        content = data, recyclerUpdate = RecyclerUpdate.DIFF_UTIL, state = ContentState.DATA
+                        content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
                 )
                 paginatorModelResult = PaginatorModelResult(
                         showEmptyProgress = false,
@@ -144,7 +144,7 @@ class PaginatorDBImpl<T>
             paginatorModelResult = PaginatorModelResult(
                     showEmptyProgress = false, showErrorMessage = true,
                     paginatorModelData = PaginatorModelData(
-                            content = currentData, state = ContentState.DATA, recyclerUpdate = RecyclerUpdate.DIFF_UTIL
+                            content = currentData, state = ContentState.DATA, recyclerUpdate = RecyclerUpdate.NOTIFY
                     )
             )
         }
@@ -171,7 +171,7 @@ class PaginatorDBImpl<T>
                 currentData.clear()
                 currentData.addAll(data)
                 val paginatorData = PaginatorModelData(
-                        content = data, recyclerUpdate = RecyclerUpdate.DIFF_UTIL, state = ContentState.DATA
+                        content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
                 )
                 PaginatorModelResult(paginatorModelData = paginatorData)
             } else {
@@ -213,7 +213,7 @@ class PaginatorDBImpl<T>
         override fun loadNewPage() {
             currentState = PAGE_PROGRESS()
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.DIFF_UTIL, state = ContentState.PROGRESS
+                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.PROGRESS
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
             loadPage(currentPage + 1)
@@ -253,7 +253,7 @@ class PaginatorDBImpl<T>
         override fun fail(error: Throwable) {
             currentState = DATA()
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.DIFF_UTIL, state = ContentState.ERROR
+                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.ERROR
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData, showRefreshProgress = false)
         }
@@ -277,7 +277,7 @@ class PaginatorDBImpl<T>
                 currentState = ALL_DATA()
             }
             val paginatorData = PaginatorModelData(
-                    content = data, recyclerUpdate = RecyclerUpdate.DIFF_UTIL, state = ContentState.DATA
+                    content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
         }
@@ -291,7 +291,7 @@ class PaginatorDBImpl<T>
         override fun fail(error: Throwable) {
             currentState = DATA()
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.DIFF_UTIL, state = ContentState.ERROR
+                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.ERROR
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
         }
