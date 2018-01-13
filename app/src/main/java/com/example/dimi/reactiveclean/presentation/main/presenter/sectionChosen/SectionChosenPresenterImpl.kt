@@ -18,7 +18,7 @@ class SectionChosenPresenterImpl
         private val mapper: ContentDomainMapper,
         @Named(DiConstants.SECTION_CHOSEN_PAGINATOR) private val paginator: Paginator<ContentDisplayable>,
         private val navigator: NewsMainNavigator,
-        @Named(DiConstants.SECTION_CHOSEN_URL) private val sectionChosen: String
+        @Named(DiConstants.SECTION_CHOSEN_TITLE) private val sectionTitle: String
 ) : SectionChosenPresenter {
 
     private var lastPosition: Int = 0
@@ -55,7 +55,7 @@ class SectionChosenPresenterImpl
 
     override fun getVisibleItem(): Int = lastPosition
 
-    override fun getSectionChosen(): String = sectionChosen
+    override fun getTitle(): String = sectionTitle
 
     override fun onBackPressed() {
         navigator.onBackPressed()

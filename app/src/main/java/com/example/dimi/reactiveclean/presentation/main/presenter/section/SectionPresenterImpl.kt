@@ -43,7 +43,7 @@ class SectionPresenterImpl
     override fun getSingleEventLiveData(): LiveData<String> = errorLiveData
 
     override fun openCurrentSection(section: SectionDisplayable.Section) {
-        navigator.openChosenSection(section.id)
+        navigator.openChosenSection(sectionUrl = section.id, sectionTitle = section.title)
     }
 
     override fun openMenu() {

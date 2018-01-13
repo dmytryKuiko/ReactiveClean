@@ -19,7 +19,7 @@ interface SectionChosenPresenter : BaseDataPresenter<PaginatorModelResult<Conten
 
     fun getVisibleItem(): Int
 
-    fun getSectionChosen(): String
+    fun getTitle(): String
 
     fun onBackPressed()
 }

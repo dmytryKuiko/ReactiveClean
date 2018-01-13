@@ -6,7 +6,7 @@ interface NewsMainNavigator {
 
     fun openContentUrl(url: String)
 
-    fun openChosenSection(sectionUrl: String)
+    fun openChosenSection(sectionUrl: String, sectionTitle: String)
 
     fun onBackPressed()
 }

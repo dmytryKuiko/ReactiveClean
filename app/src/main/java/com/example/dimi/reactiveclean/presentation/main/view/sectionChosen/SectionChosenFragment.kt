@@ -4,9 +4,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.dimi.reactiveclean.R
@@ -51,7 +49,7 @@ class SectionChosenFragment : BaseFragment() {
         content_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
                 .setOnClickListener { presenter.refreshContent() }
 
-        content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = presenter.getSectionChosen()
+        content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = presenter.getTitle()
 
         presenter.getData().observe(this, Observer { data ->
             data?.let {
@@ -89,9 +87,5 @@ class SectionChosenFragment : BaseFragment() {
 
     override fun injectModule(context: Context) {
         (ComponentManager.getTempComponent(context, this, null) as SectionChosenComponent).inject(this)
-    }
-
-    private fun scrollToLastPosition() {
-        fragment_section_chosen_recycler_view.scrollToPosition(presenter.getVisibleItem())
     }
 }

@@ -9,6 +9,8 @@ import com.example.dimi.reactiveclean.di.TempComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import com.example.dimi.reactiveclean.di.components.NewsMainComponent
+import com.example.dimi.reactiveclean.di.modules.SectionChosenModule
+import com.example.dimi.reactiveclean.models.section.SectionChosenModel
 import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
 import com.example.dimi.reactiveclean.presentation.splash.view.SplashActivity
 import com.example.dimi.reactiveclean.presentation.tutorial.view.TutorialActivity
@@ -85,8 +87,11 @@ object ComponentManager {
             MainActivity::class.qualifiedName -> {
                 val component = componentMap[componentName] as? NewsMainComponent ?:
                         throw NullPointerException("Parent component is null for temp component")
-                val url = data as? String ?: throw IllegalArgumentException("Wrong parameter passed")
-                component.sectionChosenBuilder().sectionUrl(url).build()
+                val model = data as? SectionChosenModel ?: throw IllegalArgumentException("Wrong parameter passed")
+                component.sectionChosenBuilder()
+                        .sectionUrl(model.url)
+                        .sectionTitle(model.title)
+                        .build()
             }
 
             else -> throw UninitializedPropertyAccessException("This component is not initialized yet")

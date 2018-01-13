@@ -20,6 +20,10 @@ interface SectionChosenComponent : TempComponent {
         @BindsInstance
         fun sectionUrl(@Named(DiConstants.SECTION_CHOSEN_URL) url: String): Builder
 
+        @CustomScope
+        @BindsInstance
+        fun sectionTitle(@Named(DiConstants.SECTION_CHOSEN_TITLE) url: String): Builder
+
         fun build(): SectionChosenComponent
     }
 
