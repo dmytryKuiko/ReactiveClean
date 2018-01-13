@@ -22,13 +22,5 @@ class NewsMainPresenterImpl
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onContentClicked() {
-        navigator.navigateToContent()
-    }
-
-    override fun onSectionsClicked() {
-        navigator.navigateToSection()
-    }
-
     override fun isMenuOpen(): Observable<Boolean> = menuController.isOpen()
 }

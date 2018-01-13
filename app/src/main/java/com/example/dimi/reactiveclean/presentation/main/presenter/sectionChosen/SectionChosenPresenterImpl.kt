@@ -57,6 +57,10 @@ class SectionChosenPresenterImpl
 
     override fun getSectionChosen(): String = sectionChosen
 
+    override fun onBackPressed() {
+        navigator.onBackPressed()
+    }
+
     private fun getSectionContent(page: Int): Single<List<ContentDisplayable>> =
             interractor.getSectionContent(page).map(mapper)
 }

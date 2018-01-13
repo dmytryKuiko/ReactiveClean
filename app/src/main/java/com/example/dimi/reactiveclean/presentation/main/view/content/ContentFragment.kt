@@ -44,8 +44,8 @@ class ContentFragment : BaseFragment() {
         )
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         with(fragment_news_main_content_recycler_view) {
             layoutManager = LinearLayoutManager(activity)
             adapter = contentAdapter

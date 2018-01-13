@@ -11,6 +11,7 @@ import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.presentation.BaseActivity
 import com.example.dimi.reactiveclean.extensions.navigator.ExtendedNavigator
 import com.example.dimi.reactiveclean.navigation.RouterConstants
+import com.example.dimi.reactiveclean.presentation.BaseFragment
 import com.example.dimi.reactiveclean.presentation.main.presenter.NewsMainPresenter
 import com.example.dimi.reactiveclean.presentation.main.view.content.ContentFragment
 import com.example.dimi.reactiveclean.presentation.main.view.section.SectionFragment
@@ -21,7 +22,10 @@ import kotlinx.android.synthetic.main.activity_news_main.*
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity() {
+
+    private val currentFragment
+        get() = supportFragmentManager.findFragmentById(R.id.news_main_activity_container) as? BaseFragment
 
     @Inject
     lateinit var presenter: NewsMainPresenter
@@ -39,8 +43,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = null
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
-            RouterConstants.SECTION_SCREEN -> SectionFragment()
-            RouterConstants.CONTENT_SCREEN -> ContentFragment()
+            RouterConstants.MAIN_SCREEN -> MainFragment()
             RouterConstants.SECTION_CHOSEN_SCREEN -> createFragmentAndInitComponent(data)
             else -> null
         }
@@ -55,8 +58,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_main)
-
-        news_main_bottom_bar.setOnNavigationItemSelectedListener(this@MainActivity)
     }
 
     override fun onResumeFragments() {
@@ -80,6 +81,10 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         menuDisposable?.dispose()
     }
 
+    override fun onBackPressed() {
+        currentFragment?.onBackPressed()
+    }
+
     override fun injectModule() {
         ComponentManager.getComponent(this).inject(this)
     }
@@ -87,19 +92,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun releaseModule() {
         ComponentManager.releaseComponent(this)
     }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean =
-            when (item.itemId) {
-                R.id.content_bottom_bar -> {
-                    presenter.onContentClicked()
-                    true
-                }
-                R.id.sections_bottom_bar -> {
-                    presenter.onSectionsClicked()
-                    true
-                }
-                else -> false
-            }
 
     private fun createFragmentAndInitComponent(data: Any?): Fragment {
         val fragment = SectionChosenFragment()

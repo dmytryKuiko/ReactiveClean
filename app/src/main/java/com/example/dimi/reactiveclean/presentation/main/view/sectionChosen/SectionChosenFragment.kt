@@ -83,6 +83,10 @@ class SectionChosenFragment : BaseFragment() {
         }
     }
 
+    override fun onBackPressed() {
+        presenter.onBackPressed()
+    }
+
     override fun injectModule(context: Context) {
         (ComponentManager.getTempComponent(context, this, null) as SectionChosenComponent).inject(this)
     }

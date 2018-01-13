@@ -7,24 +7,8 @@ import javax.inject.Inject
 class NewsMainNavigatorImpl
 @Inject constructor(private val router: ExtendedRouter) : NewsMainNavigator {
 
-    private var currentStep = NewsMainNavigatorStep.NONE
-
     override fun startNavigation() {
-        if (currentStep != NewsMainNavigatorStep.NONE) {
-            return
-        }
-        currentStep = NewsMainNavigatorStep.CONTENT
-        router.newRootScreen(RouterConstants.CONTENT_SCREEN)
-    }
-
-    override fun navigateToContent() {
-        currentStep = NewsMainNavigatorStep.CONTENT
-        router.newRootScreen(RouterConstants.CONTENT_SCREEN)
-    }
-
-    override fun navigateToSection() {
-        currentStep = NewsMainNavigatorStep.SECTION
-        router.newRootScreen(RouterConstants.SECTION_SCREEN)
+        router.newRootScreen(RouterConstants.MAIN_SCREEN)
     }
 
     override fun openContentUrl(url: String) {
@@ -33,5 +17,9 @@ class NewsMainNavigatorImpl
 
     override fun openChosenSection(sectionUrl: String) {
         router.navigateTo(RouterConstants.SECTION_CHOSEN_SCREEN, sectionUrl)
+    }
+
+    override fun onBackPressed() {
+        router.exit()
     }
 }

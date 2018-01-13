@@ -22,4 +22,6 @@ abstract class BaseFragment : Fragment() {
             inflater.inflate(layoutId, container, false)
 
     abstract protected fun injectModule(context: Context)
+
+    open fun onBackPressed() {}
 }

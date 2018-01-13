@@ -5,9 +5,5 @@ import io.reactivex.Observable
 
 interface NewsMainPresenter : BasePresenter {
 
-    fun onContentClicked()
-
-    fun onSectionsClicked()
-
     fun isMenuOpen(): Observable<Boolean>
 }

@@ -16,8 +16,6 @@ import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInterr
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigatorImpl
-import com.example.dimi.reactiveclean.presentation.main.presenter.NewsMainPresenter
-import com.example.dimi.reactiveclean.presentation.main.presenter.NewsMainPresenterImpl
 import com.example.dimi.reactiveclean.presentation.main.presenter.content.ContentPresenter
 import com.example.dimi.reactiveclean.presentation.main.presenter.content.ContentPresenterImpl
 import com.example.dimi.reactiveclean.presentation.main.presenter.section.SectionPresenter
@@ -28,8 +26,7 @@ import com.example.dimi.reactiveclean.data.main.section.SectionRepository
 import com.example.dimi.reactiveclean.data.main.section.SectionRepositoryImpl
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDB
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDBImpl
-import com.example.dimi.reactiveclean.presentation.main.presenter.MenuController
-import com.example.dimi.reactiveclean.presentation.main.presenter.MenuControllerImpl
+import com.example.dimi.reactiveclean.presentation.main.presenter.*
 import dagger.Binds
 import dagger.Module
 import javax.inject.Named
@@ -91,6 +88,10 @@ abstract class NewsMainModule {
     @ActivityScope
     @Binds
     internal abstract fun bindMenuController(menuController: MenuControllerImpl): MenuController
+
+    @ActivityScope
+    @Binds
+    internal abstract fun bindMainFragmentPresenter(presenter: MainFragmentPresenterImpl): MainFragmentPresenter
 
     @Module
     companion object {}
