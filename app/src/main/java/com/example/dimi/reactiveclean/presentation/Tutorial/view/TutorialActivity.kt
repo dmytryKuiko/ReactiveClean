@@ -1,5 +1,6 @@
 package com.example.dimi.reactiveclean.presentation.tutorial.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -21,9 +22,9 @@ class TutorialActivity : BaseActivity() {
 
     private val appNavigator = object : SupportAppNavigator(this@TutorialActivity, R.id.tutorial_activity_container_layout) {
 
-        override fun createActivityIntent(screenKey: String, data: Any?): Intent? = when (screenKey) {
+        override fun createActivityIntent(context: Context?, screenKey: String, data: Any?): Intent? = when (screenKey) {
             RouterConstants.NEWS_MAIN_ACTIVITY ->
-                Intent(this@TutorialActivity, MainActivity::class.java)
+                Intent(context, MainActivity::class.java)
 
             else -> null
         }

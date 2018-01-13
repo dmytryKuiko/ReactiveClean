@@ -5,6 +5,6 @@ import ru.terrakok.cicerone.Router
 class ExtendedRouter : Router() {
 
     fun openInBrowser(url: String) {
-        executeCommand(OpenInBrowser(url))
+        executeCommands(OpenInBrowser(url))
     }
 }

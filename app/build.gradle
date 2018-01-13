@@ -113,7 +113,7 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.6.0'
 
     //Cicerone
-    compile 'ru.terrakok.cicerone:cicerone:2.1.0'
+    compile 'ru.terrakok.cicerone:cicerone:3.0.0'
 
     //Picasso
     compile 'com.squareup.picasso:picasso:2.5.2'

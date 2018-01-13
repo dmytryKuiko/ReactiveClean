@@ -1,5 +1,6 @@
 package com.example.dimi.reactiveclean.presentation.main.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
@@ -34,7 +35,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             activity = this@MainActivity,
             containerId = R.id.news_main_activity_container
     ) {
-        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? = null
+
+        override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = null
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
             RouterConstants.SECTION_SCREEN -> SectionFragment()

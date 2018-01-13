@@ -1,5 +1,6 @@
 package com.example.dimi.reactiveclean.presentation.splash.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -23,13 +24,14 @@ class SplashActivity : BaseActivity() {
     lateinit var presenter: SplashPresenter
 
     private val appNavigator = object : SupportAppNavigator(this@SplashActivity, R.id.splash_activity_layout) {
-        override fun createActivityIntent(screenKey: String?, data: Any?): Intent? =
+
+        override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? =
                 when (screenKey) {
                     RouterConstants.TUTORIAL_ACTIVITY ->
-                        Intent(this@SplashActivity, TutorialActivity::class.java)
+                        Intent(context, TutorialActivity::class.java)
 
                     RouterConstants.NEWS_MAIN_ACTIVITY ->
-                        Intent(this@SplashActivity, MainActivity::class.java)
+                        Intent(context, MainActivity::class.java)
 
                     else -> null
                 }
