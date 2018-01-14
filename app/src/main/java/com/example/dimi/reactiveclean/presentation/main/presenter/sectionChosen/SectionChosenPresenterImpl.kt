@@ -8,6 +8,7 @@ import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
 import com.example.dimi.reactiveclean.extensions.paginator.Paginator
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorModelResult
+import com.example.dimi.reactiveclean.presentation.main.presenter.MenuController
 import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Named
@@ -18,7 +19,8 @@ class SectionChosenPresenterImpl
         private val mapper: ContentDomainMapper,
         @Named(DiConstants.SECTION_CHOSEN_PAGINATOR) private val paginator: Paginator<ContentDisplayable>,
         private val navigator: NewsMainNavigator,
-        @Named(DiConstants.SECTION_CHOSEN_TITLE) private val sectionTitle: String
+        @Named(DiConstants.SECTION_CHOSEN_TITLE) private val sectionTitle: String,
+        private val menuController: MenuController
 ) : SectionChosenPresenter {
 
     private var lastPosition: Int = 0
@@ -59,6 +61,10 @@ class SectionChosenPresenterImpl
 
     override fun onBackPressed() {
         navigator.onBackPressed()
+    }
+
+    override fun openMenu() {
+       menuController.open()
     }
 
     private fun getSectionContent(page: Int): Single<List<ContentDisplayable>> =

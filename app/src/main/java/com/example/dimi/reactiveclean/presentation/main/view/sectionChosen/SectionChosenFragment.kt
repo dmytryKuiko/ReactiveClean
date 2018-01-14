@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -50,6 +51,8 @@ class SectionChosenFragment : BaseFragment() {
                 .setOnClickListener { presenter.refreshContent() }
 
         content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = presenter.getTitle()
+
+        content_toolbar.findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openMenu()}
 
         presenter.getData().observe(this, Observer { data ->
             data?.let {

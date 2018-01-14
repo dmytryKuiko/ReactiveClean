@@ -22,4 +22,6 @@ interface SectionChosenPresenter : BaseDataPresenter<PaginatorModelResult<Conten
     fun getTitle(): String
 
     fun onBackPressed()
+
+    fun openMenu()
 }
