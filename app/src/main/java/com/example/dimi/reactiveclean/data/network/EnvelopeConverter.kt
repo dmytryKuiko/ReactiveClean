@@ -5,8 +5,10 @@ import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Retrofit
 import java.lang.reflect.Type
+import javax.inject.Inject
 
-class EnvelopeConverter: Converter.Factory() {
+class EnvelopeConverter
+@Inject constructor() : Converter.Factory() {
 
     override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): Converter<ResponseBody, Any>? {
         val envelopedType = TypeToken.getParameterized(EnvelopeResponse::class.java, type).type
