@@ -5,12 +5,13 @@ import android.arch.lifecycle.MutableLiveData
 import com.example.dimi.reactiveclean.models.RecyclerUpdate
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
 import com.example.dimi.reactiveclean.models.content.ContentState
+import com.example.dimi.reactiveclean.utils.ErrorHandler
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class PaginatorImpl<T>
-@Inject constructor() : Paginator<T> {
+@Inject constructor(private val errorHandler: ErrorHandler) : Paginator<T> {
 
     private lateinit var pageRequest: (Int) -> Single<List<T>>
 
@@ -37,7 +38,7 @@ class PaginatorImpl<T>
     private var disposable: Disposable? = null
 
     override fun disposeSubscriptions() {
-       currentState.release()
+        currentState.release()
     }
 
     override fun getData(): LiveData<PaginatorModelResult<T>> = dataLiveData
@@ -230,8 +231,9 @@ class PaginatorImpl<T>
 
         override fun fail(error: Throwable) {
             currentState = DATA()
+            val state = errorHandler.getErrorState(error)
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.ERROR
+                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = state
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
         }

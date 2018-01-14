@@ -28,11 +28,12 @@ class NewsMainContentAdapter(
         delegatesManager.addDelegate(NewsMainContentDisplayableAdapter(openCurrentContent))
                 .addDelegate(ProgressAdapter())
                 .addDelegate(ErrorAdapter(loadNextPage))
+                .setFallbackDelegate(AllDataAdapter())
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int, payloads: MutableList<Any?>?) {
         super.onBindViewHolder(holder, position, payloads)
-        if (position == items.size - DELTA_POSITION_LOADING && !isError()) loadNextPage.invoke()
+        if (position == items.size - DELTA_POSITION_LOADING && isContent()) loadNextPage.invoke()
     }
 
     fun setNewData(model: PaginatorModelData<ContentDisplayable>) {
@@ -44,6 +45,7 @@ class NewsMainContentAdapter(
             ContentState.DATA -> {}
             ContentState.PROGRESS -> newList.add(ContentDisplayable.Progress())
             ContentState.ERROR -> newList.add(ContentDisplayable.Error())
+            ContentState.ALL_DATA -> newList.add(ContentDisplayable.AllContent())
         }
         when (model.recyclerUpdate) {
             RecyclerUpdate.DIFF_UTIL -> disposable = notifyDiffUtil(newList)
@@ -55,8 +57,8 @@ class NewsMainContentAdapter(
     fun disposeSubscription() {
         disposable?.dispose()
     }
-
-    private fun isError() = items.last() is ContentDisplayable.Error
+    
+    private fun isContent() = items.last() is ContentDisplayable.Content
 
     private fun notifyDiffUtil(newList: List<ContentDisplayable>): Disposable {
         return Single.fromCallable { DiffUtil.calculateDiff(DiffUtilContent(items, newList)) }

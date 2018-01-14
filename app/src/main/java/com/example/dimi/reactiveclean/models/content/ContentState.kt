@@ -5,6 +5,7 @@ package com.example.dimi.reactiveclean.models.content
  */
 enum class ContentState {
     DATA,
+    ALL_DATA,
     PROGRESS,
     ERROR
 }

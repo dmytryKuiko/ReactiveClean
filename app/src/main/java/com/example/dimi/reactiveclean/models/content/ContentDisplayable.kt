@@ -16,4 +16,5 @@ sealed class ContentDisplayable {
 
     class Error : ContentDisplayable()
 
+    class AllContent : ContentDisplayable()
 }
