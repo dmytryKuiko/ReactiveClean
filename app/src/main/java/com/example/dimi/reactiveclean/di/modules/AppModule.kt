@@ -53,6 +53,11 @@ abstract class AppModule {
         @JvmStatic
         @Singleton
         @Provides
+        fun provideSearchDao(appDatabase: AppDatabase) = appDatabase.searchDao()
+
+        @JvmStatic
+        @Singleton
+        @Provides
         fun provideRefWatcher(app: App): RefWatcher = LeakCanary.install(app)
 
         @JvmStatic
