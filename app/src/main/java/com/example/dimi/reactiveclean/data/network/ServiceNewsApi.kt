@@ -24,8 +24,8 @@ interface ServiceNewsApi {
     fun getNextContent(@Query("page") page: Int): Single<ContentResponse>
 
     @GET("search")
-    @Headers("No-Authentication: true")
-    fun getSpecificContent(@Query("q") params: String): Single<ContentResponse>
+    @Headers("No-Authentication: true", "$DEFAULT_PAGE_SIZE: true")
+    fun getSearchContent(@Query("q") params: String): Single<ContentResponse>
 
     @GET("{section}")
     @Headers("$DEFAULT_PAGE_SIZE: true")

@@ -26,7 +26,7 @@ class ContentRepositoryImpl
                     .toCompletable()
 
     override fun searchContent(text: String): Single<ContentPages> {
-        return serviceNewsApi.getSpecificContent(text).map(mapper)
+        return serviceNewsApi.getSearchContent(text).map(mapper)
     }
 
     override fun loadNextContentPage(page: Int): Completable {
