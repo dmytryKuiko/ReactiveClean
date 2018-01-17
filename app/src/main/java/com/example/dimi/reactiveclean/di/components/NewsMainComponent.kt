@@ -25,4 +25,6 @@ interface NewsMainComponent : BaseComponent<MainActivity> {
     fun inject(fragment: SectionFragment)
 
     fun sectionChosenBuilder(): SectionChosenComponent.Builder
+
+    fun searchBuilder(): SearchComponent.Builder
 }

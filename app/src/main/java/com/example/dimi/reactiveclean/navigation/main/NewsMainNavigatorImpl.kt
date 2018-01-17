@@ -26,4 +26,14 @@ class NewsMainNavigatorImpl
     override fun onBackPressed() {
         router.exit()
     }
+
+    override fun navigateToSearch() {
+        router.navigateTo(RouterConstants.SEARCH_SCREEN)
+    }
+
+    override fun openSearchContent(text: String) {
+        router.navigateTo(RouterConstants.SEARCH_CHOSEN_SCREEN,
+                SectionChosenModel(url = "search?q=$text", title = text)
+        )
+    }
 }

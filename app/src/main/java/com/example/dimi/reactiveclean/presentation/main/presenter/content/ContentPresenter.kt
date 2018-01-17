@@ -10,7 +10,7 @@ interface ContentPresenter : BaseDataPresenter<PaginatorModelResult<ContentDispl
 
     fun getSingleEventData(): LiveData<String>
 
-    fun refreshContent()
+    fun refreshClicked()
 
     fun loadNextContentPage()
 
@@ -20,5 +20,7 @@ interface ContentPresenter : BaseDataPresenter<PaginatorModelResult<ContentDispl
 
     fun disposeRxBinding()
 
-    fun openMenu()
+    fun openDrawerClicked()
+
+    fun searchClicked()
 }

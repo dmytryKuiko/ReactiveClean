@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
-import com.example.dimi.reactiveclean.DrawerFragment
+import com.example.dimi.reactiveclean.presentation.main.view.drawer.DrawerFragment
 import com.example.dimi.reactiveclean.R
+import com.example.dimi.reactiveclean.presentation.main.view.search.SearchFragment
 import com.example.dimi.reactiveclean.presentation.BaseActivity
 import com.example.dimi.reactiveclean.extensions.navigator.ExtendedNavigator
 import com.example.dimi.reactiveclean.navigation.RouterConstants
@@ -45,7 +46,9 @@ class MainActivity : BaseActivity() {
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
             RouterConstants.MAIN_SCREEN -> MainFragment()
-            RouterConstants.SECTION_CHOSEN_SCREEN -> createFragmentAndInitComponent(data)
+            RouterConstants.SECTION_CHOSEN_SCREEN -> initTempComponent(SectionChosenFragment(), data)
+            RouterConstants.SEARCH_SCREEN -> initTempComponent(SearchFragment(), null)
+            RouterConstants.SEARCH_CHOSEN_SCREEN -> initTempComponent(SectionChosenFragment(), data)
             else -> null
         }
 
@@ -95,8 +98,7 @@ class MainActivity : BaseActivity() {
         ComponentManager.releaseComponent(this)
     }
 
-    private fun createFragmentAndInitComponent(data: Any?): Fragment {
-        val fragment = SectionChosenFragment()
+    private fun initTempComponent(fragment: Fragment, data: Any?): Fragment {
         ComponentManager.getTempComponent(activity = this, fragment = fragment, data = data)
         return fragment
     }

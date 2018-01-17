@@ -12,6 +12,8 @@ import com.example.dimi.reactiveclean.di.components.NewsMainComponent
 import com.example.dimi.reactiveclean.di.modules.SectionChosenModule
 import com.example.dimi.reactiveclean.models.section.SectionChosenModel
 import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
+import com.example.dimi.reactiveclean.presentation.main.view.search.SearchFragment
+import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
 import com.example.dimi.reactiveclean.presentation.splash.view.SplashActivity
 import com.example.dimi.reactiveclean.presentation.tutorial.view.TutorialActivity
 
@@ -45,12 +47,12 @@ object ComponentManager {
     }
 
     fun getTempComponent(activity: Context, fragment: Fragment, data: Any?): TempComponent {
-        val name = getName(fragment)
+        val tempComponentName = getName(fragment)
         val componentName = getName(activity)
-        var component = tempComponentMap[name]
+        var component = tempComponentMap[tempComponentName]
         if (component == null) {
-            component = createTempComponent(componentName, name, data)
-            storeTempComponent(name, component)
+            component = createTempComponent(componentName, tempComponentName, data)
+            storeTempComponent(tempComponentName, component)
         }
         return component
     }
@@ -81,17 +83,29 @@ object ComponentManager {
         }
     }
 
-    private fun createTempComponent(componentName: String, tempName: String, data: Any?): TempComponent {
+    private fun createTempComponent(componentName: String, tempComponentName: String, data: Any?): TempComponent {
 
-        return when(componentName) {
+        return when (componentName) {
             MainActivity::class.qualifiedName -> {
                 val component = componentMap[componentName] as? NewsMainComponent ?:
                         throw NullPointerException("Parent component is null for temp component")
-                val model = data as? SectionChosenModel ?: throw IllegalArgumentException("Wrong parameter passed")
-                component.sectionChosenBuilder()
-                        .sectionUrl(model.url)
-                        .sectionTitle(model.title)
-                        .build()
+                when (tempComponentName) {
+                    SectionChosenFragment::class.qualifiedName -> {
+                        val model = data as? SectionChosenModel ?: throw IllegalArgumentException("Wrong parameter passed")
+                        component.sectionChosenBuilder()
+                                .sectionUrl(model.url)
+                                .sectionTitle(model.title)
+                                .build()
+                    }
+
+                    SearchFragment::class.qualifiedName -> {
+                        component.searchBuilder().build()
+                    }
+                    else -> throw UninitializedPropertyAccessException(
+                            "This component is not initialized yet for $tempComponentName"
+                    )
+                }
+
             }
 
             else -> throw UninitializedPropertyAccessException("This component is not initialized yet")

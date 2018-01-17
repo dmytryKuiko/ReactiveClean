@@ -40,7 +40,7 @@ class ContentPresenterImpl
                 init = this::initRequest, database = this::getDatabaseStream,
                 nextData = this::getContentPage
         )
-        refreshContent()
+        refreshClicked()
     }
 
     override fun disposeSubscriptions() {
@@ -48,7 +48,7 @@ class ContentPresenterImpl
         paginator.disposeSubscriptions()
     }
 
-    override fun refreshContent() {
+    override fun refreshClicked() {
         paginator.refresh()
     }
 
@@ -80,8 +80,12 @@ class ContentPresenterImpl
         compositeDisposable.clear()
     }
 
-    override fun openMenu() {
+    override fun openDrawerClicked() {
         menuController.open()
+    }
+
+    override fun searchClicked() {
+        navigator.navigateToSearch()
     }
 
     private fun getContentPage(page: Int): Completable =

@@ -9,4 +9,8 @@ interface NewsMainNavigator {
     fun openChosenSection(sectionUrl: String, sectionTitle: String)
 
     fun onBackPressed()
+
+    fun navigateToSearch()
+
+    fun openSearchContent(text: String)
 }
