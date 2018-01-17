@@ -57,7 +57,7 @@ class NewsMainContentAdapter(
     fun disposeSubscription() {
         disposable?.dispose()
     }
-    
+
     private fun isContent() = items.last() is ContentDisplayable.Content
 
     private fun notifyDiffUtil(newList: List<ContentDisplayable>): Disposable {

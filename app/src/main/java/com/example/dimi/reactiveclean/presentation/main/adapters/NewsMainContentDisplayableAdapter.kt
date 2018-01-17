@@ -31,7 +31,7 @@ class NewsMainContentDisplayableAdapter(
 
     inner class ContentViewHolder(
             view: View,
-            private val clickListener: (ContentDisplayable.Content) -> Unit
+            clickListener: (ContentDisplayable.Content) -> Unit
     ) : RecyclerView.ViewHolder(view) {
 
         private lateinit var content: ContentDisplayable.Content

@@ -80,6 +80,7 @@ class SectionChosenFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         if (isRemoving) {
+            presenter.disposeSubscriptions()
             ComponentManager.releaseTempComponent(this)
         }
     }

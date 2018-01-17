@@ -6,9 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 
@@ -20,14 +18,13 @@ import com.example.dimi.reactiveclean.extensions.visible
 import com.example.dimi.reactiveclean.presentation.main.adapters.NewsMainSectionsAdapter
 import com.example.dimi.reactiveclean.presentation.main.presenter.section.SectionPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
-import kotlinx.android.synthetic.main.fragment_news_main_content.*
-import kotlinx.android.synthetic.main.fragment_news_main_sections.*
+import kotlinx.android.synthetic.main.fragment_section.*
 import javax.inject.Inject
 
 class SectionFragment : BaseFragment() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_news_main_sections
+        get() = R.layout.fragment_section
 
     @Inject
     lateinit var presenter: SectionPresenter

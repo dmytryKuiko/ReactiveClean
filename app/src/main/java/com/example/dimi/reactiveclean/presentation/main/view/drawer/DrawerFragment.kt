@@ -1,7 +1,8 @@
-package com.example.dimi.reactiveclean
+package com.example.dimi.reactiveclean.presentation.main.view.drawer
 
 
 import android.content.Context
+import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.presentation.BaseFragment
 
 class DrawerFragment : BaseFragment() {
