@@ -1,7 +1,7 @@
 package com.example.dimi.reactiveclean.models.content
 
 /**
- * An enum that reprsents current state result in a Paginator
+ * An enum that reprsents current state result in a PaginatorNetwork
  */
 enum class ContentState {
     DATA,

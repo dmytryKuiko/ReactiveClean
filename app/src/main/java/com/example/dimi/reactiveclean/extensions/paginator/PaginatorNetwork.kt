@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import com.example.dimi.reactiveclean.presentation.BaseDataPresenter
 import io.reactivex.Single
 
-interface Paginator<T> : BaseDataPresenter<PaginatorModelResult<T>> {
+interface PaginatorNetwork<T> : BaseDataPresenter<PaginatorModelResult<T>> {
 
     fun setCallback(callback: (page: Int) -> Single<List<T>>)
 

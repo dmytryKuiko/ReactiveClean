@@ -54,7 +54,7 @@ class SectionFragment : BaseFragment() {
         })
 
         presenter.getSingleEventLiveData().observe(this, Observer {
-            it?.displayToast(activity!!)
+            it?.displayToast(activity)
         })
     }
 

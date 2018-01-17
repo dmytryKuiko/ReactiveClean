@@ -11,8 +11,8 @@ import com.example.dimi.reactiveclean.presentation.main.presenter.sectionChosen.
 import com.example.dimi.reactiveclean.presentation.main.presenter.sectionChosen.SectionChosenPresenterImpl
 import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenRepository
 import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenRepositoryImpl
-import com.example.dimi.reactiveclean.extensions.paginator.Paginator
-import com.example.dimi.reactiveclean.extensions.paginator.PaginatorImpl
+import com.example.dimi.reactiveclean.extensions.paginator.PaginatorNetwork
+import com.example.dimi.reactiveclean.extensions.paginator.PaginatorNetworkImpl
 import dagger.Binds
 import dagger.Module
 import javax.inject.Named
@@ -40,8 +40,8 @@ abstract class SectionChosenModule {
     @CustomScope
     @Binds
     abstract internal fun bindPaginator(
-            pag: PaginatorImpl<ContentDisplayable>
-    ): Paginator<ContentDisplayable>
+            paginator: PaginatorNetworkImpl<ContentDisplayable>
+    ): PaginatorNetwork<ContentDisplayable>
 
     @Module
     companion object {

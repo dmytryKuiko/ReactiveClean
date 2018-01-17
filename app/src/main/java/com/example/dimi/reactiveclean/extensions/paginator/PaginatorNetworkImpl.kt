@@ -10,8 +10,8 @@ import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class PaginatorImpl<T>
-@Inject constructor(private val errorHandler: ErrorHandler) : Paginator<T> {
+class PaginatorNetworkImpl<T>
+@Inject constructor(private val errorHandler: ErrorHandler) : PaginatorNetwork<T> {
 
     private lateinit var pageRequest: (Int) -> Single<List<T>>
 
@@ -33,7 +33,7 @@ class PaginatorImpl<T>
     private val errorMessageLiveData = SingleEventLiveData<String>()
 
     private var currentData: MutableList<T> = mutableListOf()
-    private var currentState: PaginatorImpl.State<T> = EMPTY()
+    private var currentState: PaginatorNetworkImpl.State<T> = EMPTY()
     private var currentPage = 0
     private var disposable: Disposable? = null
 

@@ -100,7 +100,7 @@ class ContentFragment : BaseFragment() {
                 }
             })
 
-            getSingleEventData().observe(this@ContentFragment, Observer { it?.displayToast(activity!!) })
+            getSingleEventData().observe(this@ContentFragment, Observer { it?.displayToast(activity) })
         }
     }
 }

@@ -78,7 +78,7 @@ class SectionChosenFragment : BaseFragment() {
             }
         })
 
-        presenter.getNetworkError().observe(this, Observer { it?.displayToast(activity!!) })
+        presenter.getNetworkError().observe(this, Observer { it?.displayToast(activity) })
     }
 
     override fun onDestroy() {

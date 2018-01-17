@@ -6,7 +6,7 @@ import com.example.dimi.reactiveclean.domain.main.content.ContentDomainMapper
 import com.example.dimi.reactiveclean.domain.main.sectionChosen.SectionChosenInterractor
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
-import com.example.dimi.reactiveclean.extensions.paginator.Paginator
+import com.example.dimi.reactiveclean.extensions.paginator.PaginatorNetwork
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorModelResult
 import com.example.dimi.reactiveclean.presentation.main.presenter.MenuController
 import io.reactivex.Single
@@ -17,7 +17,7 @@ class SectionChosenPresenterImpl
 @Inject constructor(
         private val interractor: SectionChosenInterractor,
         private val mapper: ContentDomainMapper,
-        @Named(DiConstants.SECTION_CHOSEN_PAGINATOR) private val paginator: Paginator<ContentDisplayable>,
+        @Named(DiConstants.SECTION_CHOSEN_PAGINATOR) private val paginator: PaginatorNetwork<ContentDisplayable>,
         private val navigator: NewsMainNavigator,
         private val menuController: MenuController
 ) : SectionChosenPresenter {
