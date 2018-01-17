@@ -6,9 +6,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 
@@ -21,14 +18,13 @@ import com.example.dimi.reactiveclean.presentation.main.adapters.NewsMainContent
 import com.example.dimi.reactiveclean.presentation.main.presenter.content.ContentPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
-import com.jakewharton.rxbinding2.widget.RxTextView
-import kotlinx.android.synthetic.main.fragment_news_main_content.*
+import kotlinx.android.synthetic.main.fragment_content.*
 import javax.inject.Inject
 
 class ContentFragment : BaseFragment() {
 
     override val layoutId: Int
-        get() = R.layout.fragment_news_main_content
+        get() = R.layout.fragment_content
 
     @Inject
     lateinit var presenter: ContentPresenter
@@ -46,48 +42,14 @@ class ContentFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        with(fragment_news_main_content_recycler_view) {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = contentAdapter
-            setHasFixedSize(true)
-        }
 
-        content_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
-                .setOnClickListener { presenter.refreshContent() }
-
-        content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
-
-        content_toolbar.findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openMenu()}
-
-        presenter.subscribeSearchText(RxTextView.textChangeEvents(searchText)
-                .map { it.text().toString() })
-
-        presenter.getData().observe(this, Observer { data ->
-            data?.let {
-                it.paginatorModelData?.let {
-                    contentAdapter.setNewData(it)
-                }
-
-                it.showEmptyProgress?.let {
-                    refresh_progress.visible(it)
-                }
-
-                it.showEmptyView?.let {
-                    empty_view.visible(it)
-                }
-
-                it.showRefreshProgress?.let {
-                    refresh_progress.visible(it)
-                }
-            }
-        })
-
-        presenter.getSingleEventData().observe(this, Observer { it?.displayToast(activity!!) })
+        initRecyclerView()
+        initToolbar()
+        subscribePresenter()
     }
 
     override fun onDestroy() {
         contentAdapter.disposeSubscription()
-        presenter.disposeRxBinding()
         super.onDestroy()
     }
 
@@ -95,5 +57,50 @@ class ContentFragment : BaseFragment() {
         val component = (ComponentManager.getComponent(context) as? NewsMainComponent) ?:
                 throw ClassCastException("Component is not an instance of NewsMainComponent")
         component.inject(this)
+    }
+
+    private fun initRecyclerView() {
+        with(fragment_news_main_content_recycler_view) {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = contentAdapter
+            setHasFixedSize(true)
+        }
+    }
+
+    private fun initToolbar() {
+        with(content_toolbar) {
+            findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
+                    .setOnClickListener { presenter.refreshClicked() }
+            findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
+            findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openDrawerClicked()}
+            findViewById<ImageButton>(R.id.generl_toolbar_search_button)
+                    .setOnClickListener { presenter.searchClicked() }
+        }
+    }
+
+    private fun subscribePresenter() {
+        with(presenter) {
+            getData().observe(this@ContentFragment, Observer { data ->
+                data?.let {
+                    it.paginatorModelData?.let {
+                        contentAdapter.setNewData(it)
+                    }
+
+                    it.showEmptyProgress?.let {
+                        refresh_progress.visible(it)
+                    }
+
+                    it.showEmptyView?.let {
+                        empty_view.visible(it)
+                    }
+
+                    it.showRefreshProgress?.let {
+                        refresh_progress.visible(it)
+                    }
+                }
+            })
+
+            getSingleEventData().observe(this@ContentFragment, Observer { it?.displayToast(activity!!) })
+        }
     }
 }

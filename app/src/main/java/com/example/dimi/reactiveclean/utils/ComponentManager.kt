@@ -92,9 +92,9 @@ object ComponentManager {
                 when (tempComponentName) {
                     SectionChosenFragment::class.qualifiedName -> {
                         val model = data as? SectionChosenModel ?: throw IllegalArgumentException("Wrong parameter passed")
+
                         component.sectionChosenBuilder()
-                                .sectionUrl(model.url)
-                                .sectionTitle(model.title)
+                                .sectionChosenModel(model)
                                 .build()
                     }
 

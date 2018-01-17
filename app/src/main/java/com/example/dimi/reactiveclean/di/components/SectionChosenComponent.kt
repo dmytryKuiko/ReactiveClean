@@ -1,13 +1,12 @@
 package com.example.dimi.reactiveclean.di.components
 
 import com.example.dimi.reactiveclean.di.TempComponent
-import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.modules.SectionChosenModule
 import com.example.dimi.reactiveclean.di.scopes.CustomScope
+import com.example.dimi.reactiveclean.models.section.SectionChosenModel
 import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
-import javax.inject.Named
 
 @CustomScope
 @Subcomponent(modules = [SectionChosenModule::class])
@@ -18,11 +17,7 @@ interface SectionChosenComponent : TempComponent {
 
         @CustomScope
         @BindsInstance
-        fun sectionUrl(@Named(DiConstants.SECTION_CHOSEN_URL) url: String): Builder
-
-        @CustomScope
-        @BindsInstance
-        fun sectionTitle(@Named(DiConstants.SECTION_CHOSEN_TITLE) url: String): Builder
+        fun sectionChosenModel(model: SectionChosenModel): Builder
 
         fun build(): SectionChosenComponent
     }

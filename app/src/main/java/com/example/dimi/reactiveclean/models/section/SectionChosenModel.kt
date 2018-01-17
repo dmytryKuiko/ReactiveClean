@@ -1,3 +1,7 @@
 package com.example.dimi.reactiveclean.models.section
 
-class SectionChosenModel(val url: String, val title: String)
+class SectionChosenModel(
+        val url: String,
+        val title: String,
+        val query: String? = null
+)

@@ -13,6 +13,7 @@ import com.example.dimi.reactiveclean.presentation.BaseFragment
 import com.example.dimi.reactiveclean.di.components.SectionChosenComponent
 import com.example.dimi.reactiveclean.extensions.displayToast
 import com.example.dimi.reactiveclean.extensions.visible
+import com.example.dimi.reactiveclean.models.section.SectionChosenModel
 import com.example.dimi.reactiveclean.presentation.main.adapters.NewsMainContentAdapter
 import com.example.dimi.reactiveclean.presentation.main.presenter.sectionChosen.SectionChosenPresenter
 import com.example.dimi.reactiveclean.utils.ComponentManager
@@ -30,6 +31,9 @@ class SectionChosenFragment : BaseFragment() {
 
     @Inject
     lateinit var schedulers: SchedulersProvider
+
+    @Inject
+    lateinit var sectionChosen: SectionChosenModel
 
     private val contentAdapter by lazy {
         NewsMainContentAdapter(
@@ -50,7 +54,7 @@ class SectionChosenFragment : BaseFragment() {
         content_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
                 .setOnClickListener { presenter.refreshContent() }
 
-        content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = presenter.getTitle()
+        content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = sectionChosen.title
 
         content_toolbar.findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openMenu()}
 

@@ -33,7 +33,7 @@ class NewsMainNavigatorImpl
 
     override fun openSearchContent(text: String) {
         router.navigateTo(RouterConstants.SEARCH_CHOSEN_SCREEN,
-                SectionChosenModel(url = "search?q=$text", title = text)
+                SectionChosenModel(url = "search", title = text, query = text)
         )
     }
 }

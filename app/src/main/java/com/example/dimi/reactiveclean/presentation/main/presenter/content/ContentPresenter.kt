@@ -16,10 +16,6 @@ interface ContentPresenter : BaseDataPresenter<PaginatorModelResult<ContentDispl
 
     fun openCurrentContent(content: ContentDisplayable.Content)
 
-    fun subscribeSearchText(text: Observable<String>)
-
-    fun disposeRxBinding()
-
     fun openDrawerClicked()
 
     fun searchClicked()

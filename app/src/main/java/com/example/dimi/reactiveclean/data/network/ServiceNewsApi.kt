@@ -31,6 +31,7 @@ interface ServiceNewsApi {
     @Headers("$DEFAULT_PAGE_SIZE: true")
     fun getSectionChosen(
             @Path("section") section: String,
-            @Query("page") page: Int
+            @Query("page") page: Int,
+            @Query("q") query: String?
     ): Single<ContentResponse>
 }

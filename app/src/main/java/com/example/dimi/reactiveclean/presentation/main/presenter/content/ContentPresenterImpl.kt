@@ -26,8 +26,6 @@ class ContentPresenterImpl
         private val menuController: MenuController
 ) : ContentPresenter {
 
-    private var compositeDisposable = CompositeDisposable()
-
     override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> =
             paginator.getData()
 
@@ -44,7 +42,6 @@ class ContentPresenterImpl
     }
 
     override fun disposeSubscriptions() {
-        compositeDisposable.clear()
         paginator.disposeSubscriptions()
     }
 
@@ -58,26 +55,6 @@ class ContentPresenterImpl
 
     override fun openCurrentContent(content: ContentDisplayable.Content) {
         navigator.openContentUrl(content.url)
-    }
-
-    override fun subscribeSearchText(text: Observable<String>) {
-        interractor.searchContent(text)
-                .subscribe(
-                        {
-                            var a = 3
-                            a++
-                        },
-                        {
-                            var a = 3
-                            a++
-                        }
-                )
-                .addTo(compositeDisposable)
-
-    }
-
-    override fun disposeRxBinding() {
-        compositeDisposable.clear()
     }
 
     override fun openDrawerClicked() {
