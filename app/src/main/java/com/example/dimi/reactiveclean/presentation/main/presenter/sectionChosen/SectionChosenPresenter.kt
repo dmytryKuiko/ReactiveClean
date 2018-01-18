@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import com.example.dimi.reactiveclean.presentation.BaseDataPresenter
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorModelResult
+import com.example.dimi.reactiveclean.models.section.ToolbarData
 
 interface SectionChosenPresenter : BaseDataPresenter<PaginatorModelResult<ContentDisplayable>> {
 
@@ -15,11 +16,11 @@ interface SectionChosenPresenter : BaseDataPresenter<PaginatorModelResult<Conten
 
     fun openCurrentContent(content: ContentDisplayable.Content)
 
-    fun setVisibleItem(position: Int)
-
-    fun getVisibleItem(): Int
-
     fun onBackPressed()
 
-    fun openMenu()
+    fun navigationClicked()
+
+    fun searchClicked()
+
+    fun getToolbarData(): LiveData<ToolbarData>
 }

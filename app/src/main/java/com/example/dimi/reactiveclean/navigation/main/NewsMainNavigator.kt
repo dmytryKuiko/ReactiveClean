@@ -12,5 +12,7 @@ interface NewsMainNavigator {
 
     fun navigateToSearch()
 
-    fun openSearchContent(text: String)
+    fun openSearchContent(textTyped: String)
+
+    fun backToMainScreen()
 }

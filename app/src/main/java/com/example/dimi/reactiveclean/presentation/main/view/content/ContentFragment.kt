@@ -73,7 +73,7 @@ class ContentFragment : BaseFragment() {
                     .setOnClickListener { presenter.refreshClicked() }
             findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
             findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openDrawerClicked()}
-            findViewById<ImageButton>(R.id.generl_toolbar_search_button)
+            findViewById<ImageButton>(R.id.general_toolbar_search_button)
                     .setOnClickListener { presenter.searchClicked() }
         }
     }

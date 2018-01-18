@@ -46,7 +46,7 @@
         app:srcCompat="@drawable/ic_refresh_black_24dp" />
 
     <ImageButton
-        android:id="@+id/generl_toolbar_search_button"
+        android:id="@+id/general_toolbar_search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

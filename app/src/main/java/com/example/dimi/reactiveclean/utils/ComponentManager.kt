@@ -9,8 +9,7 @@ import com.example.dimi.reactiveclean.di.TempComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import com.example.dimi.reactiveclean.di.components.NewsMainComponent
-import com.example.dimi.reactiveclean.di.modules.SectionChosenModule
-import com.example.dimi.reactiveclean.models.section.SectionChosenModel
+import com.example.dimi.reactiveclean.models.section.ContentChosen
 import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
 import com.example.dimi.reactiveclean.presentation.main.view.search.SearchFragment
 import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
@@ -91,7 +90,7 @@ object ComponentManager {
                         throw NullPointerException("Parent component is null for temp component")
                 when (tempComponentName) {
                     SectionChosenFragment::class.qualifiedName -> {
-                        val model = data as? SectionChosenModel ?: throw IllegalArgumentException("Wrong parameter passed")
+                        val model = data as? ContentChosen ?: throw IllegalArgumentException("Wrong parameter passed")
 
                         component.sectionChosenBuilder()
                                 .sectionChosenModel(model)
