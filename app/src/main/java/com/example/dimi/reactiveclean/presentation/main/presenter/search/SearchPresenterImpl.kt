@@ -16,13 +16,14 @@ import javax.inject.Inject
 
 class SearchPresenterImpl
 @Inject constructor(
-        private val interractor: SearchInterractor,
-        private val navigator: NewsMainNavigator,
-        private val mapper: SearchDomainMapperDB,
-        private val schedulers: SchedulersProvider
+    private val interractor: SearchInterractor,
+    private val navigator: NewsMainNavigator,
+    private val mapper: SearchDomainMapperDB,
+    private val schedulers: SchedulersProvider
 ) : SearchPresenter {
 
-    private val searchesLiveData: MutableLiveData<List<SearchDisplayable.Search>> = MutableLiveData()
+    private val searchesLiveData: MutableLiveData<List<SearchDisplayable.Search>> =
+        MutableLiveData()
 
     private val listenerCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -30,8 +31,8 @@ class SearchPresenterImpl
 
     init {
         interractor.getSearches()
-                .subscribe {}
-                .addTo(compositeDisposable)
+            .subscribe {}
+            .addTo(compositeDisposable)
     }
 
     override fun disposeSubscriptions() {
@@ -46,24 +47,24 @@ class SearchPresenterImpl
 
     override fun listenEditText(listener: Observable<String>) {
         interractor.searchTyped(listener)
-                .map(mapper)
-                .subscribe {
-                    searchesLiveData.postValue(it)
-                }
-                .addTo(listenerCompositeDisposable)
+            .map(mapper)
+            .subscribe {
+                searchesLiveData.postValue(it)
+            }
+            .addTo(listenerCompositeDisposable)
     }
 
     override fun listenEditTextAction(listener: Observable<EditTextBindingModel>) {
         interractor.actionKeyboardTyped(listener)
-                .subscribe {
-                    Completable.fromCallable { interractor.storeSearch(it.text) }
-                            .compose(this::composeSchedulers)
-                            .subscribe {
-                                navigator.openSearchContent(it.text)
-                            }
-                            .addTo(compositeDisposable)
-                }
-                .addTo(listenerCompositeDisposable)
+            .subscribe {
+                Completable.fromCallable { interractor.storeSearch(it.text) }
+                    .compose(this::composeSchedulers)
+                    .subscribe {
+                        navigator.openSearchContent(it.text)
+                    }
+                    .addTo(compositeDisposable)
+            }
+            .addTo(listenerCompositeDisposable)
     }
 
     override fun onBackPressed() {
@@ -75,6 +76,6 @@ class SearchPresenterImpl
     }
 
     private fun composeSchedulers(completable: Completable): Completable =
-            completable.subscribeOn(schedulers.computation())
-                    .observeOn(schedulers.ui())
+        completable.subscribeOn(schedulers.computation())
+            .observeOn(schedulers.ui())
 }

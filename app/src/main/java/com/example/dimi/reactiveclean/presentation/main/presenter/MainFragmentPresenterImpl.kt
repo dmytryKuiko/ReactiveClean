@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class MainFragmentPresenterImpl
 @Inject constructor(
-        private val navigator: NewsMainNavigator
+    private val navigator: NewsMainNavigator
 ) : MainFragmentPresenter {
 
     override fun onBackPressed() {

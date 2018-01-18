@@ -8,10 +8,9 @@ class DateTypeConverter {
 
     @TypeConverter
     fun toDate(value: Long?): Date? =
-        if(value == null) {
+        if (value == null) {
             null
-        }
-        else {
+        } else {
             Date(value)
         }
 
@@ -20,11 +19,11 @@ class DateTypeConverter {
 
     @TypeConverter
     fun toTimestamp(value: Long?): Timestamp? =
-            if(value == null) {
-                null
-            } else {
-                Timestamp(value)
-            }
+        if (value == null) {
+            null
+        } else {
+            Timestamp(value)
+        }
 
     @TypeConverter
     fun fromTimestamp(timestamp: Timestamp?): Long? = timestamp?.time

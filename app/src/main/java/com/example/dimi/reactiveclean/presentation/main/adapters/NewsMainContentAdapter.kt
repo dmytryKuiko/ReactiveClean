@@ -14,9 +14,9 @@ import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
 class NewsMainContentAdapter(
-        private val loadNextPage: () -> Unit,
-        val openCurrentContent: (ContentDisplayable.Content) -> Unit,
-        private val schedulers: SchedulersProvider
+    private val loadNextPage: () -> Unit,
+    val openCurrentContent: (ContentDisplayable.Content) -> Unit,
+    private val schedulers: SchedulersProvider
 ) : ListDelegationAdapter<MutableList<ContentDisplayable>>() {
 
     private val DELTA_POSITION_LOADING = 5
@@ -26,12 +26,16 @@ class NewsMainContentAdapter(
     init {
         items = mutableListOf()
         delegatesManager.addDelegate(NewsMainContentDisplayableAdapter(openCurrentContent))
-                .addDelegate(ProgressAdapter())
-                .addDelegate(ErrorAdapter(loadNextPage))
-                .setFallbackDelegate(AllDataAdapter())
+            .addDelegate(ProgressAdapter())
+            .addDelegate(ErrorAdapter(loadNextPage))
+            .setFallbackDelegate(AllDataAdapter())
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int, payloads: MutableList<Any?>?) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder?,
+        position: Int,
+        payloads: MutableList<Any?>?
+    ) {
         super.onBindViewHolder(holder, position, payloads)
         if (position == items.size - DELTA_POSITION_LOADING && isContent()) loadNextPage.invoke()
     }
@@ -42,7 +46,8 @@ class NewsMainContentAdapter(
         newList.addAll(model.content)
         Timber.d("setNewData %s", "${model.content.size} ${model.state.name}")
         when (model.state) {
-            ContentState.DATA -> {}
+            ContentState.DATA -> {
+            }
             ContentState.PROGRESS -> newList.add(ContentDisplayable.Progress())
             ContentState.ERROR -> newList.add(ContentDisplayable.Error())
             ContentState.ALL_DATA -> newList.add(ContentDisplayable.AllContent())
@@ -62,14 +67,14 @@ class NewsMainContentAdapter(
 
     private fun notifyDiffUtil(newList: List<ContentDisplayable>): Disposable {
         return Single.fromCallable { DiffUtil.calculateDiff(DiffUtilContent(items, newList)) }
-                .compose(::composeSchedulers)
-                .subscribe(
-                        {
-                            items.apply { clear() }.addAll(newList)
-                            it.dispatchUpdatesTo(this@NewsMainContentAdapter)
-                        },
-                        { throw Exception(it.message) }
-                )
+            .compose(::composeSchedulers)
+            .subscribe(
+                {
+                    items.apply { clear() }.addAll(newList)
+                    it.dispatchUpdatesTo(this@NewsMainContentAdapter)
+                },
+                { throw Exception(it.message) }
+            )
     }
 
     private fun notifyRanges(newList: List<ContentDisplayable>) {
@@ -78,6 +83,6 @@ class NewsMainContentAdapter(
     }
 
     private fun composeSchedulers(single: Single<DiffUtil.DiffResult>): Single<DiffUtil.DiffResult> =
-            single.subscribeOn(schedulers.computation())
-                    .observeOn(schedulers.ui())
+        single.subscribeOn(schedulers.computation())
+            .observeOn(schedulers.ui())
 }

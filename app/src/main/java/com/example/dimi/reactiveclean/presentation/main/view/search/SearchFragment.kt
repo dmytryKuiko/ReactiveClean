@@ -27,7 +27,7 @@ class SearchFragment : BaseFragment() {
 
     private val searchAdapter: SearchAdapter by lazy {
         SearchAdapter(
-                schedulers = schedulers, callback = presenter::previousSearchClicked
+            schedulers = schedulers, callback = presenter::previousSearchClicked
         )
     }
 
@@ -44,10 +44,10 @@ class SearchFragment : BaseFragment() {
         }
 
         presenter.listenEditText(RxTextView.textChanges(fragment_search_edit_text)
-                .map { it.toString() })
+            .map { it.toString() })
 
         presenter.listenEditTextAction(RxTextView.editorActionEvents(fragment_search_edit_text)
-                .map { EditTextBindingModel(it.view().text.toString(), it.actionId()) })
+            .map { EditTextBindingModel(it.view().text.toString(), it.actionId()) })
 
         presenter.getData().observe(this, Observer {
             it?.let {

@@ -23,9 +23,14 @@ class SplashActivity : BaseActivity() {
     @Inject
     lateinit var presenter: SplashPresenter
 
-    private val appNavigator = object : SupportAppNavigator(this@SplashActivity, R.id.splash_activity_layout) {
+    private val appNavigator =
+        object : SupportAppNavigator(this@SplashActivity, R.id.splash_activity_layout) {
 
-        override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? =
+            override fun createActivityIntent(
+                context: Context?,
+                screenKey: String?,
+                data: Any?
+            ): Intent? =
                 when (screenKey) {
                     RouterConstants.TUTORIAL_ACTIVITY ->
                         Intent(context, TutorialActivity::class.java)
@@ -36,8 +41,8 @@ class SplashActivity : BaseActivity() {
                     else -> null
                 }
 
-        override fun createFragment(screenKey: String?, data: Any?): Fragment? = null
-    }
+            override fun createFragment(screenKey: String?, data: Any?): Fragment? = null
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -23,7 +23,7 @@ import javax.inject.Singleton
 abstract class AppModule {
 
     @Binds
-    abstract internal fun bindSchedulersProvider(app: AppSchedulers): SchedulersProvider
+    internal abstract fun bindSchedulersProvider(app: AppSchedulers): SchedulersProvider
 
     @Module
     companion object {
@@ -37,8 +37,8 @@ abstract class AppModule {
         @Singleton
         @Provides
         fun provideAppDatabase(context: Context): AppDatabase =
-                Room.databaseBuilder(context, AppDatabase::class.java, "database")
-                        .build()
+            Room.databaseBuilder(context, AppDatabase::class.java, "database")
+                .build()
 
         @JvmStatic
         @Singleton
@@ -64,6 +64,6 @@ abstract class AppModule {
         @Singleton
         @Provides
         fun provideSharedPreferences(context: Context): SharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(context)
+            PreferenceManager.getDefaultSharedPreferences(context)
     }
 }

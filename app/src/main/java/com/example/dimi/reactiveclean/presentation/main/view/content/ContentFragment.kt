@@ -34,9 +34,9 @@ class ContentFragment : BaseFragment() {
 
     private val contentAdapter by lazy {
         NewsMainContentAdapter(
-                loadNextPage = presenter::loadNextContentPage,
-                openCurrentContent = presenter::openCurrentContent,
-                schedulers = schedulers
+            loadNextPage = presenter::loadNextContentPage,
+            openCurrentContent = presenter::openCurrentContent,
+            schedulers = schedulers
         )
     }
 
@@ -54,8 +54,8 @@ class ContentFragment : BaseFragment() {
     }
 
     override fun injectModule(context: Context) {
-        val component = (ComponentManager.getComponent(context) as? NewsMainComponent) ?:
-                throw ClassCastException("Component is not an instance of NewsMainComponent")
+        val component = (ComponentManager.getComponent(context) as? NewsMainComponent)
+                ?: throw ClassCastException("Component is not an instance of NewsMainComponent")
         component.inject(this)
     }
 
@@ -70,11 +70,11 @@ class ContentFragment : BaseFragment() {
     private fun initToolbar() {
         with(content_toolbar) {
             findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
-                    .setOnClickListener { presenter.refreshClicked() }
+                .setOnClickListener { presenter.refreshClicked() }
             findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
-            findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openDrawerClicked()}
+            findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openDrawerClicked() }
             findViewById<ImageButton>(R.id.general_toolbar_search_button)
-                    .setOnClickListener { presenter.searchClicked() }
+                .setOnClickListener { presenter.searchClicked() }
         }
     }
 
@@ -100,7 +100,9 @@ class ContentFragment : BaseFragment() {
                 }
             })
 
-            getSingleEventData().observe(this@ContentFragment, Observer { it?.displayToast(activity) })
+            getSingleEventData().observe(
+                this@ContentFragment,
+                Observer { it?.displayToast(activity) })
         }
     }
 }

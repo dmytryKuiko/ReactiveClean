@@ -16,8 +16,8 @@ class TutorialFirstFragment : TutorialFragment() {
     override lateinit var presenter: TutorialPresenter
 
     override fun injectModule(context: Context) {
-        val component = (ComponentManager.getComponent(context) as? TutorialComponent) ?:
-                throw ClassCastException("Component is not an instance of Tutorial Component")
+        val component = (ComponentManager.getComponent(context) as? TutorialComponent)
+                ?: throw ClassCastException("Component is not an instance of Tutorial Component")
         component.inject(this)
     }
 }

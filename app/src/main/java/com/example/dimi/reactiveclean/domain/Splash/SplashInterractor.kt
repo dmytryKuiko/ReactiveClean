@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface SplashInterractor {
 
-    fun isFirstLaunch() : Single<Boolean>
+    fun isFirstLaunch(): Single<Boolean>
 }

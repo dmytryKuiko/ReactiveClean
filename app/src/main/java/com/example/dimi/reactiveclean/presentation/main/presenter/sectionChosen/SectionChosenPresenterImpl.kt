@@ -18,12 +18,12 @@ import javax.inject.Named
 
 class SectionChosenPresenterImpl
 @Inject constructor(
-        private val interractor: SectionChosenInterractor,
-        private val mapper: ContentDomainMapper,
-        @Named(DiConstants.SECTION_CHOSEN_PAGINATOR) private val paginator: PaginatorNetwork<ContentDisplayable>,
-        private val navigator: NewsMainNavigator,
-        private val menuController: MenuController,
-        private val contentChosen: ContentChosen
+    private val interractor: SectionChosenInterractor,
+    private val mapper: ContentDomainMapper,
+    @Named(DiConstants.SECTION_CHOSEN_PAGINATOR) private val paginator: PaginatorNetwork<ContentDisplayable>,
+    private val navigator: NewsMainNavigator,
+    private val menuController: MenuController,
+    private val contentChosen: ContentChosen
 ) : SectionChosenPresenter {
 
     private val toolbarData: MutableLiveData<ToolbarData> = MutableLiveData()
@@ -39,7 +39,7 @@ class SectionChosenPresenterImpl
     }
 
     override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> =
-            paginator.getData()
+        paginator.getData()
 
     override fun getNetworkError(): LiveData<String> = paginator.getSingleEvent()
 
@@ -60,14 +60,14 @@ class SectionChosenPresenterImpl
     }
 
     override fun navigationClicked() {
-       when(contentChosen.toolbar) {
-           is ToolbarData.SectionToolbar -> menuController.open()
-           is ToolbarData.SearchToolbar -> navigator.backToMainScreen()
-       }
+        when (contentChosen.toolbar) {
+            is ToolbarData.SectionToolbar -> menuController.open()
+            is ToolbarData.SearchToolbar -> navigator.backToMainScreen()
+        }
     }
 
     override fun searchClicked() {
-        when(contentChosen.toolbar) {
+        when (contentChosen.toolbar) {
             is ToolbarData.SectionToolbar -> navigator.navigateToSearch()
             is ToolbarData.SearchToolbar -> navigator.onBackPressed()
         }
@@ -77,5 +77,5 @@ class SectionChosenPresenterImpl
 
 
     private fun getSectionContent(page: Int): Single<List<ContentDisplayable>> =
-            interractor.getSectionContent(page).map(mapper)
+        interractor.getSectionContent(page).map(mapper)
 }

@@ -19,27 +19,27 @@ abstract class TutorialModule {
     @ActivityScope
     @Binds
     internal abstract fun bindSourcePresenter(
-            @Named(DiConstants.TUTORIAL_FIRST_SCREEN) presenter: TutorialPresenterImpl
+        @Named(DiConstants.TUTORIAL_FIRST_SCREEN) presenter: TutorialPresenterImpl
     ): TutorialPresenter
 
     @Named(DiConstants.TUTORIAL_SECOND_SCREEN)
     @ActivityScope
     @Binds
     internal abstract fun bindEverythingPresenter(
-            @Named(DiConstants.TUTORIAL_SECOND_SCREEN) presenter: TutorialPresenterImpl
+        @Named(DiConstants.TUTORIAL_SECOND_SCREEN) presenter: TutorialPresenterImpl
     ): TutorialPresenter
 
     @Named(DiConstants.TUTORIAL_THIRD_SCREEN)
     @ActivityScope
     @Binds
     internal abstract fun bindFavouritesPresenter(
-            @Named(DiConstants.TUTORIAL_THIRD_SCREEN) presenter: TutorialPresenterImpl
+        @Named(DiConstants.TUTORIAL_THIRD_SCREEN) presenter: TutorialPresenterImpl
     ): TutorialPresenter
 
     @ActivityScope
     @Binds
     internal abstract fun bindTutorialMainNavigator(
-            tutorialMainNavigatorImpl: TutorialMainNavigatorImpl
+        tutorialMainNavigatorImpl: TutorialMainNavigatorImpl
     ): TutorialMainNavigator
 
     @Module
@@ -49,18 +49,18 @@ abstract class TutorialModule {
         @Named(DiConstants.TUTORIAL_FIRST_SCREEN)
         @Provides
         fun provideSourcePresenter(mainNavigatorImpl: TutorialMainNavigatorImpl) =
-                TutorialPresenterImpl(mainNavigatorImpl.firstPageTutorial, ImageType.SOURCE)
+            TutorialPresenterImpl(mainNavigatorImpl.firstPageTutorial, ImageType.SOURCE)
 
         @JvmStatic
         @Named(DiConstants.TUTORIAL_SECOND_SCREEN)
         @Provides
         fun provideEverythingPresenter(mainNavigatorImpl: TutorialMainNavigatorImpl) =
-                TutorialPresenterImpl(mainNavigatorImpl.secondPageTutorial, ImageType.EVERYTHING)
+            TutorialPresenterImpl(mainNavigatorImpl.secondPageTutorial, ImageType.EVERYTHING)
 
         @JvmStatic
         @Named(DiConstants.TUTORIAL_THIRD_SCREEN)
         @Provides
         fun provideFavouritesPresenter(mainNavigatorImpl: TutorialMainNavigatorImpl) =
-                TutorialPresenterImpl(mainNavigatorImpl.thirdPageTutorial, ImageType.FAVOURITES)
+            TutorialPresenterImpl(mainNavigatorImpl.thirdPageTutorial, ImageType.FAVOURITES)
     }
 }

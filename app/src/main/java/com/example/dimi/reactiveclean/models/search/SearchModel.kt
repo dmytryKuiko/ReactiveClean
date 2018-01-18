@@ -8,12 +8,12 @@ import java.sql.Timestamp
 
 @Entity(tableName = TableNames.SEARCH)
 class SearchModel(
-        @ColumnInfo(name = "searched_text")
-        val text: String,
+    @ColumnInfo(name = "searched_text")
+    val text: String,
 
-        @ColumnInfo(name = "searched_timestamp")
-        val dateTime: Timestamp,
+    @ColumnInfo(name = "searched_timestamp")
+    val dateTime: Timestamp,
 
-        @PrimaryKey(autoGenerate = true)
-        val id: Int? = null
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null
 )

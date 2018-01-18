@@ -21,8 +21,8 @@ import javax.inject.Inject
 class MainFragment : BaseFragment() {
 
     private val tabKeys: List<String> = listOf(
-            "${R.id.content_bottom_bar}",
-            "${R.id.sections_bottom_bar}"
+        "${R.id.content_bottom_bar}",
+        "${R.id.sections_bottom_bar}"
     )
 
     private lateinit var tabs: HashMap<String, BaseFragment>
@@ -34,8 +34,8 @@ class MainFragment : BaseFragment() {
         get() = R.layout.fragment_main
 
     override fun injectModule(context: Context) {
-        val component = (ComponentManager.getComponent(context) as? NewsMainComponent) ?:
-                throw ClassCastException("Component is not an instance of NewsMainComponent")
+        val component = (ComponentManager.getComponent(context) as? NewsMainComponent)
+                ?: throw ClassCastException("Component is not an instance of NewsMainComponent")
         component.inject(this)
     }
 
@@ -50,9 +50,9 @@ class MainFragment : BaseFragment() {
         if (!isVisible && savedInstanceState == null) {
             tabs = initFragments()
             childFragmentManager.beginTransaction()
-                    .add(R.id.fragment_main_container, tabs[tabKeys[0]], tabKeys[0])
-                    .add(R.id.fragment_main_container, tabs[tabKeys[1]], tabKeys[1])
-                    .commit()
+                .add(R.id.fragment_main_container, tabs[tabKeys[0]], tabKeys[0])
+                .add(R.id.fragment_main_container, tabs[tabKeys[1]], tabKeys[1])
+                .commit()
             bottom_bar.selectedItemId = R.id.content_bottom_bar
         } else {
             tabs = findFragments()
@@ -60,21 +60,21 @@ class MainFragment : BaseFragment() {
     }
 
     private fun initFragments(): HashMap<String, BaseFragment> = hashMapOf(
-            tabKeys[0] to ContentFragment(),
-            tabKeys[1] to SectionFragment()
+        tabKeys[0] to ContentFragment(),
+        tabKeys[1] to SectionFragment()
     )
 
     private fun findFragments(): HashMap<String, BaseFragment> = hashMapOf(
-            tabKeys[0] to childFragmentManager.findFragmentByTag(tabKeys[0]) as BaseFragment,
-            tabKeys[1] to childFragmentManager.findFragmentByTag(tabKeys[1]) as BaseFragment
+        tabKeys[0] to childFragmentManager.findFragmentByTag(tabKeys[0]) as BaseFragment,
+        tabKeys[1] to childFragmentManager.findFragmentByTag(tabKeys[1]) as BaseFragment
     )
 
     private fun showFragment(menuItem: MenuItem): Boolean {
         childFragmentManager.beginTransaction()
-                .detach(tabs[tabKeys[0]])
-                .detach(tabs[tabKeys[1]])
-                .attach(tabs["${menuItem.itemId}"])
-                .commit()
+            .detach(tabs[tabKeys[0]])
+            .detach(tabs[tabKeys[1]])
+            .attach(tabs["${menuItem.itemId}"])
+            .commit()
         return true
     }
 }

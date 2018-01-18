@@ -38,25 +38,32 @@ class MainActivity : BaseActivity() {
     private var menuDisposable: Disposable? = null
 
     private val appNavigator = object : ExtendedNavigator(
-            activity = this@MainActivity,
-            containerId = R.id.main_activity_fragment_container
+        activity = this@MainActivity,
+        containerId = R.id.main_activity_fragment_container
     ) {
 
-        override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = null
+        override fun createActivityIntent(
+            context: Context?,
+            screenKey: String?,
+            data: Any?
+        ): Intent? = null
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
             RouterConstants.MAIN_SCREEN -> MainFragment()
-            RouterConstants.SECTION_CHOSEN_SCREEN -> initTempComponent(SectionChosenFragment(), data)
+            RouterConstants.SECTION_CHOSEN_SCREEN -> initTempComponent(
+                SectionChosenFragment(),
+                data
+            )
             RouterConstants.SEARCH_SCREEN -> initTempComponent(SearchFragment(), null)
             RouterConstants.SEARCH_CHOSEN_SCREEN -> initTempComponent(SectionChosenFragment(), data)
             else -> null
         }
 
         override fun createCustomTabsIntent(url: String): CustomTabsIntent? =
-                CustomTabsIntent.Builder()
-                        .addDefaultShareMenuItem()
-                        .setShowTitle(true)
-                        .build()
+            CustomTabsIntent.Builder()
+                .addDefaultShareMenuItem()
+                .setShowTitle(true)
+                .build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,9 +71,9 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_activity_fragment_container, MainFragment())
-                    .replace(R.id.main_activity_drawer_container, DrawerFragment())
-                    .commit()
+                .replace(R.id.main_activity_fragment_container, MainFragment())
+                .replace(R.id.main_activity_drawer_container, DrawerFragment())
+                .commit()
         }
     }
 

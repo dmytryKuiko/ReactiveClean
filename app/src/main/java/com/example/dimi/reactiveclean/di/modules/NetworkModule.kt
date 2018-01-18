@@ -26,42 +26,44 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(
-            builder: OkHttpClient.Builder,
-            headerInterceptor: Interceptor,
-            loggingInterceptor: HttpLoggingInterceptor,
-            errorInterceptor: ErrorInterceptor
+        builder: OkHttpClient.Builder,
+        headerInterceptor: Interceptor,
+        loggingInterceptor: HttpLoggingInterceptor,
+        errorInterceptor: ErrorInterceptor
     ): OkHttpClient =
-            builder.addInterceptor(headerInterceptor)
-                    .addNetworkInterceptor(errorInterceptor)
-                    .addInterceptor(loggingInterceptor)
-                    .build()
+        builder.addInterceptor(headerInterceptor)
+            .addNetworkInterceptor(errorInterceptor)
+            .addInterceptor(loggingInterceptor)
+            .build()
 
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
 
     @Provides
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
     fun provideRxJava2CallAdapterFactory(schedulers: SchedulersProvider): RxJava2CallAdapterFactory =
-            RxJava2CallAdapterFactory.createWithScheduler(schedulers.io())
+        RxJava2CallAdapterFactory.createWithScheduler(schedulers.io())
 
     @Provides
-    fun provideRetrofit(retrofitBuilder: Retrofit.Builder,
-                        url: String,
-                        okHttpClient: OkHttpClient,
-                        envelopeConverter: Converter.Factory,
-                        gsonConverter: GsonConverterFactory,
-                        rxObservableOnCallAdapter: CallAdapter.Factory,
-                        rxJava2CallAdapter: RxJava2CallAdapterFactory): Retrofit =
-            retrofitBuilder.baseUrl(url)
-                    .client(okHttpClient)
-                    .addConverterFactory(envelopeConverter)
-                    .addConverterFactory(gsonConverter)
-                    .addCallAdapterFactory(rxObservableOnCallAdapter)
-                    .addCallAdapterFactory(rxJava2CallAdapter)
-                    .build()
+    fun provideRetrofit(
+        retrofitBuilder: Retrofit.Builder,
+        url: String,
+        okHttpClient: OkHttpClient,
+        envelopeConverter: Converter.Factory,
+        gsonConverter: GsonConverterFactory,
+        rxObservableOnCallAdapter: CallAdapter.Factory,
+        rxJava2CallAdapter: RxJava2CallAdapterFactory
+    ): Retrofit =
+        retrofitBuilder.baseUrl(url)
+            .client(okHttpClient)
+            .addConverterFactory(envelopeConverter)
+            .addConverterFactory(gsonConverter)
+            .addCallAdapterFactory(rxObservableOnCallAdapter)
+            .addCallAdapterFactory(rxJava2CallAdapter)
+            .build()
 
     @Singleton
     @Provides

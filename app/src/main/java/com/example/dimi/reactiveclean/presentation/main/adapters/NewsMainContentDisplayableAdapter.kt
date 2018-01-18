@@ -10,28 +10,32 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import kotlinx.android.synthetic.main.row_content_dispalayable.view.*
 
 class NewsMainContentDisplayableAdapter(
-        private val callback: (ContentDisplayable.Content) -> Unit
+    private val callback: (ContentDisplayable.Content) -> Unit
 ) : AdapterDelegate<MutableList<ContentDisplayable>>() {
 
     override fun isForViewType(items: MutableList<ContentDisplayable>, position: Int): Boolean =
-            items[position] is ContentDisplayable.Content
+        items[position] is ContentDisplayable.Content
 
     override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent?.context)
-                .inflate(R.layout.row_content_dispalayable, parent, false)
+            .inflate(R.layout.row_content_dispalayable, parent, false)
         return ContentViewHolder(view, callback)
     }
 
-    override fun onBindViewHolder(items: MutableList<ContentDisplayable>, position: Int,
-                                  holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
-        val item = items[position] as? ContentDisplayable.Content ?: throw ClassCastException("ContentDisplayable is not a Content")
-        val contentDisplayableHolder = holder as? ContentViewHolder ?: throw ClassCastException("not a ContentHolder")
+    override fun onBindViewHolder(
+        items: MutableList<ContentDisplayable>, position: Int,
+        holder: RecyclerView.ViewHolder, payloads: MutableList<Any>
+    ) {
+        val item = items[position] as? ContentDisplayable.Content
+                ?: throw ClassCastException("ContentDisplayable is not a Content")
+        val contentDisplayableHolder =
+            holder as? ContentViewHolder ?: throw ClassCastException("not a ContentHolder")
         contentDisplayableHolder.bind(item, position)
     }
 
     inner class ContentViewHolder(
-            view: View,
-            clickListener: (ContentDisplayable.Content) -> Unit
+        view: View,
+        clickListener: (ContentDisplayable.Content) -> Unit
     ) : RecyclerView.ViewHolder(view) {
 
         private lateinit var content: ContentDisplayable.Content

@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class SearchRepositoryImpl
 @Inject constructor(
-        private val store: SearchStore,
-        private val newsApi: ServiceNewsApi,
-        private val mapper: ContentDataMapperForDB
+    private val store: SearchStore,
+    private val newsApi: ServiceNewsApi,
+    private val mapper: ContentDataMapperForDB
 ) : SearchRepository {
     override fun storeSearch(search: SearchModel) {
         store.store(search)

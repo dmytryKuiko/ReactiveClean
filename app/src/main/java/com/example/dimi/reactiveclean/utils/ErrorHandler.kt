@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class ErrorHandler @Inject constructor() {
 
-    fun getErrorState(error: Throwable): ContentState  {
-        if(error is ServerError) {
-            return when(error.code) {
+    fun getErrorState(error: Throwable): ContentState {
+        if (error is ServerError) {
+            return when (error.code) {
                 400 -> ContentState.ALL_DATA
                 else -> ContentState.ERROR
             }

@@ -17,17 +17,17 @@ abstract class SearchModule {
 
     @CustomScope
     @Binds
-    abstract internal fun bindPresenter(presenter: SearchPresenterImpl): SearchPresenter
+    internal abstract fun bindPresenter(presenter: SearchPresenterImpl): SearchPresenter
 
     @CustomScope
     @Binds
-    abstract internal fun bindInterractor(interractor: SearchInterractorImpl): SearchInterractor
+    internal abstract fun bindInterractor(interractor: SearchInterractorImpl): SearchInterractor
 
     @CustomScope
     @Binds
-    abstract internal fun bindRepository(repo: SearchRepositoryImpl): SearchRepository
+    internal abstract fun bindRepository(repo: SearchRepositoryImpl): SearchRepository
 
     @CustomScope
     @Binds
-    abstract internal fun bindStore(store: SearchStoreImpl): SearchStore
+    internal abstract fun bindStore(store: SearchStoreImpl): SearchStore
 }

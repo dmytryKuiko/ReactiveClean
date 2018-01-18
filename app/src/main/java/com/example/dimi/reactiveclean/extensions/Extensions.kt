@@ -15,7 +15,7 @@ fun Disposable.addTo(compositeDisposable: CompositeDisposable) {
 }
 
 fun View.visible(visible: Boolean) {
-    this.visibility = when(visible) {
+    this.visibility = when (visible) {
         true -> View.VISIBLE
         false -> View.GONE
     }

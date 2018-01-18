@@ -10,12 +10,12 @@ class ContentDataMapper
 @Inject constructor() : Function<ContentResponse, ContentPages> {
 
     override fun apply(response: ContentResponse): ContentPages =
-            with(response) {
-                if (status != null && total != null && startIndex != null && pageSize != null
-                        && currentPage != null && pages != null) {
-                    ContentPages(status, total, startIndex, pageSize, currentPage, pages)
-                } else {
-                    throw NotSerializableException("ContentResponse field is missing")
-                }
+        with(response) {
+            if (status != null && total != null && startIndex != null && pageSize != null
+                && currentPage != null && pages != null) {
+                ContentPages(status, total, startIndex, pageSize, currentPage, pages)
+            } else {
+                throw NotSerializableException("ContentResponse field is missing")
             }
+        }
 }

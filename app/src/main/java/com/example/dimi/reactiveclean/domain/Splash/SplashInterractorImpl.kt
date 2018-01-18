@@ -10,11 +10,11 @@ class SplashInterractorImpl
 @Inject constructor(private val repository: SplashRepository) : SplashInterractor {
 
     override fun isFirstLaunch(): Single<Boolean> =
-            repository.isFirstLaunch()
-                    .flatMap(this::getAndWhenFirstSet)
+        repository.isFirstLaunch()
+            .flatMap(this::getAndWhenFirstSet)
 
     private fun getAndWhenFirstSet(value: Boolean): Single<Boolean> {
-        val completable = when(value) {
+        val completable = when (value) {
             true -> repository.setFirstLaunch()
             false -> Completable.complete()
         }

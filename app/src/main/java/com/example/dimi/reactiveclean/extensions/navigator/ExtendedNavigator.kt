@@ -7,11 +7,11 @@ import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
 abstract class ExtendedNavigator(
-        private val activity: FragmentActivity,
-        containerId: Int
+    private val activity: FragmentActivity,
+    containerId: Int
 ) : SupportAppNavigator(activity, containerId) {
 
-    abstract protected fun createCustomTabsIntent(url: String): CustomTabsIntent?
+    protected abstract fun createCustomTabsIntent(url: String): CustomTabsIntent?
 
     override fun applyCommand(command: Command?) {
         if (command is OpenInBrowser) {

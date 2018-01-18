@@ -10,26 +10,31 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 import kotlinx.android.synthetic.main.row_section_displayable.view.*
 
 class NewsMainSectionsDisplayableAdapter(
-        private val callback: (SectionDisplayable.Section) -> Unit
+    private val callback: (SectionDisplayable.Section) -> Unit
 ) : AdapterDelegate<MutableList<SectionDisplayable>>() {
 
     override fun isForViewType(items: MutableList<SectionDisplayable>, position: Int): Boolean =
-            items[position] is SectionDisplayable.Section
+        items[position] is SectionDisplayable.Section
 
-    override fun onBindViewHolder(items: MutableList<SectionDisplayable>, position: Int,
-                                  holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
-        val item = items[position] as? SectionDisplayable.Section ?: throw ClassCastException("ContentDisplayable is not a Content")
-        val contentDisplayableHolder = holder as? SectionViewHolder ?: throw ClassCastException("not a ContentHolder")
+    override fun onBindViewHolder(
+        items: MutableList<SectionDisplayable>, position: Int,
+        holder: RecyclerView.ViewHolder, payloads: MutableList<Any>
+    ) {
+        val item = items[position] as? SectionDisplayable.Section
+                ?: throw ClassCastException("ContentDisplayable is not a Content")
+        val contentDisplayableHolder =
+            holder as? SectionViewHolder ?: throw ClassCastException("not a ContentHolder")
         contentDisplayableHolder.bind(item, position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent?.context)
-                .inflate(R.layout.row_section_displayable, parent, false)
+            .inflate(R.layout.row_section_displayable, parent, false)
         return SectionViewHolder(view, callback)
     }
 
-    inner class SectionViewHolder(view: View, callback: (SectionDisplayable.Section) -> Unit) : RecyclerView.ViewHolder(view) {
+    inner class SectionViewHolder(view: View, callback: (SectionDisplayable.Section) -> Unit) :
+        RecyclerView.ViewHolder(view) {
 
         private lateinit var section: SectionDisplayable.Section
 

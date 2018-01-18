@@ -6,7 +6,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class AppSchedulers
-@Inject constructor(): SchedulersProvider {
+@Inject constructor() : SchedulersProvider {
 
     override fun ui(): Scheduler = AndroidSchedulers.mainThread()
 

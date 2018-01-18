@@ -19,15 +19,15 @@ import javax.inject.Named
 
 class ContentPresenterImpl
 @Inject constructor(
-        private val interractor: ContentInterractor,
-        private val mapper: ContentDomainMapper,
-        @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorDB<ContentDisplayable>,
-        private val navigator: NewsMainNavigator,
-        private val menuController: MenuController
+    private val interractor: ContentInterractor,
+    private val mapper: ContentDomainMapper,
+    @Named(DiConstants.NEWS_MAIN_CONTENT_PAGINATOR) private val paginator: PaginatorDB<ContentDisplayable>,
+    private val navigator: NewsMainNavigator,
+    private val menuController: MenuController
 ) : ContentPresenter {
 
     override fun getData(): LiveData<PaginatorModelResult<ContentDisplayable>> =
-            paginator.getData()
+        paginator.getData()
 
     override fun getSingleEventData(): LiveData<String> {
         return paginator.getSingleEvent()
@@ -35,8 +35,8 @@ class ContentPresenterImpl
 
     init {
         paginator.setCallbacks(
-                init = this::initRequest, database = this::getDatabaseStream,
-                nextData = this::getContentPage
+            init = this::initRequest, database = this::getDatabaseStream,
+            nextData = this::getContentPage
         )
         refreshClicked()
     }
@@ -66,10 +66,10 @@ class ContentPresenterImpl
     }
 
     private fun getContentPage(page: Int): Completable =
-            interractor.loadNextContentPage(page)
+        interractor.loadNextContentPage(page)
 
     private fun initRequest(): Completable = interractor.loadNews()
 
     private fun getDatabaseStream(): Flowable<List<ContentDisplayable>> =
-            interractor.getContentStream().map(mapper)
+        interractor.getContentStream().map(mapper)
 }

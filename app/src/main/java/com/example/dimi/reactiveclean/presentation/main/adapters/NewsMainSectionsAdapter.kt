@@ -4,7 +4,7 @@ import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 
 class NewsMainSectionsAdapter(
-        openCurrentSection: (SectionDisplayable.Section) -> Unit
+    openCurrentSection: (SectionDisplayable.Section) -> Unit
 ) : ListDelegationAdapter<MutableList<SectionDisplayable>>() {
 
     init {

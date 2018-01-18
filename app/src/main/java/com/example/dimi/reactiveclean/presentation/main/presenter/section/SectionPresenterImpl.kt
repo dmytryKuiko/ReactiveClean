@@ -14,23 +14,24 @@ import javax.inject.Inject
 
 class SectionPresenterImpl
 @Inject constructor(
-        interractor: NewsMainSectionsInterractor,
-        mapper: NewsMainSectionsDomainMapper,
-        private val navigator: NewsMainNavigator,
-        private val menuController: MenuController
+    interractor: NewsMainSectionsInterractor,
+    mapper: NewsMainSectionsDomainMapper,
+    private val navigator: NewsMainNavigator,
+    private val menuController: MenuController
 ) : SectionPresenter {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val sectionDisplayableLiveData: MutableLiveData<List<SectionDisplayable>> = MutableLiveData()
+    private val sectionDisplayableLiveData: MutableLiveData<List<SectionDisplayable>> =
+        MutableLiveData()
 
     private val errorLiveData = SingleEventLiveData<String>()
 
     init {
         interractor.getSectionsStream()
-                .map(mapper)
-                .subscribe(this::eventReceived, this::errorReceived)
-                .addTo(compositeDisposable)
+            .map(mapper)
+            .subscribe(this::eventReceived, this::errorReceived)
+            .addTo(compositeDisposable)
     }
 
     override fun disposeSubscriptions() {
@@ -38,7 +39,7 @@ class SectionPresenterImpl
     }
 
     override fun getData(): LiveData<List<SectionDisplayable>> =
-            sectionDisplayableLiveData
+        sectionDisplayableLiveData
 
     override fun getSingleEventLiveData(): LiveData<String> = errorLiveData
 

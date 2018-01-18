@@ -16,13 +16,20 @@ import javax.inject.Inject
 
 class TutorialActivity : BaseActivity() {
 
-    @Inject lateinit var mainNavigator: TutorialMainNavigator
+    @Inject
+    lateinit var mainNavigator: TutorialMainNavigator
 
-    @Inject lateinit var navigatorHolder: NavigatorHolder
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
 
-    private val appNavigator = object : SupportAppNavigator(this@TutorialActivity, R.id.tutorial_activity_container_layout) {
+    private val appNavigator = object :
+        SupportAppNavigator(this@TutorialActivity, R.id.tutorial_activity_container_layout) {
 
-        override fun createActivityIntent(context: Context?, screenKey: String, data: Any?): Intent? = when (screenKey) {
+        override fun createActivityIntent(
+            context: Context?,
+            screenKey: String,
+            data: Any?
+        ): Intent? = when (screenKey) {
             RouterConstants.NEWS_MAIN_ACTIVITY ->
                 Intent(context, MainActivity::class.java)
 

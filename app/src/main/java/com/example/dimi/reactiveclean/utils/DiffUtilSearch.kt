@@ -4,8 +4,10 @@ import android.support.v7.util.DiffUtil
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.models.search.SearchDisplayable
 
-class DiffUtilSearch(private val oldList: List<SearchDisplayable>,
-                     private val newList: List<SearchDisplayable>) : DiffUtil.Callback() {
+class DiffUtilSearch(
+    private val oldList: List<SearchDisplayable>,
+    private val newList: List<SearchDisplayable>
+) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
 

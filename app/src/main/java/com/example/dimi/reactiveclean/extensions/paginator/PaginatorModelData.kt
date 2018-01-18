@@ -4,7 +4,7 @@ import com.example.dimi.reactiveclean.models.RecyclerUpdate
 import com.example.dimi.reactiveclean.models.content.ContentState
 
 class PaginatorModelData<T>(
-        val content: List<T>,
-        val state: ContentState,
-        val recyclerUpdate: RecyclerUpdate
+    val content: List<T>,
+    val state: ContentState,
+    val recyclerUpdate: RecyclerUpdate
 )

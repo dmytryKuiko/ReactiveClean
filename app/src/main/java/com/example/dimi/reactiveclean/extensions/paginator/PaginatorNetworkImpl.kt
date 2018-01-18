@@ -60,10 +60,10 @@ class PaginatorNetworkImpl<T>
     private fun loadPage(page: Int) {
         disposable?.dispose()
         disposable = pageRequest.invoke(page)
-                .subscribe(
-                        { currentState.newData(it) },
-                        { currentState.fail(it) }
-                )
+            .subscribe(
+                { currentState.newData(it) },
+                { currentState.fail(it) }
+            )
     }
 
     private interface State<T> {
@@ -78,7 +78,8 @@ class PaginatorNetworkImpl<T>
 
         override fun refresh() {
             currentState = EMPTY_PROGRESS()
-            paginatorModelResult = PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
+            paginatorModelResult =
+                    PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
             loadPage(FIRST_PAGE)
         }
 
@@ -96,21 +97,32 @@ class PaginatorNetworkImpl<T>
                 currentData.addAll(data)
                 currentPage = FIRST_PAGE
                 val paginatorData = PaginatorModelData(
-                        content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                    content = currentData,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    state = ContentState.DATA
                 )
-                paginatorModelResult = PaginatorModelResult(showEmptyProgress = false,
-                        showEmptyView = false, paginatorModelData = paginatorData)
+                paginatorModelResult = PaginatorModelResult(
+                    showEmptyProgress = false,
+                    showEmptyView = false, paginatorModelData = paginatorData
+                )
             } else {
                 currentState = EMPTY_DATA()
-                paginatorModelResult = PaginatorModelResult(showEmptyProgress = false, showEmptyView = true)
+                paginatorModelResult =
+                        PaginatorModelResult(showEmptyProgress = false, showEmptyView = true)
             }
         }
 
         override fun fail(error: Throwable) {
             currentState = EMPTY_ERROR()
-            paginatorModelResult = PaginatorModelResult(showEmptyProgress = false, showErrorMessage = true, paginatorModelData = PaginatorModelData(
-                    content = currentData, state = ContentState.DATA, recyclerUpdate = RecyclerUpdate.NOTIFY
-            ))
+            paginatorModelResult = PaginatorModelResult(
+                showEmptyProgress = false,
+                showErrorMessage = true,
+                paginatorModelData = PaginatorModelData(
+                    content = currentData,
+                    state = ContentState.DATA,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY
+                )
+            )
         }
 
         override fun release() {
@@ -137,7 +149,8 @@ class PaginatorNetworkImpl<T>
 
         override fun refresh() {
             currentState = EMPTY_PROGRESS()
-            paginatorModelResult = PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
+            paginatorModelResult =
+                    PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
             loadPage(FIRST_PAGE)
         }
 
@@ -158,7 +171,9 @@ class PaginatorNetworkImpl<T>
         override fun loadNewPage() {
             currentState = PAGE_PROGRESS()
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.PROGRESS
+                content = currentData,
+                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                state = ContentState.PROGRESS
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
             loadPage(currentPage + 1)
@@ -179,26 +194,41 @@ class PaginatorNetworkImpl<T>
                 currentData.addAll(data)
                 currentPage = FIRST_PAGE
                 val paginatorData = PaginatorModelData(
-                        content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                    content = currentData,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    state = ContentState.DATA
                 )
-                PaginatorModelResult(paginatorModelData = paginatorData, showRefreshProgress = false)
+                PaginatorModelResult(
+                    paginatorModelData = paginatorData,
+                    showRefreshProgress = false
+                )
             } else {
                 currentState = EMPTY_DATA()
                 currentData.clear()
                 val paginatorData = PaginatorModelData(
-                        content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                    content = currentData,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    state = ContentState.DATA
                 )
                 PaginatorModelResult(
-                        showEmptyView = true, showRefreshProgress = false, paginatorModelData = paginatorData)
+                    showEmptyView = true,
+                    showRefreshProgress = false,
+                    paginatorModelData = paginatorData
+                )
             }
         }
 
         override fun fail(error: Throwable) {
             currentState = DATA()
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.ERROR
+                content = currentData,
+                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                state = ContentState.ERROR
             )
-            paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData, showRefreshProgress = false)
+            paginatorModelResult = PaginatorModelResult(
+                paginatorModelData = paginatorData,
+                showRefreshProgress = false
+            )
         }
 
         override fun release() {
@@ -218,7 +248,9 @@ class PaginatorNetworkImpl<T>
                 currentState = ALL_DATA()
             }
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                content = currentData,
+                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                state = ContentState.DATA
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
         }
@@ -233,7 +265,7 @@ class PaginatorNetworkImpl<T>
             currentState = DATA()
             val state = errorHandler.getErrorState(error)
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = state
+                content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = state
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
         }

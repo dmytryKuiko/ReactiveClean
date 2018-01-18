@@ -11,19 +11,20 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
 class ProgressAdapter : AdapterDelegate<MutableList<ContentDisplayable>>() {
 
     override fun isForViewType(items: MutableList<ContentDisplayable>, position: Int): Boolean =
-            items[position] is ContentDisplayable.Progress
+        items[position] is ContentDisplayable.Progress
 
     override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent?.context)
-                .inflate(R.layout.row_loading_displayable, parent, false)
+            .inflate(R.layout.row_loading_displayable, parent, false)
         return ProgressViewHolder(view)
     }
 
     override fun onBindViewHolder(
-            item: MutableList<ContentDisplayable>,
-            position: Int,
-            holder: RecyclerView.ViewHolder, payloads: MutableList<Any>
-    ) {}
+        item: MutableList<ContentDisplayable>,
+        position: Int,
+        holder: RecyclerView.ViewHolder, payloads: MutableList<Any>
+    ) {
+    }
 
     inner class ProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

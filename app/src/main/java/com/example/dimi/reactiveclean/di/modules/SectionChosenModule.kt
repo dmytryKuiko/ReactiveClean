@@ -22,25 +22,25 @@ abstract class SectionChosenModule {
 
     @CustomScope
     @Binds
-    abstract internal fun bindPresenter(presenter: SectionChosenPresenterImpl): SectionChosenPresenter
+    internal abstract fun bindPresenter(presenter: SectionChosenPresenterImpl): SectionChosenPresenter
 
     @CustomScope
     @Binds
-    abstract internal fun bindInterractor(interractor: SectionChosenInterractorImpl): SectionChosenInterractor
+    internal abstract fun bindInterractor(interractor: SectionChosenInterractorImpl): SectionChosenInterractor
 
     @CustomScope
     @Binds
-    abstract internal fun bindRepository(repo: SectionChosenRepositoryImpl): SectionChosenRepository
+    internal abstract fun bindRepository(repo: SectionChosenRepositoryImpl): SectionChosenRepository
 
     @CustomScope
     @Binds
-    abstract internal fun bindStore(store: SectionChosenStoreImpl): SectionChosenStore
+    internal abstract fun bindStore(store: SectionChosenStoreImpl): SectionChosenStore
 
     @Named(DiConstants.SECTION_CHOSEN_PAGINATOR)
     @CustomScope
     @Binds
-    abstract internal fun bindPaginator(
-            paginator: PaginatorNetworkImpl<ContentDisplayable>
+    internal abstract fun bindPaginator(
+        paginator: PaginatorNetworkImpl<ContentDisplayable>
     ): PaginatorNetwork<ContentDisplayable>
 
     @Module

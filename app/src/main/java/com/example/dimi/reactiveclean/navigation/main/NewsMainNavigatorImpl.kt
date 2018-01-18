@@ -19,11 +19,11 @@ class NewsMainNavigatorImpl
 
     override fun openChosenSection(sectionUrl: String, sectionTitle: String) {
         router.navigateTo(
-                RouterConstants.SECTION_CHOSEN_SCREEN,
-                ContentChosen(
-                        toolbar = ToolbarData.SectionToolbar(title = sectionTitle),
-                        url = sectionUrl
-                )
+            RouterConstants.SECTION_CHOSEN_SCREEN,
+            ContentChosen(
+                toolbar = ToolbarData.SectionToolbar(title = sectionTitle),
+                url = sectionUrl
+            )
         )
     }
 
@@ -36,11 +36,13 @@ class NewsMainNavigatorImpl
     }
 
     override fun openSearchContent(textTyped: String) {
-        router.navigateTo(RouterConstants.SEARCH_CHOSEN_SCREEN,
-                ContentChosen(toolbar = ToolbarData.SearchToolbar(title = textTyped),
-                        url = "search",
-                        query = textTyped
-                )
+        router.navigateTo(
+            RouterConstants.SEARCH_CHOSEN_SCREEN,
+            ContentChosen(
+                toolbar = ToolbarData.SearchToolbar(title = textTyped),
+                url = "search",
+                query = textTyped
+            )
         )
     }
 

@@ -6,7 +6,7 @@ import io.reactivex.Flowable
 import javax.inject.Inject
 
 class SectionStoreImpl
-@Inject constructor(private val sectionsDao: SectionsDao): SectionStore {
+@Inject constructor(private val sectionsDao: SectionsDao) : SectionStore {
 
     override fun storeAll(list: List<Section>) = sectionsDao.insert(list.toTypedArray())
 

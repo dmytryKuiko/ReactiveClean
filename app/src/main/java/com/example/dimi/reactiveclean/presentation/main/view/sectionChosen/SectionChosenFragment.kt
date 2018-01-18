@@ -33,9 +33,9 @@ class SectionChosenFragment : BaseFragment() {
 
     private val contentAdapter by lazy {
         NewsMainContentAdapter(
-                loadNextPage = presenter::loadNextContentPage,
-                openCurrentContent = presenter::openCurrentContent,
-                schedulers = schedulers
+            loadNextPage = presenter::loadNextContentPage,
+            openCurrentContent = presenter::openCurrentContent,
+            schedulers = schedulers
         )
     }
 
@@ -59,7 +59,9 @@ class SectionChosenFragment : BaseFragment() {
     }
 
     override fun injectModule(context: Context) {
-        (ComponentManager.getTempComponent(context, this, null) as SectionChosenComponent).inject(this)
+        (ComponentManager.getTempComponent(context, this, null) as SectionChosenComponent).inject(
+            this
+        )
     }
 
     private fun initRecyclerView() {
@@ -74,11 +76,11 @@ class SectionChosenFragment : BaseFragment() {
 
         with(content_toolbar) {
             findViewById<ImageButton>(R.id.general_toolbar_search_button)
-                    .setOnClickListener { presenter.searchClicked() }
+                .setOnClickListener { presenter.searchClicked() }
             findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
-                    .setOnClickListener { presenter.refreshContent() }
+                .setOnClickListener { presenter.refreshContent() }
             findViewById<Toolbar>(R.id.general_toolbar)
-                    .setNavigationOnClickListener { presenter.navigationClicked()}
+                .setNavigationOnClickListener { presenter.navigationClicked() }
         }
     }
 
@@ -87,7 +89,8 @@ class SectionChosenFragment : BaseFragment() {
             getToolbarData().observe(this@SectionChosenFragment, Observer {
                 it?.let {
                     with(content_toolbar) {
-                        content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = it.title
+                        content_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text =
+                                it.title
                         findViewById<ImageButton>(R.id.general_toolbar_search_button).visible(it.searchVisibility)
                         findViewById<Toolbar>(R.id.general_toolbar).setNavigationIcon(it.navIcon)
                     }
@@ -114,7 +117,9 @@ class SectionChosenFragment : BaseFragment() {
                 }
             })
 
-            getNetworkError().observe(this@SectionChosenFragment, Observer { it?.displayToast(activity) })
+            getNetworkError().observe(
+                this@SectionChosenFragment,
+                Observer { it?.displayToast(activity) })
         }
     }
 }

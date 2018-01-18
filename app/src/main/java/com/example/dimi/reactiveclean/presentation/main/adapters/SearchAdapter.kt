@@ -9,8 +9,8 @@ import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 
 class SearchAdapter(
-        private val schedulers: SchedulersProvider,
-        callback: (SearchDisplayable.Search) -> Unit
+    private val schedulers: SchedulersProvider,
+    callback: (SearchDisplayable.Search) -> Unit
 ) : ListDelegationAdapter<MutableList<SearchDisplayable>>() {
 
     private var disposable: Disposable? = null
@@ -24,13 +24,13 @@ class SearchAdapter(
     fun setNewData(data: List<SearchDisplayable>) {
         disposable?.dispose()
         disposable = Single.fromCallable { DiffUtil.calculateDiff(DiffUtilSearch(items, data)) }
-                .subscribeOn(schedulers.computation())
-                .observeOn(schedulers.ui())
-                .subscribe({
-                    items.apply { clear() }.addAll(data)
-                    it.dispatchUpdatesTo(this)
-                }, { throw Exception(it.message) }
-                )
+            .subscribeOn(schedulers.computation())
+            .observeOn(schedulers.ui())
+            .subscribe({
+                items.apply { clear() }.addAll(data)
+                it.dispatchUpdatesTo(this)
+            }, { throw Exception(it.message) }
+            )
     }
 
     fun disposeSubscription() {

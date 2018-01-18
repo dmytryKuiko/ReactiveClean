@@ -37,7 +37,8 @@ class SectionFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         sections_toolbar.findViewById<TextView>(R.id.general_toolbar_title).text = "Sections"
 
-        sections_toolbar.findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openMenu()}
+        sections_toolbar.findViewById<Toolbar>(R.id.general_toolbar)
+            .setNavigationOnClickListener { presenter.openMenu() }
 
         with(sections_recycler_view) {
             layoutManager = LinearLayoutManager(activity)
@@ -45,7 +46,8 @@ class SectionFragment : BaseFragment() {
             setHasFixedSize(true)
         }
 
-        sections_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button).visible(false)
+        sections_toolbar.findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
+            .visible(false)
 
         presenter.getData().observe(this, Observer {
             it?.let {
@@ -59,8 +61,8 @@ class SectionFragment : BaseFragment() {
     }
 
     override fun injectModule(context: Context) {
-        val component = (ComponentManager.getComponent(context) as? NewsMainComponent) ?:
-                throw ClassCastException("Component is not an instance of Tutorial Component")
+        val component = (ComponentManager.getComponent(context) as? NewsMainComponent)
+                ?: throw ClassCastException("Component is not an instance of Tutorial Component")
         component.inject(this)
     }
 }

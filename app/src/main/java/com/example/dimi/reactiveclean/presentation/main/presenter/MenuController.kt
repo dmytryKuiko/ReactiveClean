@@ -1,6 +1,5 @@
 package com.example.dimi.reactiveclean.presentation.main.presenter
 
-import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 
 interface MenuController {

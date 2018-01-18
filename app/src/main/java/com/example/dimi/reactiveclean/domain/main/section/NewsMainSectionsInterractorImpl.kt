@@ -12,19 +12,19 @@ class NewsMainSectionsInterractorImpl
 @Inject constructor(private val repository: SectionRepository) : NewsMainSectionsInterractor {
 
     override fun getSectionsStream(): Flowable<List<Section>> = repository.getAllSections()
-            .flatMapSingle(this::fetchWhenNoneThenDrafts)
-            .filter { list -> list.isNotEmpty() }
+        .flatMapSingle(this::fetchWhenNoneThenDrafts)
+        .filter { list -> list.isNotEmpty() }
 
     override fun getSpecificSectionsStream(params: String): Flowable<List<Section>> {
         return repository.getSpecificSections(params)
     }
 
     private fun fetchWhenNoneThenDrafts(list: List<Section>): Single<List<Section>> =
-            fetchWhenNone(list).andThen(just(list))
+        fetchWhenNone(list).andThen(just(list))
 
     private fun fetchWhenNone(list: List<Section>): Completable =
-            when (list.isEmpty()) {
-                true -> repository.fetchSections()
-                else -> Completable.complete()
-            }
+        when (list.isEmpty()) {
+            true -> repository.fetchSections()
+            else -> Completable.complete()
+        }
 }

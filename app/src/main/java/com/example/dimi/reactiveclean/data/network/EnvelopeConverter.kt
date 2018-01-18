@@ -10,12 +10,20 @@ import javax.inject.Inject
 class EnvelopeConverter
 @Inject constructor() : Converter.Factory() {
 
-    override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): Converter<ResponseBody, Any>? {
+    override fun responseBodyConverter(
+        type: Type?,
+        annotations: Array<out Annotation>?,
+        retrofit: Retrofit?
+    ): Converter<ResponseBody, Any>? {
         val envelopedType = TypeToken.getParameterized(EnvelopeResponse::class.java, type).type
         return if (retrofit != null && envelopedType != null && annotations != null) {
             val delegate: Converter<ResponseBody, EnvelopeResponse<Any>> = retrofit
-                    .nextResponseBodyConverter(this, envelopedType, annotations)
-            Converter<ResponseBody, Any> { value: ResponseBody? -> value?.let { delegate.convert(it).response } }
+                .nextResponseBodyConverter(this, envelopedType, annotations)
+            Converter<ResponseBody, Any> { value: ResponseBody? ->
+                value?.let {
+                    delegate.convert(it).response
+                }
+            }
         } else null
     }
 }

@@ -34,6 +34,7 @@ sourceSets {
     main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -52,7 +53,6 @@ dependencies {
 
     //Mockito
     compile 'org.mockito:mockito-core:2.13.0'
-
 
     //LifeCycles
     implementation "android.arch.lifecycle:runtime:1.0.3"
@@ -88,7 +88,7 @@ dependencies {
     //RxBindings
     compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    //compile 'com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:2.0.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
 
     //RxRelay

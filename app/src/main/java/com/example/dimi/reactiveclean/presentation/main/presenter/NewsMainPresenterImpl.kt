@@ -8,10 +8,10 @@ import javax.inject.Inject
 
 class NewsMainPresenterImpl
 @Inject constructor(
-        val interractor: NewsMainInterractor,
-        val mapper: NewsMainDomainMapper,
-        private val navigator: NewsMainNavigator,
-        private val menuController: MenuController
+    val interractor: NewsMainInterractor,
+    val mapper: NewsMainDomainMapper,
+    private val navigator: NewsMainNavigator,
+    private val menuController: MenuController
 ) : NewsMainPresenter {
 
     override fun isMenuOpen(): Observable<Boolean> = menuController.isOpen()

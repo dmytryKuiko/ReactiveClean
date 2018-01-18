@@ -9,19 +9,19 @@ import javax.inject.Inject
 
 class SplashPresenterImpl
 @Inject constructor(
-        private val navigator: SplashNavigator,
-        private val interractor: SplashInterractor,
-        private val schedulers: SchedulersProvider
+    private val navigator: SplashNavigator,
+    private val interractor: SplashInterractor,
+    private val schedulers: SchedulersProvider
 ) : SplashPresenter {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {
         interractor.isFirstLaunch()
-                .subscribeOn(schedulers.computation())
-                .observeOn(schedulers.ui())
-                .subscribe(this::handleResult, this::handleError)
-                .addTo(compositeDisposable)
+            .subscribeOn(schedulers.computation())
+            .observeOn(schedulers.ui())
+            .subscribe(this::handleResult, this::handleError)
+            .addTo(compositeDisposable)
     }
 
     override fun disposeSubscriptions() = compositeDisposable.clear()

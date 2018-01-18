@@ -49,7 +49,11 @@ class PaginatorDBImpl<T>
         currentState.release()
     }
 
-    override fun setCallbacks(init: () -> Completable, database: () -> Flowable<List<T>>, nextData: (Int) -> Completable) {
+    override fun setCallbacks(
+        init: () -> Completable,
+        database: () -> Flowable<List<T>>,
+        nextData: (Int) -> Completable
+    ) {
         initRequest = init
         databaseStream = database
         pageRequest = nextData
@@ -66,20 +70,20 @@ class PaginatorDBImpl<T>
     private fun loadPage(page: Int) {
         requestDisposable?.dispose()
         requestDisposable = pageRequest.invoke(page)
-                .subscribe(
-                        { },
-                        { currentState.fail(it) }
-                )
+            .subscribe(
+                { },
+                { currentState.fail(it) }
+            )
     }
 
     private fun makeInitRequest() {
         requestDisposable?.dispose()
         requestDisposable = initRequest.invoke()
-                .doAfterTerminate(this::checkDataBaseDisposable)
-                .subscribe(
-                        { },
-                        { currentState.fail(it) }
-                )
+            .doAfterTerminate(this::checkDataBaseDisposable)
+            .subscribe(
+                { },
+                { currentState.fail(it) }
+            )
     }
 
     private fun checkDataBaseDisposable() {
@@ -88,11 +92,11 @@ class PaginatorDBImpl<T>
 
     private fun subscribeToDB() {
         databaseStream.invoke()
-                .subscribe(
-                        { currentState.newData(it) },
-                        { currentState.fail(it) }
-                )
-                .addTo(databaseDisposable)
+            .subscribe(
+                { currentState.newData(it) },
+                { currentState.fail(it) }
+            )
+            .addTo(databaseDisposable)
     }
 
     private interface State<T> {
@@ -107,7 +111,8 @@ class PaginatorDBImpl<T>
 
         override fun refresh() {
             currentState = EMPTY_PROGRESS()
-            paginatorModelResult = PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
+            paginatorModelResult =
+                    PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
             makeInitRequest()
         }
 
@@ -127,25 +132,30 @@ class PaginatorDBImpl<T>
                 currentData.addAll(data)
                 currentPage = FIRST_PAGE
                 val paginatorData = PaginatorModelData(
-                        content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                    content = data,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    state = ContentState.DATA
                 )
                 paginatorModelResult = PaginatorModelResult(
-                        showEmptyProgress = false,
-                        showEmptyView = false, paginatorModelData = paginatorData
+                    showEmptyProgress = false,
+                    showEmptyView = false, paginatorModelData = paginatorData
                 )
             } else {
                 currentState = EMPTY_DATA()
-                paginatorModelResult = PaginatorModelResult(showEmptyProgress = false, showEmptyView = true)
+                paginatorModelResult =
+                        PaginatorModelResult(showEmptyProgress = false, showEmptyView = true)
             }
         }
 
         override fun fail(error: Throwable) {
             currentState = DATABASE()
             paginatorModelResult = PaginatorModelResult(
-                    showEmptyProgress = false, showErrorMessage = true,
-                    paginatorModelData = PaginatorModelData(
-                            content = currentData, state = ContentState.DATA, recyclerUpdate = RecyclerUpdate.NOTIFY
-                    )
+                showEmptyProgress = false, showErrorMessage = true,
+                paginatorModelData = PaginatorModelData(
+                    content = currentData,
+                    state = ContentState.DATA,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY
+                )
             )
         }
 
@@ -160,7 +170,8 @@ class PaginatorDBImpl<T>
 
         override fun refresh() {
             currentState = EMPTY_PROGRESS()
-            paginatorModelResult = PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
+            paginatorModelResult =
+                    PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
             makeInitRequest()
         }
 
@@ -171,7 +182,9 @@ class PaginatorDBImpl<T>
                 currentData.clear()
                 currentData.addAll(data)
                 val paginatorData = PaginatorModelData(
-                        content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                    content = data,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    state = ContentState.DATA
                 )
                 PaginatorModelResult(paginatorModelData = paginatorData)
             } else {
@@ -191,7 +204,8 @@ class PaginatorDBImpl<T>
 
         override fun refresh() {
             currentState = EMPTY_PROGRESS()
-            paginatorModelResult = PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
+            paginatorModelResult =
+                    PaginatorModelResult(showEmptyProgress = true, showEmptyView = false)
             makeInitRequest()
         }
 
@@ -213,7 +227,9 @@ class PaginatorDBImpl<T>
         override fun loadNewPage() {
             currentState = PAGE_PROGRESS()
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.PROGRESS
+                content = currentData,
+                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                state = ContentState.PROGRESS
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
             loadPage(currentPage + 1)
@@ -235,17 +251,26 @@ class PaginatorDBImpl<T>
                 currentData.addAll(data)
                 currentPage = FIRST_PAGE
                 val paginatorData = PaginatorModelData(
-                        content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                    content = data,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    state = ContentState.DATA
                 )
-                PaginatorModelResult(paginatorModelData = paginatorData, showRefreshProgress = false)
+                PaginatorModelResult(
+                    paginatorModelData = paginatorData,
+                    showRefreshProgress = false
+                )
             } else {
                 currentState = EMPTY_DATA()
                 currentData.clear()
                 val paginatorData = PaginatorModelData(
-                        content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                    content = currentData,
+                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    state = ContentState.DATA
                 )
                 PaginatorModelResult(
-                        showEmptyView = true, showRefreshProgress = false, paginatorModelData = paginatorData
+                    showEmptyView = true,
+                    showRefreshProgress = false,
+                    paginatorModelData = paginatorData
                 )
             }
         }
@@ -253,9 +278,14 @@ class PaginatorDBImpl<T>
         override fun fail(error: Throwable) {
             currentState = DATA()
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.ERROR
+                content = currentData,
+                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                state = ContentState.ERROR
             )
-            paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData, showRefreshProgress = false)
+            paginatorModelResult = PaginatorModelResult(
+                paginatorModelData = paginatorData,
+                showRefreshProgress = false
+            )
         }
 
         override fun release() {
@@ -277,7 +307,7 @@ class PaginatorDBImpl<T>
                 currentState = ALL_DATA()
             }
             val paginatorData = PaginatorModelData(
-                    content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
         }
@@ -291,7 +321,9 @@ class PaginatorDBImpl<T>
         override fun fail(error: Throwable) {
             currentState = DATA()
             val paginatorData = PaginatorModelData(
-                    content = currentData, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.ERROR
+                content = currentData,
+                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                state = ContentState.ERROR
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
         }

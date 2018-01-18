@@ -14,7 +14,14 @@ class ContentDomainMapper
         val parsedList: MutableList<ContentDisplayable.Content> = mutableListOf()
         list.forEach {
             val temp = DateTime(it.publicationMills).toDisplayable()
-            parsedList.add(ContentDisplayable.Content(title = it.name, url = it.webUrl, time = temp, sectionName = it.sectionName))
+            parsedList.add(
+                ContentDisplayable.Content(
+                    title = it.name,
+                    url = it.webUrl,
+                    time = temp,
+                    sectionName = it.sectionName
+                )
+            )
         }
         return parsedList
     }

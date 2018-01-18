@@ -18,9 +18,9 @@ class ContentInterractorImpl
 
     override fun searchContent(text: Observable<String>): Observable<ContentPages> {
         return text.debounce(300, TimeUnit.MILLISECONDS)
-                .filter { it.length > 2 }
-                .distinctUntilChanged()
-                .switchMap { repository.searchContent(it).toObservable() }
+            .filter { it.length > 2 }
+            .distinctUntilChanged()
+            .switchMap { repository.searchContent(it).toObservable() }
     }
 
     override fun loadNextContentPage(page: Int): Completable {

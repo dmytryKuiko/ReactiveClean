@@ -16,13 +16,18 @@ class ContentDataMapperForDB
         responseList?.forEach {
 
             if (it.id != null && it.type != null && it.sectionId != null && it.sectionName != null
-                    && it.webPublicationDate != null && it.webTitle != null && it.webUrl != null
-                    && it.apiUrl != null && it.pillarName != null) {
+                && it.webPublicationDate != null && it.webTitle != null && it.webUrl != null
+                && it.apiUrl != null && it.pillarName != null) {
                 val publicationMills = DateTime(it.webPublicationDate, DateTimeZone.UTC).millis
                 parsedList.add(
-                        Content(name = it.webTitle, type = it.type, sectionName = it.sectionName,
-                                publicationMills = publicationMills, webUrl = it.webUrl, pillarName = it.pillarName
-                        )
+                    Content(
+                        name = it.webTitle,
+                        type = it.type,
+                        sectionName = it.sectionName,
+                        publicationMills = publicationMills,
+                        webUrl = it.webUrl,
+                        pillarName = it.pillarName
+                    )
                 )
             }
         }

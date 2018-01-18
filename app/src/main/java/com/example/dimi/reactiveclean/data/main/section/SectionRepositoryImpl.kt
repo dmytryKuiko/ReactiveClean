@@ -9,16 +9,16 @@ import javax.inject.Inject
 
 class SectionRepositoryImpl
 @Inject constructor(
-        private val store: SectionStore,
-        private val serviceNewsApi: ServiceNewsApi,
-        private val mapper: SectionDataMapper
+    private val store: SectionStore,
+    private val serviceNewsApi: ServiceNewsApi,
+    private val mapper: SectionDataMapper
 ) : SectionRepository {
 
     override fun getAllSections(): Flowable<List<Section>> = store.getAllSections()
 
     override fun fetchSections(): Completable = loadSections()
-            .doOnSuccess(store::storeAll)
-            .toCompletable()
+        .doOnSuccess(store::storeAll)
+        .toCompletable()
 
     override fun getSpecificSections(params: String): Flowable<List<Section>> {
         return store.getSpecificSections(params)
@@ -29,5 +29,5 @@ class SectionRepositoryImpl
     }
 
     private fun loadSections(): Single<List<Section>> = serviceNewsApi.getAllSections()
-            .map(mapper)
+        .map(mapper)
 }

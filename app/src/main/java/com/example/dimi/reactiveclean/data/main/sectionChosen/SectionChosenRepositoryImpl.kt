@@ -9,13 +9,14 @@ import javax.inject.Inject
 
 class SectionChosenRepositoryImpl
 @Inject constructor(
-        private val store: SectionChosenStore,
-        private val serviceNewsApi: ServiceNewsApi,
-        private val mapper: ContentDataMapperForDB,
-        private val contentChosen: ContentChosen
+    private val store: SectionChosenStore,
+    private val serviceNewsApi: ServiceNewsApi,
+    private val mapper: ContentDataMapperForDB,
+    private val contentChosen: ContentChosen
 ) : SectionChosenRepository {
 
     override fun getSectionContent(page: Int): Single<List<Content>> {
-        return serviceNewsApi.getSectionChosen(contentChosen.url, page, contentChosen.query).map(mapper)
+        return serviceNewsApi.getSectionChosen(contentChosen.url, page, contentChosen.query)
+            .map(mapper)
     }
 }

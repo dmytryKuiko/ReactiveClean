@@ -61,7 +61,7 @@ abstract class NewsMainModule {
     @ActivityScope
     @Binds
     internal abstract fun bindSectionsInterractor(
-            interractor: NewsMainSectionsInterractorImpl
+        interractor: NewsMainSectionsInterractorImpl
     ): NewsMainSectionsInterractor
 
     @ActivityScope

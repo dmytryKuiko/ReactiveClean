@@ -30,8 +30,8 @@ object ComponentManager {
     fun initAppComponent(app: App) {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder().application(app)
-                    .baseUrlRetrofit(API_URL)
-                    .build()
+                .baseUrlRetrofit(API_URL)
+                .build()
         }
     }
 
@@ -67,7 +67,8 @@ object ComponentManager {
     }
 
     private fun getName(creator: Any): String =
-            creator::class.qualifiedName ?: throw PackageManager.NameNotFoundException("For activity $creator")
+        creator::class.qualifiedName
+                ?: throw PackageManager.NameNotFoundException("For activity $creator")
 
     private fun createComponent(name: String): BaseComponent<Context> {
         val component = appComponent ?: throw NullPointerException("App Component is null")
@@ -82,26 +83,33 @@ object ComponentManager {
         }
     }
 
-    private fun createTempComponent(componentName: String, tempComponentName: String, data: Any?): TempComponent {
+    private fun createTempComponent(
+        componentName: String,
+        tempComponentName: String,
+        data: Any?
+    ): TempComponent {
 
         return when (componentName) {
             MainActivity::class.qualifiedName -> {
-                val component = componentMap[componentName] as? NewsMainComponent ?:
-                        throw NullPointerException("Parent component is null for temp component")
+                val component =
+                    componentMap[componentName] as? NewsMainComponent ?: throw NullPointerException(
+                        "Parent component is null for temp component"
+                    )
                 when (tempComponentName) {
                     SectionChosenFragment::class.qualifiedName -> {
-                        val model = data as? ContentChosen ?: throw IllegalArgumentException("Wrong parameter passed")
+                        val model = data as? ContentChosen
+                                ?: throw IllegalArgumentException("Wrong parameter passed")
 
                         component.sectionChosenBuilder()
-                                .sectionChosenModel(model)
-                                .build()
+                            .sectionChosenModel(model)
+                            .build()
                     }
 
                     SearchFragment::class.qualifiedName -> {
                         component.searchBuilder().build()
                     }
                     else -> throw UninitializedPropertyAccessException(
-                            "This component is not initialized yet for $tempComponentName"
+                        "This component is not initialized yet for $tempComponentName"
                     )
                 }
 
