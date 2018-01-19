@@ -27,6 +27,8 @@ import com.example.dimi.reactiveclean.data.main.section.SectionRepositoryImpl
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDB
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDBImpl
 import com.example.dimi.reactiveclean.presentation.main.presenter.*
+import com.example.dimi.reactiveclean.presentation.main.presenter.drawer.DrawerPresenter
+import com.example.dimi.reactiveclean.presentation.main.presenter.drawer.DrawerPresenterImpl
 import dagger.Binds
 import dagger.Module
 import javax.inject.Named
@@ -88,6 +90,10 @@ abstract class NewsMainModule {
     @ActivityScope
     @Binds
     internal abstract fun bindMenuController(menuController: MenuControllerImpl): MenuController
+
+    @ActivityScope
+    @Binds
+    internal abstract fun bindDrawerPresenter(presenter: DrawerPresenterImpl): DrawerPresenter
 
     @ActivityScope
     @Binds

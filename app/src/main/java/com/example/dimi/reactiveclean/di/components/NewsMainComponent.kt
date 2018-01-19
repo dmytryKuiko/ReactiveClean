@@ -6,6 +6,7 @@ import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
 import com.example.dimi.reactiveclean.presentation.main.view.MainFragment
 import com.example.dimi.reactiveclean.presentation.main.view.content.ContentFragment
+import com.example.dimi.reactiveclean.presentation.main.view.drawer.DrawerFragment
 import com.example.dimi.reactiveclean.presentation.main.view.section.SectionFragment
 import dagger.Subcomponent
 
@@ -23,6 +24,8 @@ interface NewsMainComponent : BaseComponent<MainActivity> {
     fun inject(fragment: ContentFragment)
 
     fun inject(fragment: SectionFragment)
+
+    fun inject(fragment: DrawerFragment)
 
     fun sectionChosenBuilder(): SectionChosenComponent.Builder
 
