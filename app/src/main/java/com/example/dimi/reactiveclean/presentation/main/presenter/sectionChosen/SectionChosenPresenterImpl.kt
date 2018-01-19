@@ -59,7 +59,7 @@ class SectionChosenPresenterImpl
         navigator.onBackPressed()
     }
 
-    override fun navigationClicked() {
+    override fun openMenuClicked() {
         when (contentChosen.toolbar) {
             is ToolbarData.SectionToolbar -> menuController.open()
             is ToolbarData.SearchToolbar -> navigator.backToMainScreen()

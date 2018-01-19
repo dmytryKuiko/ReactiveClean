@@ -14,6 +14,7 @@ import com.example.dimi.reactiveclean.extensions.navigator.ExtendedNavigator
 import com.example.dimi.reactiveclean.navigation.RouterConstants
 import com.example.dimi.reactiveclean.presentation.BaseFragment
 import com.example.dimi.reactiveclean.presentation.main.presenter.NewsMainPresenter
+import com.example.dimi.reactiveclean.presentation.main.view.about.AboutFragment
 import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import io.reactivex.disposables.Disposable
@@ -54,8 +55,9 @@ class MainActivity : BaseActivity() {
                 SectionChosenFragment(),
                 data
             )
-            RouterConstants.SEARCH_SCREEN -> initTempComponent(SearchFragment(), null)
+            RouterConstants.SEARCH_SCREEN -> initTempComponent(SearchFragment())
             RouterConstants.SEARCH_CHOSEN_SCREEN -> initTempComponent(SectionChosenFragment(), data)
+            RouterConstants.ABOUT_SCREEN -> initTempComponent(AboutFragment())
             else -> null
         }
 
@@ -105,16 +107,19 @@ class MainActivity : BaseActivity() {
         ComponentManager.releaseComponent(this)
     }
 
-    private fun initTempComponent(fragment: Fragment, data: Any?): Fragment {
+    private fun initTempComponent(fragment: Fragment, data: Any? = null): Fragment {
         ComponentManager.getTempComponent(activity = this, fragment = fragment, data = data)
         return fragment
     }
 
     private fun openDrawer(open: Boolean) {
-        if (open) {
-            main_activity_drawer_layout.openDrawer(GravityCompat.START, true)
-        } else {
-            main_activity_drawer_layout.closeDrawer(GravityCompat.START, true)
-        }
+        main_activity_drawer_layout.postDelayed ({
+            if (open) {
+                main_activity_drawer_layout.openDrawer(GravityCompat.START, true)
+            } else {
+                main_activity_drawer_layout.closeDrawer(GravityCompat.START, true)
+            }
+        }, 150)
+
     }
 }

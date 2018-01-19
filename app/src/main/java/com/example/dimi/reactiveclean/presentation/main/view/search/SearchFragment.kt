@@ -57,7 +57,7 @@ class SearchFragment : BaseFragment() {
     }
 
     override fun injectModule(context: Context) {
-        (ComponentManager.getTempComponent(context, this, null) as SearchComponent).inject(this)
+        (ComponentManager.getTempComponent(context, this) as SearchComponent).inject(this)
     }
 
     override fun onBackPressed() {

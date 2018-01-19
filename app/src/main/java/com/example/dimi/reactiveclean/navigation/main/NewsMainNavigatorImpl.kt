@@ -1,6 +1,7 @@
 package com.example.dimi.reactiveclean.navigation.main
 
 import com.example.dimi.reactiveclean.extensions.navigator.ExtendedRouter
+import com.example.dimi.reactiveclean.models.MenuItem
 import com.example.dimi.reactiveclean.models.section.ContentChosen
 import com.example.dimi.reactiveclean.models.section.ToolbarData
 import com.example.dimi.reactiveclean.navigation.RouterConstants
@@ -48,5 +49,12 @@ class NewsMainNavigatorImpl
 
     override fun backToMainScreen() {
         router.backTo(null)
+    }
+
+    override fun setNewRoot(item: MenuItem) {
+        when (item) {
+            MenuItem.News -> router.newRootScreen(RouterConstants.MAIN_SCREEN)
+            MenuItem.About -> router.newRootScreen(RouterConstants.ABOUT_SCREEN)
+        }
     }
 }

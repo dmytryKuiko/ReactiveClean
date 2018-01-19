@@ -1,5 +1,7 @@
 package com.example.dimi.reactiveclean.navigation.main
 
+import com.example.dimi.reactiveclean.models.MenuItem
+
 interface NewsMainNavigator {
 
     fun startNavigation()
@@ -15,4 +17,6 @@ interface NewsMainNavigator {
     fun openSearchContent(textTyped: String)
 
     fun backToMainScreen()
+
+    fun setNewRoot(item: MenuItem)
 }

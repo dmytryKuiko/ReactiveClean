@@ -3,12 +3,14 @@ package com.example.dimi.reactiveclean.presentation.main.presenter.drawer
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.example.dimi.reactiveclean.models.MenuItem
+import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
 import com.example.dimi.reactiveclean.presentation.main.presenter.MenuController
 import javax.inject.Inject
 
 class DrawerPresenterImpl
 @Inject constructor(
-    private val menuController: MenuController
+    private val menuController: MenuController,
+    private val navigator: NewsMainNavigator
 ) : DrawerPresenter {
 
     private val selectedLiveData: MutableLiveData<MenuItem> = MutableLiveData()
@@ -33,6 +35,7 @@ class DrawerPresenterImpl
         if (item != selectedItem) {
             menuController.close()
             selectedItem = item
+            navigator.setNewRoot(item)
         }
 
     }

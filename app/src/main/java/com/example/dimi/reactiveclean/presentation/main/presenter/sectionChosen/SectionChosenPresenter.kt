@@ -18,7 +18,7 @@ interface SectionChosenPresenter : BaseDataPresenter<PaginatorModelResult<Conten
 
     fun onBackPressed()
 
-    fun navigationClicked()
+    fun openMenuClicked()
 
     fun searchClicked()
 

@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.dimi.reactiveclean.R
@@ -59,7 +58,7 @@ class SectionChosenFragment : BaseFragment() {
     }
 
     override fun injectModule(context: Context) {
-        (ComponentManager.getTempComponent(context, this, null) as SectionChosenComponent).inject(
+        (ComponentManager.getTempComponent(context, this) as SectionChosenComponent).inject(
             this
         )
     }
@@ -80,7 +79,7 @@ class SectionChosenFragment : BaseFragment() {
             findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
                 .setOnClickListener { presenter.refreshContent() }
             findViewById<Toolbar>(R.id.general_toolbar)
-                .setNavigationOnClickListener { presenter.navigationClicked() }
+                .setNavigationOnClickListener { presenter.openMenuClicked() }
         }
     }
 

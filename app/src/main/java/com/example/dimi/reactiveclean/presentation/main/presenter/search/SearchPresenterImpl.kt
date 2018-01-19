@@ -8,6 +8,7 @@ import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.search.EditTextBindingModel
 import com.example.dimi.reactiveclean.models.search.SearchDisplayable
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
+import com.example.dimi.reactiveclean.presentation.main.presenter.MenuController
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -19,7 +20,8 @@ class SearchPresenterImpl
     private val interractor: SearchInterractor,
     private val navigator: NewsMainNavigator,
     private val mapper: SearchDomainMapperDB,
-    private val schedulers: SchedulersProvider
+    private val schedulers: SchedulersProvider,
+    private val menuController: MenuController
 ) : SearchPresenter {
 
     private val searchesLiveData: MutableLiveData<List<SearchDisplayable.Search>> =

@@ -5,7 +5,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.di.components.NewsMainComponent
+import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.models.MenuItem
 import com.example.dimi.reactiveclean.presentation.BaseFragment
 import com.example.dimi.reactiveclean.presentation.main.presenter.drawer.DrawerPresenter
@@ -38,8 +38,8 @@ class DrawerFragment : BaseFragment() {
     }
 
     override fun injectModule(context: Context) {
-        val component = (ComponentManager.getComponent(context) as? NewsMainComponent)
-                ?: throw ClassCastException("Component is not an instance of NewsMainComponent")
+        val component = (ComponentManager.getComponent(context) as? MainComponent)
+                ?: throw ClassCastException("Component is not an instance of MainComponent")
         component.inject(this)
     }
 

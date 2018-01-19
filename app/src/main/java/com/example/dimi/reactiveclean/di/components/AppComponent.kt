@@ -29,6 +29,6 @@ interface AppComponent {
 
     fun tutorialComponentBuilder(): TutorialComponent.Builder
 
-    fun newsMainComponentBuilder(): NewsMainComponent.Builder
+    fun mainComponentBuilder(): MainComponent.Builder
 
 }

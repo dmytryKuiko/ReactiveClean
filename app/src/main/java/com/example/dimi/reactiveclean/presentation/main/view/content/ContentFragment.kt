@@ -11,7 +11,7 @@ import android.widget.TextView
 
 import com.example.dimi.reactiveclean.R
 import com.example.dimi.reactiveclean.presentation.BaseFragment
-import com.example.dimi.reactiveclean.di.components.NewsMainComponent
+import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.extensions.displayToast
 import com.example.dimi.reactiveclean.extensions.visible
 import com.example.dimi.reactiveclean.presentation.main.adapters.NewsMainContentAdapter
@@ -54,8 +54,8 @@ class ContentFragment : BaseFragment() {
     }
 
     override fun injectModule(context: Context) {
-        val component = (ComponentManager.getComponent(context) as? NewsMainComponent)
-                ?: throw ClassCastException("Component is not an instance of NewsMainComponent")
+        val component = (ComponentManager.getComponent(context) as? MainComponent)
+                ?: throw ClassCastException("Component is not an instance of MainComponent")
         component.inject(this)
     }
 
@@ -72,7 +72,7 @@ class ContentFragment : BaseFragment() {
             findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
                 .setOnClickListener { presenter.refreshClicked() }
             findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
-            findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openDrawerClicked() }
+            findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openMenuClicked() }
             findViewById<ImageButton>(R.id.general_toolbar_search_button)
                 .setOnClickListener { presenter.searchClicked() }
         }

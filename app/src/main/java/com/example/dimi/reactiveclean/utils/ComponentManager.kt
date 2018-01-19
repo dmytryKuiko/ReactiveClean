@@ -8,9 +8,10 @@ import com.example.dimi.reactiveclean.di.BaseComponent
 import com.example.dimi.reactiveclean.di.TempComponent
 import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
-import com.example.dimi.reactiveclean.di.components.NewsMainComponent
+import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.models.section.ContentChosen
 import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
+import com.example.dimi.reactiveclean.presentation.main.view.about.AboutFragment
 import com.example.dimi.reactiveclean.presentation.main.view.search.SearchFragment
 import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
 import com.example.dimi.reactiveclean.presentation.splash.view.SplashActivity
@@ -35,8 +36,8 @@ object ComponentManager {
         }
     }
 
-    fun getComponent(activity: Context): BaseComponent<Context> {
-        val name = getName(activity)
+    fun getComponent(context: Context): BaseComponent<Context> {
+        val name = getName(context)
         var component = componentMap[name]
         if (component == null) {
             component = createComponent(name)
@@ -45,7 +46,7 @@ object ComponentManager {
         return component
     }
 
-    fun getTempComponent(activity: Context, fragment: Fragment, data: Any?): TempComponent {
+    fun getTempComponent(activity: Context, fragment: Fragment, data: Any? = null): TempComponent {
         val tempComponentName = getName(fragment)
         val componentName = getName(activity)
         var component = tempComponentMap[tempComponentName]
@@ -78,7 +79,7 @@ object ComponentManager {
             TutorialActivity::class.qualifiedName ->
                 component.tutorialComponentBuilder().build() as BaseComponent<Context>
             MainActivity::class.qualifiedName ->
-                component.newsMainComponentBuilder().build() as BaseComponent<Context>
+                component.mainComponentBuilder().build() as BaseComponent<Context>
             else -> throw UninitializedPropertyAccessException("This component is not initialized yet")
         }
     }
@@ -92,7 +93,7 @@ object ComponentManager {
         return when (componentName) {
             MainActivity::class.qualifiedName -> {
                 val component =
-                    componentMap[componentName] as? NewsMainComponent ?: throw NullPointerException(
+                    componentMap[componentName] as? MainComponent ?: throw NullPointerException(
                         "Parent component is null for temp component"
                     )
                 when (tempComponentName) {
@@ -108,6 +109,11 @@ object ComponentManager {
                     SearchFragment::class.qualifiedName -> {
                         component.searchBuilder().build()
                     }
+
+                    AboutFragment::class.qualifiedName -> {
+                        component.aboutBuilder().build()
+                    }
+
                     else -> throw UninitializedPropertyAccessException(
                         "This component is not initialized yet for $tempComponentName"
                     )

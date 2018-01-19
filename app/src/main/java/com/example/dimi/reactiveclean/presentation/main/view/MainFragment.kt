@@ -3,17 +3,13 @@ package com.example.dimi.reactiveclean.presentation.main.view
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.view.MenuItem
-import android.view.View
 import com.example.dimi.reactiveclean.R
-import com.example.dimi.reactiveclean.di.components.NewsMainComponent
+import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.presentation.BaseFragment
 import com.example.dimi.reactiveclean.presentation.main.presenter.MainFragmentPresenter
-import com.example.dimi.reactiveclean.presentation.main.presenter.NewsMainPresenter
 import com.example.dimi.reactiveclean.presentation.main.view.content.ContentFragment
 import com.example.dimi.reactiveclean.presentation.main.view.section.SectionFragment
-import com.example.dimi.reactiveclean.presentation.main.view.section.SectionFragment_MembersInjector
 import com.example.dimi.reactiveclean.utils.ComponentManager
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
@@ -34,8 +30,8 @@ class MainFragment : BaseFragment() {
         get() = R.layout.fragment_main
 
     override fun injectModule(context: Context) {
-        val component = (ComponentManager.getComponent(context) as? NewsMainComponent)
-                ?: throw ClassCastException("Component is not an instance of NewsMainComponent")
+        val component = (ComponentManager.getComponent(context) as? MainComponent)
+                ?: throw ClassCastException("Component is not an instance of MainComponent")
         component.inject(this)
     }
 
@@ -47,7 +43,7 @@ class MainFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         bottom_bar.setOnNavigationItemSelectedListener(this::showFragment)
 
-        if (!isVisible && savedInstanceState == null) {
+        if (childFragmentManager.fragments.isEmpty() && savedInstanceState == null) {
             tabs = initFragments()
             childFragmentManager.beginTransaction()
                 .add(R.id.fragment_main_container, tabs[tabKeys[0]], tabKeys[0])

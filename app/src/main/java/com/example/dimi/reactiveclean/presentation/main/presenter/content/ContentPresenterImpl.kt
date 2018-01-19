@@ -57,7 +57,7 @@ class ContentPresenterImpl
         navigator.openContentUrl(content.url)
     }
 
-    override fun openDrawerClicked() {
+    override fun openMenuClicked() {
         menuController.open()
     }
 

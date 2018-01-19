@@ -13,4 +13,6 @@ object RouterConstants {
 
     const val SEARCH_SCREEN = "search_screen"
     const val SEARCH_CHOSEN_SCREEN = "search_chosen_screen"
+
+    const val ABOUT_SCREEN = "about_screen"
 }

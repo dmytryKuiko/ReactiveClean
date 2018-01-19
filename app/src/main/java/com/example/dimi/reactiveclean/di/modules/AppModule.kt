@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.example.dimi.reactiveclean.App
 import com.example.dimi.reactiveclean.data.db.AppDatabase
-import com.example.dimi.reactiveclean.di.components.NewsMainComponent
+import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.di.components.SplashComponent
 import com.example.dimi.reactiveclean.di.components.TutorialComponent
 import com.example.dimi.reactiveclean.utils.AppSchedulers
@@ -19,7 +19,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 
-@Module(subcomponents = [SplashComponent::class, TutorialComponent::class, NewsMainComponent::class])
+@Module(subcomponents = [SplashComponent::class, TutorialComponent::class, MainComponent::class])
 abstract class AppModule {
 
     @Binds

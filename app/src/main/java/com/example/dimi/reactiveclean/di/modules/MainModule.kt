@@ -33,8 +33,8 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Named
 
-@Module(subcomponents = [SectionChosenComponent::class])
-abstract class NewsMainModule {
+@Module
+abstract class MainModule {
 
     @ActivityScope
     @Binds

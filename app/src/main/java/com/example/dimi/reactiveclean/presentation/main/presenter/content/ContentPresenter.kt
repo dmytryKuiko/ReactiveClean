@@ -16,7 +16,7 @@ interface ContentPresenter : BaseDataPresenter<PaginatorModelResult<ContentDispl
 
     fun openCurrentContent(content: ContentDisplayable.Content)
 
-    fun openDrawerClicked()
+    fun openMenuClicked()
 
     fun searchClicked()
 }

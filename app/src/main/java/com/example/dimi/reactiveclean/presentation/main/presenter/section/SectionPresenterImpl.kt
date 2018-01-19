@@ -47,7 +47,7 @@ class SectionPresenterImpl
         navigator.openChosenSection(sectionUrl = section.id, sectionTitle = section.title)
     }
 
-    override fun openMenu() {
+    override fun openMenuClicked() {
         menuController.open()
     }
 

@@ -10,5 +10,5 @@ interface SectionPresenter : BaseDataPresenter<List<SectionDisplayable>> {
 
     fun openCurrentSection(section: SectionDisplayable.Section)
 
-    fun openMenu()
+    fun openMenuClicked()
 }

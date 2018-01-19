@@ -1,7 +1,7 @@
 package com.example.dimi.reactiveclean.di.components
 
 import com.example.dimi.reactiveclean.di.BaseComponent
-import com.example.dimi.reactiveclean.di.modules.NewsMainModule
+import com.example.dimi.reactiveclean.di.modules.MainModule
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
 import com.example.dimi.reactiveclean.presentation.main.view.MainFragment
@@ -11,12 +11,12 @@ import com.example.dimi.reactiveclean.presentation.main.view.section.SectionFrag
 import dagger.Subcomponent
 
 @ActivityScope
-@Subcomponent(modules = [NewsMainModule::class])
-interface NewsMainComponent : BaseComponent<MainActivity> {
+@Subcomponent(modules = [MainModule::class])
+interface MainComponent : BaseComponent<MainActivity> {
 
     @Subcomponent.Builder
     interface Builder {
-        fun build(): NewsMainComponent
+        fun build(): MainComponent
     }
 
     fun inject(fragment: MainFragment)
@@ -30,4 +30,6 @@ interface NewsMainComponent : BaseComponent<MainActivity> {
     fun sectionChosenBuilder(): SectionChosenComponent.Builder
 
     fun searchBuilder(): SearchComponent.Builder
+
+    fun aboutBuilder(): AboutComponent.Builder
 }
