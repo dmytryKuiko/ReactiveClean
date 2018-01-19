@@ -7,11 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId "com.example.dimi.reactiveclean"
-        minSdkVersion 21
-        targetSdkVersion 27
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,6 +21,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    task addCurrentDate() {
+        android.applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                def date = new Date().format("dd-MM-yyyy__HH_mm_ss")
+                def fileName = variant.name + "_" + date + ".apk"
+                output.outputFileName = fileName
+            }
         }
     }
 }
@@ -35,92 +45,91 @@ sourceSets {
 }
 
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support:appcompat-v7:$rootProject.buildToolsVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.buildToolsVersion"
+    implementation "com.android.support:support-v4:$rootProject.buildToolsVersion"
+    implementation "com.android.support:design:$rootProject.buildToolsVersion"
+    implementation "com.android.support:customtabs:$rootProject.buildToolsVersion"
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
     implementation 'com.android.support:support-v4:27.0.2'
-    implementation 'com.android.support:design:27.0.2'
-    implementation 'com.android.support:customtabs:27.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.runnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
 
     //Kotlin reflections
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     //Mockito
-    compile 'org.mockito:mockito-core:2.13.0'
+    compile "org.mockito:mockito-core:$rootProject.mockitoVersion"
 
     //LifeCycles
-    implementation "android.arch.lifecycle:runtime:1.0.3"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+    implementation "android.arch.lifecycle:runtime:$rootProject.archComponentsRuntimeVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archComponentsVersion"
 
     //LiveData and ViewModel
-    implementation "android.arch.lifecycle:extensions:1.0.0"
+    implementation "android.arch.lifecycle:extensions:$rootProject.archComponentsVersion"
 
     //LiveData with ReactiveStreams
-    implementation "android.arch.lifecycle:reactivestreams:1.0.0"
+    implementation "android.arch.lifecycle:reactivestreams:$rootProject.archComponentsVersion"
 
     //Room
-    implementation "android.arch.persistence.room:runtime:1.0.0"
-    kapt "android.arch.persistence.room:compiler:1.0.0"
+    implementation "android.arch.persistence.room:runtime:$rootProject.archComponentsVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.archComponentsVersion"
 
     //Room RxJava
-    implementation "android.arch.persistence.room:rxjava2:1.0.0"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.archComponentsVersion"
 
     //Leak canary
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
 
-    compile 'com.google.dagger:dagger:2.14.1'
-    kapt 'com.google.dagger:dagger-compiler:2.14.1'
-    //compile 'com.google.dagger:dagger-android:2.13'
-    compile 'com.google.dagger:dagger-android-support:2.14.1'
-    kapt 'com.google.dagger:dagger-android-processor:2.14.1'
+    //Dagger
+    compile "com.google.dagger:dagger:$rootProject.daggerVersion"
+    compile "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
 
     //Rx
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
 
     //RxBindings
-    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:2.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:2.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+    compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rootProject.rxBindingVersion"
+    compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxBindingVersion"
+    compile "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rootProject.rxBindingVersion"
+    compile "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$rootProject.rxBindingVersion"
 
     //RxRelay
-    compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+    compile "com.jakewharton.rxrelay2:rxrelay:$rootProject.rxRelayVersion"
 
     //Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
 
     //GSON
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-
-    //Moshi
-    compile 'com.squareup.moshi:moshi:1.5.0'
+    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitConverterGsonVersion"
 
     //OkHttp
-    compile 'com.squareup.okhttp3:okhttp:3.9.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    compile "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
 
     //Timber
-    implementation 'com.jakewharton.timber:timber:4.6.0'
+    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
     //Cicerone
-    compile 'ru.terrakok.cicerone:cicerone:3.0.0'
+    compile "ru.terrakok.cicerone:cicerone:$rootProject.ciceroneVersion"
 
     //Picasso
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 
     //AdapterDelegates
-    compile 'com.hannesdorfmann:adapterdelegates3:3.0.1'
+    compile "com.hannesdorfmann:adapterdelegates3:$rootProject.adapterDelegatesVersion"
 
     //JodaTime
-    compile 'joda-time:joda-time:2.9.9'
+    compile "joda-time:joda-time:$rootProject.jodaTimeVersion"
 }
