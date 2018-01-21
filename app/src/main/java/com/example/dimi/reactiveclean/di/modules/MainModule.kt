@@ -5,14 +5,7 @@ import com.example.dimi.reactiveclean.data.main.content.ContentStoreImpl
 import com.example.dimi.reactiveclean.data.main.section.SectionStore
 import com.example.dimi.reactiveclean.data.main.section.SectionStoreImpl
 import com.example.dimi.reactiveclean.di.DiConstants
-import com.example.dimi.reactiveclean.di.components.SectionChosenComponent
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
-import com.example.dimi.reactiveclean.domain.main.NewsMainInterractor
-import com.example.dimi.reactiveclean.domain.main.NewsMainInterractorImpl
-import com.example.dimi.reactiveclean.domain.main.content.ContentInterractor
-import com.example.dimi.reactiveclean.domain.main.content.ContentInterractorImpl
-import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInterractor
-import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInterractorImpl
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigatorImpl
@@ -24,6 +17,12 @@ import com.example.dimi.reactiveclean.data.main.content.ContentRepository
 import com.example.dimi.reactiveclean.data.main.content.ContentRepositoryImpl
 import com.example.dimi.reactiveclean.data.main.section.SectionRepository
 import com.example.dimi.reactiveclean.data.main.section.SectionRepositoryImpl
+import com.example.dimi.reactiveclean.domain.main.NewsMainInteractor
+import com.example.dimi.reactiveclean.domain.main.NewsMainInteractorImpl
+import com.example.dimi.reactiveclean.domain.main.content.ContentInteractor
+import com.example.dimi.reactiveclean.domain.main.content.ContentInteractorImpl
+import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInteractor
+import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInteractorImpl
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDB
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDBImpl
 import com.example.dimi.reactiveclean.presentation.main.presenter.*
@@ -38,7 +37,7 @@ abstract class MainModule {
 
     @ActivityScope
     @Binds
-    internal abstract fun bindMainPresenter(presenter: NewsMainPresenterImpl): NewsMainPresenter
+    internal abstract fun bindMainPresenter(presenter: MainPresenterImpl): MainPresenter
 
     @ActivityScope
     @Binds
@@ -54,17 +53,17 @@ abstract class MainModule {
 
     @ActivityScope
     @Binds
-    internal abstract fun bindMainInterractor(interractor: NewsMainInterractorImpl): NewsMainInterractor
+    internal abstract fun bindMaininteractor(interactor: NewsMainInteractorImpl): NewsMainInteractor
 
     @ActivityScope
     @Binds
-    internal abstract fun bindContentInterractor(interractor: ContentInterractorImpl): ContentInterractor
+    internal abstract fun bindContentinteractor(interactor: ContentInteractorImpl): ContentInteractor
 
     @ActivityScope
     @Binds
-    internal abstract fun bindSectionsInterractor(
-        interractor: NewsMainSectionsInterractorImpl
-    ): NewsMainSectionsInterractor
+    internal abstract fun bindSectionsinteractor(
+        interactor: NewsMainSectionsInteractorImpl
+    ): NewsMainSectionsInteractor
 
     @ActivityScope
     @Binds

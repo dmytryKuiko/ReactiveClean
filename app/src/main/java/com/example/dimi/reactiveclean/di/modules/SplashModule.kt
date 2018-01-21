@@ -3,14 +3,14 @@ package com.example.dimi.reactiveclean.di.modules
 import com.example.dimi.reactiveclean.data.splash.SplashReactiveStore
 import com.example.dimi.reactiveclean.data.splash.SplashReactiveStoreImpl
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
-import com.example.dimi.reactiveclean.domain.splash.SplashInterractor
-import com.example.dimi.reactiveclean.domain.splash.SplashInterractorImpl
 import com.example.dimi.reactiveclean.navigation.splash.SplashNavigator
 import com.example.dimi.reactiveclean.navigation.splash.SplashNavigatorImpl
 import com.example.dimi.reactiveclean.presentation.splash.presenter.SplashPresenter
 import com.example.dimi.reactiveclean.presentation.splash.presenter.SplashPresenterImpl
 import com.example.dimi.reactiveclean.data.splash.SplashRepository
 import com.example.dimi.reactiveclean.data.splash.SplashRepositoryImpl
+import com.example.dimi.reactiveclean.domain.splash.SplashInteractor
+import com.example.dimi.reactiveclean.domain.splash.SplashInteractorImpl
 import dagger.Binds
 import dagger.Module
 
@@ -27,7 +27,7 @@ abstract class SplashModule {
 
     @ActivityScope
     @Binds
-    internal abstract fun bindInterractor(interractor: SplashInterractorImpl): SplashInterractor
+    internal abstract fun bindinteractor(interactor: SplashInteractorImpl): SplashInteractor
 
     @ActivityScope
     @Binds

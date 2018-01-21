@@ -5,8 +5,8 @@ import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenRepos
 import io.reactivex.Single
 import javax.inject.Inject
 
-class SectionChosenInterractorImpl
-@Inject constructor(private val repositoty: SectionChosenRepository) : SectionChosenInterractor {
+class SectionChosenInteractorImpl
+@Inject constructor(private val repositoty: SectionChosenRepository) : SectionChosenInteractor {
 
     override fun getSectionContent(page: Int): Single<List<Content>> {
         return repositoty.getSectionContent(page)

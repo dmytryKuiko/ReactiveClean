@@ -3,7 +3,7 @@ package com.example.dimi.reactiveclean.presentation.main.presenter.search
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.example.dimi.reactiveclean.domain.main.search.SearchDomainMapperDB
-import com.example.dimi.reactiveclean.domain.main.search.SearchInterractor
+import com.example.dimi.reactiveclean.domain.main.search.SearchInteractor
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.search.EditTextBindingModel
 import com.example.dimi.reactiveclean.models.search.SearchDisplayable
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class SearchPresenterImpl
 @Inject constructor(
-    private val interractor: SearchInterractor,
+    private val interactor: SearchInteractor,
     private val navigator: NewsMainNavigator,
     private val mapper: SearchDomainMapperDB,
     private val schedulers: SchedulersProvider,
@@ -32,7 +32,7 @@ class SearchPresenterImpl
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {
-        interractor.getSearches()
+        interactor.getSearches()
             .subscribe {}
             .addTo(compositeDisposable)
     }
@@ -48,7 +48,7 @@ class SearchPresenterImpl
     }
 
     override fun listenEditText(listener: Observable<String>) {
-        interractor.searchTyped(listener)
+        interactor.searchTyped(listener)
             .map(mapper)
             .subscribe {
                 searchesLiveData.postValue(it)
@@ -57,9 +57,9 @@ class SearchPresenterImpl
     }
 
     override fun listenEditTextAction(listener: Observable<EditTextBindingModel>) {
-        interractor.actionKeyboardTyped(listener)
+        interactor.actionKeyboardTyped(listener)
             .subscribe {
-                Completable.fromCallable { interractor.storeSearch(it.text) }
+                Completable.fromCallable { interactor.storeSearch(it.text) }
                     .compose(this::composeSchedulers)
                     .subscribe {
                         navigator.openSearchContent(it.text)

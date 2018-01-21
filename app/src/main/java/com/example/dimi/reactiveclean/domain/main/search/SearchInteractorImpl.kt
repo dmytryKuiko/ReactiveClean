@@ -13,10 +13,10 @@ import java.sql.Timestamp
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SearchInterractorImpl
+class SearchInteractorImpl
 @Inject constructor(
     private val repository: SearchRepository
-) : SearchInterractor {
+) : SearchInteractor {
 
     private val searchesList: MutableList<SearchModel> = mutableListOf()
 

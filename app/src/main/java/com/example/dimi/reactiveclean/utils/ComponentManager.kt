@@ -126,10 +126,10 @@ object ComponentManager {
     }
 
     private fun storeComponent(name: String, component: BaseComponent<Context>) {
-        componentMap.put(name, component)
+        componentMap[name] = component
     }
 
     private fun storeTempComponent(name: String, component: TempComponent) {
-        tempComponentMap.put(name, component)
+        tempComponentMap[name] = component
     }
 }

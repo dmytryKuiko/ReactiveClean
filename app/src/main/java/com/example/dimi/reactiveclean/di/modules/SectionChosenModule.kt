@@ -4,13 +4,13 @@ import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenStore
 import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenStoreImpl
 import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.scopes.CustomScope
-import com.example.dimi.reactiveclean.domain.main.sectionChosen.SectionChosenInterractor
-import com.example.dimi.reactiveclean.domain.main.sectionChosen.SectionChosenInterractorImpl
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.presentation.main.presenter.sectionChosen.SectionChosenPresenter
 import com.example.dimi.reactiveclean.presentation.main.presenter.sectionChosen.SectionChosenPresenterImpl
 import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenRepository
 import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenRepositoryImpl
+import com.example.dimi.reactiveclean.domain.main.sectionChosen.SectionChosenInteractor
+import com.example.dimi.reactiveclean.domain.main.sectionChosen.SectionChosenInteractorImpl
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorNetwork
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorNetworkImpl
 import dagger.Binds
@@ -26,7 +26,7 @@ abstract class SectionChosenModule {
 
     @CustomScope
     @Binds
-    internal abstract fun bindInterractor(interractor: SectionChosenInterractorImpl): SectionChosenInterractor
+    internal abstract fun bindinteractor(interactor: SectionChosenInteractorImpl): SectionChosenInteractor
 
     @CustomScope
     @Binds

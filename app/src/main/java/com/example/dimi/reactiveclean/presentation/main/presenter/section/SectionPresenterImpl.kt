@@ -3,7 +3,7 @@ package com.example.dimi.reactiveclean.presentation.main.presenter.section
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsDomainMapper
-import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInterractor
+import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInteractor
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class SectionPresenterImpl
 @Inject constructor(
-    interractor: NewsMainSectionsInterractor,
+    interactor: NewsMainSectionsInteractor,
     mapper: NewsMainSectionsDomainMapper,
     private val navigator: NewsMainNavigator,
     private val menuController: MenuController
@@ -28,7 +28,7 @@ class SectionPresenterImpl
     private val errorLiveData = SingleEventLiveData<String>()
 
     init {
-        interractor.getSectionsStream()
+        interactor.getSectionsStream()
             .map(mapper)
             .subscribe(this::eventReceived, this::errorReceived)
             .addTo(compositeDisposable)

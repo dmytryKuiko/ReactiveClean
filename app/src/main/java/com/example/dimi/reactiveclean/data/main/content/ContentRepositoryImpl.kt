@@ -12,7 +12,6 @@ class ContentRepositoryImpl
 @Inject constructor(
     private val store: ContentStore,
     private val serviceNewsApi: ServiceNewsApi,
-    private val mapper: ContentDataMapper,
     private val mapperDB: ContentDataMapperForDB
 ) : ContentRepository {
 
@@ -24,10 +23,6 @@ class ContentRepositoryImpl
             .map(mapperDB)
             .doOnSuccess(store::deleteAllAndStoreAll)
             .toCompletable()
-
-    override fun searchContent(text: String): Single<ContentPages> {
-        return serviceNewsApi.getSearchContent(text).map(mapper)
-    }
 
     override fun loadNextContentPage(page: Int): Completable {
         return serviceNewsApi.getNextContent(page)

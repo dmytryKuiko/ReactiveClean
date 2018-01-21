@@ -5,7 +5,7 @@ import com.example.dimi.reactiveclean.extensions.navigator.ExtendedRouter
 import javax.inject.Inject
 
 class TutorialMainNavigatorImpl
-@Inject constructor(val router: ExtendedRouter) : TutorialMainNavigator {
+@Inject constructor(private val router: ExtendedRouter) : TutorialMainNavigator {
 
     private var currentStep = TutorialNavigatorStep.NONE
 

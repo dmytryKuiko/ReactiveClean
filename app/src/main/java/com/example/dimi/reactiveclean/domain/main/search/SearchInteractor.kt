@@ -8,7 +8,7 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-interface SearchInterractor {
+interface SearchInteractor {
 
     fun storeSearch(text: String)
 

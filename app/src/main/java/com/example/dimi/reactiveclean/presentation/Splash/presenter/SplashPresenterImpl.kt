@@ -1,7 +1,7 @@
 package com.example.dimi.reactiveclean.presentation.splash.presenter
 
+import com.example.dimi.reactiveclean.domain.splash.SplashInteractor
 import com.example.dimi.reactiveclean.navigation.splash.SplashNavigator
-import com.example.dimi.reactiveclean.domain.splash.SplashInterractor
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -10,14 +10,14 @@ import javax.inject.Inject
 class SplashPresenterImpl
 @Inject constructor(
     private val navigator: SplashNavigator,
-    private val interractor: SplashInterractor,
+    private val interactor: SplashInteractor,
     private val schedulers: SchedulersProvider
 ) : SplashPresenter {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {
-        interractor.isFirstLaunch()
+        interactor.isFirstLaunch()
             .subscribeOn(schedulers.computation())
             .observeOn(schedulers.ui())
             .subscribe(this::handleResult, this::handleError)

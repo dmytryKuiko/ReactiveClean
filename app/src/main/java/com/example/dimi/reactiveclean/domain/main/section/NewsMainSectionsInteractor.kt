@@ -3,7 +3,7 @@ package com.example.dimi.reactiveclean.domain.main.section
 import com.example.dimi.reactiveclean.models.section.Section
 import io.reactivex.Flowable
 
-interface NewsMainSectionsInterractor {
+interface NewsMainSectionsInteractor {
 
     fun getSectionsStream(): Flowable<List<Section>>
 

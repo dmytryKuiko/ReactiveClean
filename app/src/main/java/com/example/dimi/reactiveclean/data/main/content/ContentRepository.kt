@@ -12,8 +12,6 @@ interface ContentRepository {
 
     fun deleteAndFetchContent(): Completable
 
-    fun searchContent(text: String): Single<ContentPages>
-
     fun loadNextContentPage(page: Int): Completable
 
 }

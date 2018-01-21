@@ -8,8 +8,8 @@ import io.reactivex.Single
 import io.reactivex.Single.just
 import javax.inject.Inject
 
-class NewsMainSectionsInterractorImpl
-@Inject constructor(private val repository: SectionRepository) : NewsMainSectionsInterractor {
+class NewsMainSectionsInteractorImpl
+@Inject constructor(private val repository: SectionRepository) : NewsMainSectionsInteractor {
 
     override fun getSectionsStream(): Flowable<List<Section>> = repository.getAllSections()
         .flatMapSingle(this::fetchWhenNoneThenDrafts)

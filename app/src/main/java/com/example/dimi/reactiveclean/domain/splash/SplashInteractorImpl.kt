@@ -6,8 +6,8 @@ import io.reactivex.Single
 import io.reactivex.Single.just
 import javax.inject.Inject
 
-class SplashInterractorImpl
-@Inject constructor(private val repository: SplashRepository) : SplashInterractor {
+class SplashInteractorImpl
+@Inject constructor(private val repository: SplashRepository) : SplashInteractor {
 
     override fun isFirstLaunch(): Single<Boolean> =
         repository.isFirstLaunch()

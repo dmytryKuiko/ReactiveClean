@@ -2,7 +2,7 @@ package com.example.dimi.reactiveclean.presentation.main.presenter
 
 import io.reactivex.Observable
 
-interface NewsMainPresenter {
+interface MainPresenter {
 
     fun isMenuOpen(): Observable<Boolean>
 }

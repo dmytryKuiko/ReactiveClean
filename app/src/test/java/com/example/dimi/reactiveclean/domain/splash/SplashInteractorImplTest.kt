@@ -1,11 +1,8 @@
 package com.example.dimi.reactiveclean.domain.splash
 
 import com.example.dimi.reactiveclean.data.splash.SplashRepository
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import io.reactivex.subscribers.TestSubscriber
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -16,7 +13,7 @@ import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
-class SplashInterractorImplTest {
+class SplashInteractorImplTest {
 
     @get:Rule
     val rule: MockitoRule = MockitoJUnit.rule()
@@ -25,7 +22,7 @@ class SplashInterractorImplTest {
     private lateinit var repository: SplashRepository
 
     @InjectMocks
-    private lateinit var interractor: SplashInterractorImpl
+    private lateinit var interactor: SplashInteractorImpl
 
     private lateinit var testObserver: TestObserver<Boolean>
 
@@ -39,7 +36,7 @@ class SplashInterractorImplTest {
         val result = true
         given(repository.isFirstLaunch()).willReturn(Single.just(result))
 
-        interractor.isFirstLaunch()
+        interactor.isFirstLaunch()
             .subscribe(testObserver)
 
         testObserver.awaitTerminalEvent()
@@ -54,7 +51,7 @@ class SplashInterractorImplTest {
         val result = false
         given(repository.isFirstLaunch()).willReturn(Single.just(result))
 
-        interractor.isFirstLaunch()
+        interactor.isFirstLaunch()
             .subscribe(testObserver)
 
         testObserver.assertValue(result)
@@ -68,7 +65,7 @@ class SplashInterractorImplTest {
         val error = Single.error<Boolean>(throwable)
         given(repository.isFirstLaunch()).willReturn(error)
 
-        interractor.isFirstLaunch()
+        interactor.isFirstLaunch()
             .subscribe(testObserver)
         testObserver.awaitTerminalEvent()
 

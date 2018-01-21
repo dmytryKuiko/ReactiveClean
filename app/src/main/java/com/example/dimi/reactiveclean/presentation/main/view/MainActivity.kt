@@ -13,7 +13,7 @@ import com.example.dimi.reactiveclean.presentation.BaseActivity
 import com.example.dimi.reactiveclean.extensions.navigator.ExtendedNavigator
 import com.example.dimi.reactiveclean.navigation.RouterConstants
 import com.example.dimi.reactiveclean.presentation.BaseFragment
-import com.example.dimi.reactiveclean.presentation.main.presenter.NewsMainPresenter
+import com.example.dimi.reactiveclean.presentation.main.presenter.MainPresenter
 import com.example.dimi.reactiveclean.presentation.main.view.about.AboutFragment
 import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.SectionChosenFragment
 import com.example.dimi.reactiveclean.utils.ComponentManager
@@ -31,7 +31,7 @@ class MainActivity : BaseActivity() {
         get() = supportFragmentManager.findFragmentById(R.id.main_activity_drawer_container) as? DrawerFragment
 
     @Inject
-    lateinit var presenter: NewsMainPresenter
+    lateinit var presenter: MainPresenter
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
