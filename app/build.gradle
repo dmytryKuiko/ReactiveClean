@@ -23,16 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    task addCurrentDate() {
-        android.applicationVariants.all { variant ->
-            variant.outputs.all { output ->
-                def date = new Date().format("dd-MM-yyyy__HH_mm_ss")
-                def fileName = variant.name + "_" + date + ".apk"
-                output.outputFileName = fileName
-            }
-        }
-    }
 }
 
 kapt {
