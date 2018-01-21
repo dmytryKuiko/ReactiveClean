@@ -61,4 +61,20 @@ class SplashInterractorImplTest {
         verify(repository, times(1)).isFirstLaunch()
         verifyNoMoreInteractions(repository)
     }
+
+    @Test
+    fun isFirstLaunch_Error() {
+        val throwable = Throwable("Error")
+        val error = Single.error<Boolean>(throwable)
+        given(repository.isFirstLaunch()).willReturn(error)
+
+        interractor.isFirstLaunch()
+            .subscribe(testObserver)
+        testObserver.awaitTerminalEvent()
+
+        testObserver.assertError(throwable)
+
+        verify(repository, times(1)).isFirstLaunch()
+        verifyNoMoreInteractions(repository)
+    }
 }
