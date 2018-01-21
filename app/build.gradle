@@ -50,6 +50,9 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$rootProject.runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
 
+    //Hamcrest Matchers
+    testImplementation "org.hamcrest:hamcrest-library:$rootProject.hamcrestVersion"
+
     //Kotlin reflections
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
@@ -62,6 +65,9 @@ dependencies {
 
     //LiveData and ViewModel
     implementation "android.arch.lifecycle:extensions:$rootProject.archComponentsVersion"
+
+    //LiveData testing
+    testCompile "android.arch.core:core-testing:$rootProject.archComponentsVersion"
 
     //LiveData with ReactiveStreams
     implementation "android.arch.lifecycle:reactivestreams:$rootProject.archComponentsVersion"

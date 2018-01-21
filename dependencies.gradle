@@ -26,4 +26,5 @@ ext {
     picassoVersion = "2.5.2"
     adapterDelegatesVersion = "3.0.1"
     jodaTimeVersion = "2.9.9"
+    hamcrestVersion = "1.3"
 }
