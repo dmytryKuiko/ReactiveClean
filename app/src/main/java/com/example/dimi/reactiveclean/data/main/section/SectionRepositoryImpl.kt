@@ -24,10 +24,6 @@ class SectionRepositoryImpl
         return store.getSpecificSections(params)
     }
 
-    override fun deleteAndFetchSections(): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     private fun loadSections(): Single<List<Section>> = serviceNewsApi.getAllSections()
         .map(mapper)
 }

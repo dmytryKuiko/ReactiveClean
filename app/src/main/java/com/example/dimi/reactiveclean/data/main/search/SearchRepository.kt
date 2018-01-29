@@ -11,5 +11,5 @@ interface SearchRepository {
 
     fun getSearches(count: Int): Flowable<List<SearchModel>>
 
-    fun getResultsForSearch(search: SearchModel): Single<List<Content>>
+    fun getResultsForSearch(text: String): Single<List<Content>>
 }

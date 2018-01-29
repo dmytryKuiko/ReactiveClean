@@ -10,7 +10,5 @@ interface SectionRepository {
 
     fun fetchSections(): Completable
 
-    fun deleteAndFetchSections(): Completable
-
     fun getSpecificSections(params: String): Flowable<List<Section>>
 }

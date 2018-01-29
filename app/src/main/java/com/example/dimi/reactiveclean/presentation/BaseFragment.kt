@@ -25,7 +25,7 @@ abstract class BaseFragment : Fragment() {
     ): View? =
         inflater.inflate(layoutId, container, false)
 
-    abstract protected fun injectModule(context: Context)
+    protected abstract fun injectModule(context: Context)
 
     open fun onBackPressed() {}
 }

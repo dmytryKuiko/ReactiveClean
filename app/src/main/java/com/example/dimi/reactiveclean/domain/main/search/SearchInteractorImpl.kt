@@ -34,8 +34,7 @@ class SearchInteractorImpl
 
     override fun getResultsForSearch(text: String): Single<List<Content>> {
         return repository.getResultsForSearch(
-            SearchModel(text = text, dateTime = Timestamp(System.currentTimeMillis()))
-        )
+            text )
     }
 
     override fun searchTyped(listener: Observable<String>): Observable<List<SearchModel>> =

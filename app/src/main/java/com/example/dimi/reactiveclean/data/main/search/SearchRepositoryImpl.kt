@@ -22,7 +22,7 @@ class SearchRepositoryImpl
         return store.getSearches(count)
     }
 
-    override fun getResultsForSearch(search: SearchModel): Single<List<Content>> {
-        return newsApi.getSearchContent(search.text).map(mapper)
+    override fun getResultsForSearch(text: String): Single<List<Content>> {
+        return newsApi.getSearchContent(text).map(mapper)
     }
 }

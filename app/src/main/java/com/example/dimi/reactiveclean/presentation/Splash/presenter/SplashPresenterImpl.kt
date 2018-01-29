@@ -34,6 +34,6 @@ class SplashPresenterImpl
     }
 
     private fun handleError(throwable: Throwable) {
-        throw IllegalStateException("Wrong in SharedPrefs")
+        navigator.navigateToTutorial()
     }
 }
