@@ -6,6 +6,8 @@ import com.example.dimi.reactiveclean.navigation.splash.SplashNavigator
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -15,6 +17,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnit
+import java.util.concurrent.TimeUnit
 
 class SplashPresenterImplTest {
 
@@ -44,12 +47,13 @@ class SplashPresenterImplTest {
         given(interactor.isFirstLaunch()).willReturn(result)
 
         presenter = SplashPresenterImpl(navigator, interactor, schedulers)
+        testObserver.await(500, TimeUnit.MILLISECONDS)
 
         verify(interactor, times(1)).isFirstLaunch()
-        verifyNoMoreInteractions(interactor)
 
+        verifyNoMoreInteractions(interactor)
         verify(navigator, times(1)).navigateToTutorial()
-        Mockito.verifyNoMoreInteractions(navigator)
+        verifyNoMoreInteractions(navigator)
     }
 
     @Test
@@ -58,23 +62,25 @@ class SplashPresenterImplTest {
         given(interactor.isFirstLaunch()).willReturn(result)
 
         presenter = SplashPresenterImpl(navigator, interactor, schedulers)
+        testObserver.await(500, TimeUnit.MILLISECONDS)
 
         verify(interactor, times(1)).isFirstLaunch()
         verifyNoMoreInteractions(interactor)
 
         verify(navigator, times(1)).navigateToStart()
-        Mockito.verifyNoMoreInteractions(navigator)
+        verifyNoMoreInteractions(navigator)
     }
 
-    @Test(expected = IllegalStateException::class)
-    fun getFirstLaunch_Error() {
+    @Test
+    fun getFirstLaunch_Error_NavigateToTutorial() {
         val throwable = Throwable("Some")
-        val error = Single.error<Boolean>(throwable)
-        given(interactor.isFirstLaunch()).willReturn(error)
+        given(interactor.isFirstLaunch()).willReturn(Single.error(throwable))
 
         presenter = SplashPresenterImpl(navigator, interactor, schedulers)
+        testObserver.await(1000, TimeUnit.MILLISECONDS)
 
         verify(interactor, times(1)).isFirstLaunch()
+        verify(navigator, times(1)).navigateToTutorial()
         verifyNoMoreInteractions(interactor)
         verifyNoMoreInteractions(navigator)
     }

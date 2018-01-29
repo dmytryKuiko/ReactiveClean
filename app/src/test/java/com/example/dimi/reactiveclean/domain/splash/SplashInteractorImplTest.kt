@@ -1,6 +1,7 @@
 package com.example.dimi.reactiveclean.domain.splash
 
 import com.example.dimi.reactiveclean.data.splash.SplashRepository
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -35,6 +36,7 @@ class SplashInteractorImplTest {
     fun isFirstLaunch_Yes_SetFirstLaunch() {
         val result = true
         given(repository.isFirstLaunch()).willReturn(Single.just(result))
+        given(repository.setFirstLaunch()).willReturn(Completable.complete())
 
         interactor.isFirstLaunch()
             .subscribe(testObserver)
