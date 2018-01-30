@@ -20,8 +20,7 @@ class SearchPresenterImpl
     private val interactor: SearchInteractor,
     private val navigator: NewsMainNavigator,
     private val mapper: SearchDomainMapperDB,
-    private val schedulers: SchedulersProvider,
-    private val menuController: MenuController
+    private val schedulers: SchedulersProvider
 ) : SearchPresenter {
 
     private val searchesLiveData: MutableLiveData<List<SearchDisplayable.Search>> =
