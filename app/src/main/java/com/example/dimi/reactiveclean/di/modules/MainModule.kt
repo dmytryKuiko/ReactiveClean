@@ -19,8 +19,8 @@ import com.example.dimi.reactiveclean.data.main.section.SectionRepository
 import com.example.dimi.reactiveclean.data.main.section.SectionRepositoryImpl
 import com.example.dimi.reactiveclean.domain.main.content.ContentInteractor
 import com.example.dimi.reactiveclean.domain.main.content.ContentInteractorImpl
-import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInteractor
-import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInteractorImpl
+import com.example.dimi.reactiveclean.domain.main.section.SectionInteractor
+import com.example.dimi.reactiveclean.domain.main.section.SectionInteractorImpl
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDB
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorDBImpl
 import com.example.dimi.reactiveclean.presentation.main.presenter.*
@@ -56,8 +56,8 @@ abstract class MainModule {
     @ActivityScope
     @Binds
     internal abstract fun bindSectionsinteractor(
-        interactor: NewsMainSectionsInteractorImpl
-    ): NewsMainSectionsInteractor
+        interactor: SectionInteractorImpl
+    ): SectionInteractor
 
     @ActivityScope
     @Binds

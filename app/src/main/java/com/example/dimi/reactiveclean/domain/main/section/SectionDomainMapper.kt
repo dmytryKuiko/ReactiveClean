@@ -5,7 +5,7 @@ import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import io.reactivex.functions.Function
 import javax.inject.Inject
 
-class NewsMainSectionsDomainMapper
+class SectionDomainMapper
 @Inject constructor() : Function<List<Section>, List<SectionDisplayable>> {
 
     override fun apply(list: List<Section>): List<SectionDisplayable> {

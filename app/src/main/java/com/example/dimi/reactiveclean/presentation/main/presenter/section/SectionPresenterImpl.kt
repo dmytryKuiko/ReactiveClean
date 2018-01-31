@@ -2,8 +2,8 @@ package com.example.dimi.reactiveclean.presentation.main.presenter.section
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsDomainMapper
-import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInteractor
+import com.example.dimi.reactiveclean.domain.main.section.SectionDomainMapper
+import com.example.dimi.reactiveclean.domain.main.section.SectionInteractor
 import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.section.SectionDisplayable
 import com.example.dimi.reactiveclean.models.SingleEventLiveData
@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 class SectionPresenterImpl
 @Inject constructor(
-    interactor: NewsMainSectionsInteractor,
-    mapper: NewsMainSectionsDomainMapper,
+    interactor: SectionInteractor,
+    mapper: SectionDomainMapper,
     private val navigator: NewsMainNavigator,
     private val menuController: MenuController
 ) : SectionPresenter {
