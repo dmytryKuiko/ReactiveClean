@@ -6,9 +6,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class SectionChosenInteractorImpl
-@Inject constructor(private val repositoty: SectionChosenRepository) : SectionChosenInteractor {
+@Inject constructor(private val repository: SectionChosenRepository) : SectionChosenInteractor {
 
     override fun getSectionContent(page: Int): Single<List<Content>> {
-        return repositoty.getSectionContent(page)
+        return repository.getSectionContent(page)
     }
 }

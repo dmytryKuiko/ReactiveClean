@@ -17,8 +17,6 @@ import com.example.dimi.reactiveclean.data.main.content.ContentRepository
 import com.example.dimi.reactiveclean.data.main.content.ContentRepositoryImpl
 import com.example.dimi.reactiveclean.data.main.section.SectionRepository
 import com.example.dimi.reactiveclean.data.main.section.SectionRepositoryImpl
-import com.example.dimi.reactiveclean.domain.main.NewsMainInteractor
-import com.example.dimi.reactiveclean.domain.main.NewsMainInteractorImpl
 import com.example.dimi.reactiveclean.domain.main.content.ContentInteractor
 import com.example.dimi.reactiveclean.domain.main.content.ContentInteractorImpl
 import com.example.dimi.reactiveclean.domain.main.section.NewsMainSectionsInteractor
@@ -50,10 +48,6 @@ abstract class MainModule {
     @ActivityScope
     @Binds
     internal abstract fun bindNewsMainNavigator(navigator: NewsMainNavigatorImpl): NewsMainNavigator
-
-    @ActivityScope
-    @Binds
-    internal abstract fun bindMaininteractor(interactor: NewsMainInteractorImpl): NewsMainInteractor
 
     @ActivityScope
     @Binds
