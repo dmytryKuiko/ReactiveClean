@@ -19,6 +19,7 @@ import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Rule
 import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
@@ -49,110 +50,11 @@ class SearchInteractorImplTest {
         assertThat(argumentCaptor.value.text, equalTo(expectedText))
         assertThat(argumentCaptor.value.id, `is`(nullValue()))
     }
-
+    
     @Test
-    fun getSearches_ShowWithDifferentText() {
-        val expectedName1 = "one"
-        val expectedTime1 = 1L
-        val expectedName2 = "two"
-        val expectedTime2 = 222L
-        val returnedList = listOf(
-            SearchModel(expectedName1, Timestamp(expectedTime1)),
-            SearchModel(expectedName1, Timestamp(expectedTime1)),
-            SearchModel(expectedName1, Timestamp(expectedTime2)),
-            SearchModel(expectedName2, Timestamp(expectedTime2))
-        )
-        val testSubscriber = TestSubscriber.create<List<SearchModel>>()
-        given(repository.getSearches(anyInt())).willReturn(Flowable.just(returnedList))
-
-        interactor.getSearches()
-            .subscribe(testSubscriber)
-        testSubscriber.awaitTerminalEvent()
-
-        testSubscriber.assertNoErrors()
-
-        val resultList = testSubscriber.values()[0]
-        assertThat(resultList, hasSize(2))
-        assertThat(resultList[0].text, equalTo(expectedName1))
-        assertThat(resultList[0].dateTime.time, `is`(expectedTime1))
-        assertThat(resultList[1].text, equalTo(expectedName2))
-        assertThat(resultList[1].dateTime.time, `is`(expectedTime2))
-
-        verify(repository, times(1)).getSearches(25)
-        verifyNoMoreInteractions(repository)
-    }
-
-    @Test
-    fun getSearches_Error() {
-        val throwable = Throwable("dsada")
-        val testSubscriber = TestSubscriber.create<List<SearchModel>>()
-        given(repository.getSearches(anyInt())).willReturn(Flowable.error(throwable))
-
-        interactor.getSearches()
-            .subscribe(testSubscriber)
-        testSubscriber.awaitTerminalEvent()
-
-        testSubscriber.assertError(throwable)
-            .assertTerminated()
-        verify(repository, times(1)).getSearches(25)
-        verifyNoMoreInteractions(repository)
-    }
-
-
-    @Test
-    fun getResultsForSearch_Ok_ResultExpected() {
-        val content = Content(
-            "aa", "bb", "section",
-            1516615203578, "http", "pillar"
-        )
-        val expectedList = listOf(content)
-        val testObserver = TestObserver.create<List<Content>>()
-        val expectedText = "asdf"
-        given(repository.getResultsForSearch(anyString())).willReturn(Single.just(expectedList))
-
-        interactor.getResultsForSearch(expectedText)
-            .subscribe(testObserver)
-        testObserver.awaitTerminalEvent()
-
-        testObserver.assertValue(expectedList)
-            .assertNoErrors()
-        verify(repository, times(1)).getResultsForSearch(expectedText)
-        verifyNoMoreInteractions(repository)
-    }
-
-    @Test
-    fun getResultsForSearch_Error() {
-        val throwable = Throwable("Error")
-        val testObserver = TestObserver.create<List<Content>>()
-        val expectedText = "asdf"
-        given(repository.getResultsForSearch(anyString())).willReturn(Single.error(throwable))
-
-        interactor.getResultsForSearch(expectedText)
-            .subscribe(testObserver)
-        testObserver.awaitTerminalEvent()
-
-        testObserver.assertError(throwable)
-            .assertTerminated()
-        verify(repository, times(1)).getResultsForSearch(expectedText)
-        verifyNoMoreInteractions(repository)
-    }
-
-    @Test
-    fun searchTyped_TextAndSavedListEmpty_EmitsEmpty() {
+    fun searchTyped_DbEmpty_EmitsEmpty() {
         val testObserver = TestObserver.create<List<SearchModel>>()
-
-        interactor.searchTyped(Observable.just(""))
-            .subscribe(testObserver)
-        testObserver.awaitTerminalEvent()
-
-        testObserver.assertValue(emptyList())
-            .assertNoErrors()
-        verifyNoMoreInteractions(repository)
-    }
-
-    @Test
-    fun searchTyped_TextNotBlankSavedListEmpty_EmitsEmpty() {
-        val testObserver = TestObserver.create<List<SearchModel>>()
+        given(repository.getSearches(anyInt())).willReturn(Flowable.just(emptyList()))
 
         interactor.searchTyped(Observable.just("123"))
             .subscribe(testObserver)
@@ -160,11 +62,12 @@ class SearchInteractorImplTest {
 
         testObserver.assertValue(emptyList())
             .assertNoErrors()
+        verify(repository, times(1)).getSearches(25)
         verifyNoMoreInteractions(repository)
     }
 
     @Test
-    fun searchTyped_SavedListHasText_EmitsSearchModel() {
+    fun searchTyped_DbHasSearches_EmitsSearchModel() {
         val testObserver = TestObserver.create<List<SearchModel>>()
         val expectedName1 = "one"
         val expectedTime1 = 1L
@@ -176,13 +79,7 @@ class SearchInteractorImplTest {
             SearchModel(expectedName1, Timestamp(expectedTime2)),
             SearchModel(expectedName2, Timestamp(expectedTime2))
         )
-        val testSubscriber = TestSubscriber.create<List<SearchModel>>()
         given(repository.getSearches(anyInt())).willReturn(Flowable.just(returnedList))
-
-        interactor.getSearches()
-            .subscribe(testSubscriber)
-        testSubscriber.awaitTerminalEvent()
-
 
         interactor.searchTyped(Observable.just(expectedName1))
             .subscribe(testObserver)

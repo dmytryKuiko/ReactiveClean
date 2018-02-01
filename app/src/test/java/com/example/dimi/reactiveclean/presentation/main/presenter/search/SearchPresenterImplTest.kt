@@ -1,20 +1,15 @@
 package com.example.dimi.reactiveclean.presentation.main.presenter.search
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import android.arch.lifecycle.Observer
 import android.view.inputmethod.EditorInfo
 import com.example.dimi.reactiveclean.TestSchedulers
 import com.example.dimi.reactiveclean.domain.main.search.SearchDomainMapperDB
 import com.example.dimi.reactiveclean.domain.main.search.SearchInteractor
-import com.example.dimi.reactiveclean.extensions.paginator.PaginatorModelResult
-import com.example.dimi.reactiveclean.mock
-import com.example.dimi.reactiveclean.models.content.ContentDisplayable
+import com.example.dimi.reactiveclean.any as testAny
 import com.example.dimi.reactiveclean.models.search.EditTextBindingModel
 import com.example.dimi.reactiveclean.models.search.SearchDisplayable
 import com.example.dimi.reactiveclean.models.search.SearchModel
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
-import com.example.dimi.reactiveclean.utils.SchedulersProvider
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
 import org.hamcrest.Matchers.equalTo
@@ -25,7 +20,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestRule
-import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito.given
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -55,7 +49,6 @@ class SearchPresenterImplTest {
 
     @Before
     fun setUp() {
-        given(interactor.getSearches()).willReturn(Flowable.empty())
         presenter = SearchPresenterImpl(interactor, navigator, mapper, schedulers)
     }
 
@@ -76,7 +69,7 @@ class SearchPresenterImplTest {
         val expectedList = listOf( SearchModel(expectedText, Timestamp(12341)))
         val observable = Observable.just("111")
         val observable2 = Observable.just(expectedList)
-        given(interactor.searchTyped(com.example.dimi.reactiveclean.any())).willReturn(observable2)
+        given(interactor.searchTyped(testAny())).willReturn(observable2)
 
         presenter.listenEditText(observable)
         testObserver.awaitTerminalEvent(500, TimeUnit.MILLISECONDS)
@@ -85,6 +78,9 @@ class SearchPresenterImplTest {
         assertThat(result, hasSize(1))
         assertThat(result[0].text, equalTo(expectedText))
         assertThat(result[0].dateTime, equalTo(expectedDateTime))
+
+        verify(interactor, times(1)).searchTyped(observable)
+        verifyNoMoreInteractions(interactor)
     }
 
     @Test
@@ -99,6 +95,7 @@ class SearchPresenterImplTest {
 
         verify(interactor, times(1)).actionKeyboardTyped(observable)
         verify(interactor, times(1)).storeSearch(expectedModel.text)
+        verifyNoMoreInteractions(interactor)
         verify(navigator, times(1)).openSearchContent(expectedModel.text)
         verifyNoMoreInteractions(navigator)
     }
@@ -114,6 +111,7 @@ class SearchPresenterImplTest {
         testObserver.await(1000, TimeUnit.MILLISECONDS)
 
         verify(interactor, times(1)).actionKeyboardTyped(observable)
+        verifyNoMoreInteractions(interactor)
         verifyNoMoreInteractions(navigator)
     }
 

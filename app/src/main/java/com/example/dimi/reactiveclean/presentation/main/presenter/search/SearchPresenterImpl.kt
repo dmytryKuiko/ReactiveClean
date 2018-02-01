@@ -8,11 +8,11 @@ import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.search.EditTextBindingModel
 import com.example.dimi.reactiveclean.models.search.SearchDisplayable
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
-import com.example.dimi.reactiveclean.presentation.main.presenter.MenuController
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class SearchPresenterImpl
@@ -30,17 +30,17 @@ class SearchPresenterImpl
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    init {
-        interactor.getSearches()
-            .subscribe {}
-            .addTo(compositeDisposable)
-    }
+    private var disposable: Disposable? = null
+
+    override fun getData(): LiveData<List<SearchDisplayable.Search>> = searchesLiveData
 
     override fun disposeSubscriptions() {
         compositeDisposable.clear()
     }
 
-    override fun getData(): LiveData<List<SearchDisplayable.Search>> = searchesLiveData
+    override fun disposeRxBinding() {
+        listenerCompositeDisposable.clear()
+    }
 
     override fun previousSearchClicked(search: SearchDisplayable.Search) {
         navigator.openSearchContent(search.text)
@@ -58,22 +58,18 @@ class SearchPresenterImpl
     override fun listenEditTextAction(listener: Observable<EditTextBindingModel>) {
         interactor.actionKeyboardTyped(listener)
             .subscribe {
-                Completable.fromCallable { interactor.storeSearch(it.text) }
+                disposable?.dispose()
+                disposable = Completable.fromCallable { interactor.storeSearch(it.text) }
                     .compose(this::composeSchedulers)
                     .subscribe {
                         navigator.openSearchContent(it.text)
                     }
-                    .addTo(compositeDisposable)
             }
             .addTo(listenerCompositeDisposable)
     }
 
     override fun onBackPressed() {
         navigator.onBackPressed()
-    }
-
-    override fun disposeRxBinding() {
-        listenerCompositeDisposable.clear()
     }
 
     private fun composeSchedulers(completable: Completable): Completable =

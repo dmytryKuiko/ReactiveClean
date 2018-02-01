@@ -7,6 +7,8 @@ import io.reactivex.Observable
 
 interface SearchPresenter : BaseDataPresenter<List<SearchDisplayable.Search>> {
 
+    fun disposeRxBinding()
+
     fun previousSearchClicked(search: SearchDisplayable.Search)
 
     fun listenEditText(listener: Observable<String>)
@@ -14,6 +16,4 @@ interface SearchPresenter : BaseDataPresenter<List<SearchDisplayable.Search>> {
     fun listenEditTextAction(listener: Observable<EditTextBindingModel>)
 
     fun onBackPressed()
-
-    fun disposeRxBinding()
 }
