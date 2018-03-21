@@ -6,6 +6,10 @@ import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.presentation.splash.view.SplashActivity
 import dagger.Subcomponent
 
+/**
+ * Component for SplashActivity
+ * @see SplashActivity
+ */
 @ActivityScope
 @Subcomponent(modules = [SplashModule::class])
 interface SplashComponent : BaseComponent<SplashActivity> {

@@ -25,7 +25,7 @@ class ObserveComputationRxCallAdapter
                 ?: return null
 
         return object : CallAdapter<Any, Observable<*>> {
-            override fun adapt(call: Call<Any>?): Observable<*> {
+            override fun adapt(call: Call<Any>): Observable<*> {
                 val o = delegate.adapt(call)
                 return o.observeOn(Schedulers.computation())
             }

@@ -2,6 +2,9 @@ package com.example.dimi.reactiveclean.data.db
 
 import android.arch.persistence.room.*
 
+/**
+ * Interface for defining default methods for working with Database
+ */
 interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

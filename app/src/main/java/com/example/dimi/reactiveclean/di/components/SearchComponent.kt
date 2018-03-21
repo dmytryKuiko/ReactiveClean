@@ -6,6 +6,10 @@ import com.example.dimi.reactiveclean.di.scopes.CustomScope
 import com.example.dimi.reactiveclean.presentation.main.view.search.SearchFragment
 import dagger.Subcomponent
 
+/**
+ * Component for SearchFragment
+ * @see SearchFragment
+ */
 @CustomScope
 @Subcomponent(modules = [SearchModule::class])
 interface SearchComponent : TempComponent {

@@ -9,6 +9,9 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * Needed Querries for Network Requests
+ */
 interface ServiceNewsApi {
 
     @GET("sections")

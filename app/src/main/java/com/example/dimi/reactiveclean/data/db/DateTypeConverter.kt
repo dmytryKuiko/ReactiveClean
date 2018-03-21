@@ -4,6 +4,9 @@ import android.arch.persistence.room.TypeConverter
 import java.sql.Date
 import java.sql.Timestamp
 
+/**
+ * Allows to save specific objects in Database, by converting them into Long values
+ */
 class DateTypeConverter {
 
     @TypeConverter

@@ -9,6 +9,7 @@ import com.example.dimi.reactiveclean.data.db.AppDatabase
 import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.di.components.SplashComponent
 import com.example.dimi.reactiveclean.di.components.TutorialComponent
+import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.utils.AppSchedulers
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import com.squareup.leakcanary.LeakCanary
@@ -18,7 +19,10 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-
+/**
+ * Module for AppComponent
+ * @see AppComponent
+ */
 @Module(subcomponents = [SplashComponent::class, TutorialComponent::class, MainComponent::class])
 abstract class AppModule {
 

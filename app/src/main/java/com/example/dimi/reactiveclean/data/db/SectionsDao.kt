@@ -5,6 +5,9 @@ import android.arch.persistence.room.Query
 import com.example.dimi.reactiveclean.models.section.Section
 import io.reactivex.Flowable
 
+/**
+ * Defines querries for SectionTable
+ */
 @Dao
 abstract class SectionsDao : BaseDao<Section> {
 

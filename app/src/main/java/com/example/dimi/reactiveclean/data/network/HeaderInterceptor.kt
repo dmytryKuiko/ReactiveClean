@@ -4,6 +4,9 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
+/**
+ * Interceptor for Network requests
+ */
 class HeaderInterceptor
 @Inject constructor() : Interceptor {
 

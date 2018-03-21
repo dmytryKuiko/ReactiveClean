@@ -15,6 +15,11 @@ class SectionChosenRepositoryImpl
     private val contentChosen: ContentChosen
 ) : SectionChosenRepository {
 
+    /**
+     * Loads data from Network and maps it into desirable model
+     * @param page page for requested data
+     * @return mapped data from Network
+     */
     override fun getSectionContent(page: Int): Single<List<Content>> {
         return serviceNewsApi.getSectionChosen(contentChosen.url, page, contentChosen.query)
             .map(mapper)

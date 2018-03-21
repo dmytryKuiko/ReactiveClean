@@ -1,6 +1,7 @@
 package com.example.dimi.reactiveclean.di.modules
 
 import com.example.dimi.reactiveclean.data.network.*
+import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import dagger.Module
 import dagger.Provides
@@ -15,6 +16,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+/**
+ * Module for AppComponent
+ * @see AppComponent
+ */
 @Module
 class NetworkModule {
 

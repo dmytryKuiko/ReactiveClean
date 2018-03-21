@@ -6,6 +6,9 @@ import android.arch.persistence.room.Transaction
 import com.example.dimi.reactiveclean.models.content.Content
 import io.reactivex.Flowable
 
+/**
+ * Defines querries for ContentTable
+ */
 @Dao
 abstract class ContentDao : BaseDao<Content> {
 

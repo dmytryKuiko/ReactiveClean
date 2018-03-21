@@ -4,6 +4,10 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
+/**
+ * Checks whether the end of the data reached
+ * If yes, ServerError would be thrown
+ */
 class ErrorInterceptor
 @Inject constructor() : Interceptor {
 

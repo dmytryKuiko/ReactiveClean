@@ -9,6 +9,7 @@ import com.example.dimi.reactiveclean.presentation.main.presenter.sectionChosen.
 import com.example.dimi.reactiveclean.presentation.main.presenter.sectionChosen.SectionChosenPresenterImpl
 import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenRepository
 import com.example.dimi.reactiveclean.data.main.sectionChosen.SectionChosenRepositoryImpl
+import com.example.dimi.reactiveclean.di.components.SectionChosenComponent
 import com.example.dimi.reactiveclean.domain.main.sectionChosen.SectionChosenInteractor
 import com.example.dimi.reactiveclean.domain.main.sectionChosen.SectionChosenInteractorImpl
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorNetwork
@@ -17,6 +18,10 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Named
 
+/**
+ * Module for SectionChosenComponent
+ * @see SectionChosenComponent
+ */
 @Module
 abstract class SectionChosenModule {
 
@@ -31,7 +36,6 @@ abstract class SectionChosenModule {
     @CustomScope
     @Binds
     internal abstract fun bindRepository(repo: SectionChosenRepositoryImpl): SectionChosenRepository
-
     @CustomScope
     @Binds
     internal abstract fun bindStore(store: SectionChosenStoreImpl): SectionChosenStore

@@ -7,6 +7,9 @@ import retrofit2.Retrofit
 import java.lang.reflect.Type
 import javax.inject.Inject
 
+/**
+ * Eliminates unused data from response
+ */
 class EnvelopeConverter
 @Inject constructor() : Converter.Factory() {
 

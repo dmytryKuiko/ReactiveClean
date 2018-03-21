@@ -7,6 +7,9 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import javax.inject.Inject
 
+/**
+ * Maps response from the server to a desired model for saving data into Database
+ */
 class ContentDataMapperForDB
 @Inject constructor() : Function<ContentResponse, List<Content>> {
 

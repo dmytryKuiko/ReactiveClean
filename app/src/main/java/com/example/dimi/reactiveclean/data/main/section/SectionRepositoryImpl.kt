@@ -14,16 +14,32 @@ class SectionRepositoryImpl
     private val mapper: SectionDataMapper
 ) : SectionRepository {
 
+    /**
+     * Retrieves all Sections from DB
+     * @return data from DB
+     */
     override fun getAllSections(): Flowable<List<Section>> = store.getAllSections()
 
+    /**
+     * Loads data from a Network if successful stores in DB
+     * @return completable whther it was successful or not
+     */
     override fun fetchSections(): Completable = loadSections()
         .doOnSuccess(store::storeAll)
         .toCompletable()
 
+    /**
+     * Retrieves specific Section from DB
+     * @param params parameters for looking into DB
+     * @return satisfied result for a given parameter
+     */
     override fun getSpecificSections(params: String): Flowable<List<Section>> {
         return store.getSpecificSections(params)
     }
 
+    /**
+     * Loads data from Network and maps it into desirable model
+     */
     private fun loadSections(): Single<List<Section>> = serviceNewsApi.getAllSections()
         .map(mapper)
 }

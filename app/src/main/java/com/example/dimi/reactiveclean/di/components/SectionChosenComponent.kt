@@ -8,6 +8,10 @@ import com.example.dimi.reactiveclean.presentation.main.view.sectionChosen.Secti
 import dagger.BindsInstance
 import dagger.Subcomponent
 
+/**
+ * Component for SectionChosenFragment
+ * @see SectionChosenFragment
+ */
 @CustomScope
 @Subcomponent(modules = [SectionChosenModule::class])
 interface SectionChosenComponent : TempComponent {

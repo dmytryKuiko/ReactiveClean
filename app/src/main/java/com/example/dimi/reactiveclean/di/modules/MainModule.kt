@@ -17,6 +17,7 @@ import com.example.dimi.reactiveclean.data.main.content.ContentRepository
 import com.example.dimi.reactiveclean.data.main.content.ContentRepositoryImpl
 import com.example.dimi.reactiveclean.data.main.section.SectionRepository
 import com.example.dimi.reactiveclean.data.main.section.SectionRepositoryImpl
+import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.domain.main.content.ContentInteractor
 import com.example.dimi.reactiveclean.domain.main.content.ContentInteractorImpl
 import com.example.dimi.reactiveclean.domain.main.section.SectionInteractor
@@ -30,6 +31,10 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Named
 
+/**
+ * Module for MainComponent
+ * @see MainComponent
+ */
 @Module
 abstract class MainModule {
 

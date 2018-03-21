@@ -6,6 +6,10 @@ import com.example.dimi.reactiveclean.di.scopes.CustomScope
 import com.example.dimi.reactiveclean.presentation.main.view.about.AboutFragment
 import dagger.Subcomponent
 
+/**
+ * Component which is used in AboutFragment
+ * @see AboutFragment
+ */
 @CustomScope
 @Subcomponent(modules = [AboutModule::class])
 interface AboutComponent : TempComponent {

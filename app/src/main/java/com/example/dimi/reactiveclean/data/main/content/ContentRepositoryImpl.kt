@@ -15,15 +15,28 @@ class ContentRepositoryImpl
     private val mapperDB: ContentDataMapperForDB
 ) : ContentRepository {
 
+    /**
+     * Retrieves all Contents from Database
+     * @return - data from Database
+     */
     override fun getAllContent(): Flowable<List<Content>> =
         store.getAll()
 
+    /**
+     * Deletes all Contents in Database and saves new info
+     * @return completable which indicates whether it was successful or not
+     */
     override fun deleteAndFetchContent(): Completable =
         serviceNewsApi.getAllContent()
             .map(mapperDB)
             .doOnSuccess(store::deleteAllAndStoreAll)
             .toCompletable()
 
+    /**
+     * Loads info for a new page, required for Pagination
+     * @param page index of a new page
+     * @return completable which indicates whether it was successful or not
+     */
     override fun loadNextContentPage(page: Int): Completable {
         return serviceNewsApi.getNextContent(page)
             .map(mapperDB)

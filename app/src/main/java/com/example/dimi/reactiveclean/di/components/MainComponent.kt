@@ -10,6 +10,10 @@ import com.example.dimi.reactiveclean.presentation.main.view.drawer.DrawerFragme
 import com.example.dimi.reactiveclean.presentation.main.view.section.SectionFragment
 import dagger.Subcomponent
 
+/**
+ * Component for MainActivity
+ * @see MainActivity
+ */
 @ActivityScope
 @Subcomponent(modules = [MainModule::class])
 interface MainComponent : BaseComponent<MainActivity> {

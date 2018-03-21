@@ -5,6 +5,9 @@ import android.arch.persistence.room.Query
 import com.example.dimi.reactiveclean.models.search.SearchModel
 import io.reactivex.Flowable
 
+/**
+ * Defines querries for SearchTable
+ */
 @Dao
 abstract class SearchDao : BaseDao<SearchModel> {
 

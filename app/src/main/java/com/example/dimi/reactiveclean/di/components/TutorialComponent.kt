@@ -6,6 +6,10 @@ import com.example.dimi.reactiveclean.di.scopes.ActivityScope
 import com.example.dimi.reactiveclean.presentation.tutorial.view.*
 import dagger.Subcomponent
 
+/**
+ * Component for TutorialActivity
+ * @see TutorialActivity
+ */
 @ActivityScope
 @Subcomponent(modules = [TutorialModule::class])
 interface TutorialComponent : BaseComponent<TutorialActivity> {

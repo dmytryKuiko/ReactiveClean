@@ -6,6 +6,10 @@ import io.reactivex.functions.Function
 import java.io.NotSerializableException
 import javax.inject.Inject
 
+/**
+ * Maps response from the server to desired model with paging info
+ * Not used
+ */
 class ContentDataMapper
 @Inject constructor() : Function<ContentResponse, ContentPages> {
 

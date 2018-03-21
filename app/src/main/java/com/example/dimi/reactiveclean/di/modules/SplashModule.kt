@@ -3,6 +3,7 @@ package com.example.dimi.reactiveclean.di.modules
 import com.example.dimi.reactiveclean.data.splash.SplashReactiveStore
 import com.example.dimi.reactiveclean.data.splash.SplashReactiveStoreImpl
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
+import com.example.dimi.reactiveclean.di.components.SplashComponent
 import com.example.dimi.reactiveclean.navigation.splash.SplashNavigator
 import com.example.dimi.reactiveclean.navigation.splash.SplashNavigatorImpl
 import com.example.dimi.reactiveclean.presentation.splash.presenter.SplashPresenter
@@ -14,6 +15,10 @@ import com.example.dimi.reactiveclean.domain.splash.SplashInteractorImpl
 import dagger.Binds
 import dagger.Module
 
+/**
+ * Module for SplashComponent
+ * @see SplashComponent
+ */
 @Module
 abstract class SplashModule {
 

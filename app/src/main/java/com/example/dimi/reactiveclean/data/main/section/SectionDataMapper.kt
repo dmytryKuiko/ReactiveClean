@@ -5,6 +5,9 @@ import com.example.dimi.reactiveclean.models.section.SectionResponse
 import io.reactivex.functions.Function
 import javax.inject.Inject
 
+/**
+ * Maps response from the server to desired model for saving into Database
+ */
 class SectionDataMapper
 @Inject constructor() : Function<SectionResponse, List<Section>> {
 

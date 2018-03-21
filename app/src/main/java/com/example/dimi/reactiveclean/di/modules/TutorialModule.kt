@@ -4,6 +4,7 @@ import com.example.dimi.reactiveclean.navigation.tutorial.TutorialMainNavigator
 import com.example.dimi.reactiveclean.navigation.tutorial.TutorialMainNavigatorImpl
 import com.example.dimi.reactiveclean.di.DiConstants
 import com.example.dimi.reactiveclean.di.scopes.ActivityScope
+import com.example.dimi.reactiveclean.di.components.TutorialComponent
 import com.example.dimi.reactiveclean.presentation.tutorial.presenter.TutorialPresenter
 import com.example.dimi.reactiveclean.presentation.tutorial.presenter.TutorialPresenterImpl
 import com.example.dimi.reactiveclean.models.tutorial.ImageType
@@ -12,6 +13,10 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Named
 
+/**
+ * Module for TutorialComponent
+ * @see TutorialComponent
+ */
 @Module
 abstract class TutorialModule {
 
