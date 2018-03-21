@@ -31,8 +31,9 @@ class SearchInteractorImpl
             }
         ).distinctUntilChanged()
 
-    override fun actionKeyboardTyped(listener: Observable<EditTextBindingModel>): Observable<EditTextBindingModel> =
+    override fun actionKeyboardTyped(listener: Observable<EditTextBindingModel>): Observable<String> =
         listener.filter { it.actionId == EditorInfo.IME_ACTION_DONE }
+            .map { it.text }
 
     private fun composeGetSearches(flowable: Flowable<List<SearchModel>>): Flowable<List<SearchModel>> =
         flowable.map { it.distinctBy { it.text } }

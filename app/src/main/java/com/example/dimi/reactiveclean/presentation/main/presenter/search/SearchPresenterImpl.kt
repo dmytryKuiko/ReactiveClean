@@ -13,6 +13,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import timber.log.Timber
 import javax.inject.Inject
 
 class SearchPresenterImpl
@@ -57,14 +58,12 @@ class SearchPresenterImpl
 
     override fun listenEditTextAction(listener: Observable<EditTextBindingModel>) {
         interactor.actionKeyboardTyped(listener)
-            .subscribe {
-                disposable?.dispose()
-                disposable = Completable.fromCallable { interactor.storeSearch(it.text) }
+            .switchMap { text ->
+                Completable.fromCallable { interactor.storeSearch(text) }
                     .compose(this::composeSchedulers)
-                    .subscribe {
-                        navigator.openSearchContent(it.text)
-                    }
+                    .andThen(Observable.just(text))
             }
+            .subscribe(navigator::openSearchContent, this::handleError)
             .addTo(listenerCompositeDisposable)
     }
 
@@ -75,4 +74,8 @@ class SearchPresenterImpl
     private fun composeSchedulers(completable: Completable): Completable =
         completable.subscribeOn(schedulers.computation())
             .observeOn(schedulers.ui())
+
+    private fun handleError(throwable: Throwable) {
+        Timber.d(throwable)
+    }
 }

@@ -10,5 +10,5 @@ interface SearchInteractor {
 
     fun searchTyped(listener: Observable<String>): Observable<List<SearchModel>>
 
-    fun actionKeyboardTyped(listener: Observable<EditTextBindingModel>): Observable<EditTextBindingModel>
+    fun actionKeyboardTyped(listener: Observable<EditTextBindingModel>): Observable<String>
 }
