@@ -29,7 +29,7 @@ class SplashPresenterImpl
     private fun handleResult(value: Boolean) {
         when (value) {
             true -> navigator.navigateToTutorial()
-            else -> navigator.navigateToStart()
+            else -> navigator.navigateToMain()
         }
     }
 

@@ -6,15 +6,12 @@ import com.example.dimi.reactiveclean.navigation.splash.SplashNavigator
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.verifyNoMoreInteractions
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnit
 import java.util.concurrent.TimeUnit
@@ -67,7 +64,7 @@ class SplashPresenterImplTest {
         verify(interactor, times(1)).isFirstLaunch()
         verifyNoMoreInteractions(interactor)
 
-        verify(navigator, times(1)).navigateToStart()
+        verify(navigator, times(1)).navigateToMain()
         verifyNoMoreInteractions(navigator)
     }
 

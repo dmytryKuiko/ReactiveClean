@@ -4,5 +4,5 @@ interface SplashNavigator {
 
     fun navigateToTutorial()
 
-    fun navigateToStart()
+    fun navigateToMain()
 }

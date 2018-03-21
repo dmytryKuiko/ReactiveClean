@@ -71,7 +71,7 @@ class ContentFragment : BaseFragment() {
         with(content_toolbar) {
             findViewById<ImageButton>(R.id.general_toolbar_refresh_button)
                 .setOnClickListener { presenter.refreshClicked() }
-            findViewById<TextView>(R.id.general_toolbar_title).text = "Content"
+            (findViewById<TextView>(R.id.general_toolbar_title)).text = "Content"
             findViewById<Toolbar>(R.id.general_toolbar).setNavigationOnClickListener { presenter.openMenuClicked() }
             findViewById<ImageButton>(R.id.general_toolbar_search_button)
                 .setOnClickListener { presenter.searchClicked() }
@@ -82,21 +82,10 @@ class ContentFragment : BaseFragment() {
         with(presenter) {
             getData().observe(this@ContentFragment, Observer { data ->
                 data?.let {
-                    it.paginatorModelData?.let {
-                        contentAdapter.setNewData(it)
-                    }
-
-                    it.showEmptyProgress?.let {
-                        refresh_progress.visible(it)
-                    }
-
-                    it.showEmptyView?.let {
-                        empty_view.visible(it)
-                    }
-
-                    it.showRefreshProgress?.let {
-                        refresh_progress.visible(it)
-                    }
+                    it.paginatorModelData?.let { contentAdapter.setNewData(it) }
+                    it.showEmptyProgress?.let { refresh_progress.visible(it) }
+                    it.showEmptyView?.let { empty_view.visible(it) }
+                    it.showRefreshProgress?.let { refresh_progress.visible(it) }
                 }
             })
 

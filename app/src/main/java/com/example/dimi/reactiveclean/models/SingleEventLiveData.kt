@@ -1,13 +1,9 @@
 package com.example.dimi.reactiveclean.models
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.Observer
-import android.util.Log
 import java.util.concurrent.atomic.AtomicBoolean
-
 
 class SingleEventLiveData<T> : MutableLiveData<T>() {
 

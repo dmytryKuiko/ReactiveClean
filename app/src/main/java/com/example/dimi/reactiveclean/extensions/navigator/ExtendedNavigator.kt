@@ -11,15 +11,12 @@ abstract class ExtendedNavigator(
     containerId: Int
 ) : SupportAppNavigator(activity, containerId) {
 
-    protected abstract fun createCustomTabsIntent(url: String): CustomTabsIntent?
+    protected abstract fun createCustomTabsIntent(url: String): CustomTabsIntent
 
-    override fun applyCommand(command: Command?) {
-        if (command is OpenInBrowser) {
-            val intent = createCustomTabsIntent(command.url)
-            intent?.let {
-                intent.launchUrl(activity, Uri.parse(command.url))
-            }
-        }
-        super.applyCommand(command)
+    override fun applyCommand(command: Command) = when (command) {
+        is OpenInBrowser -> createCustomTabsIntent(command.url)
+            .launchUrl(activity, Uri.parse(command.url))
+        else -> super.applyCommand(command)
     }
+
 }

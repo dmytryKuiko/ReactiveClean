@@ -10,6 +10,7 @@ import com.example.dimi.reactiveclean.di.components.AppComponent
 import com.example.dimi.reactiveclean.di.components.DaggerAppComponent
 import com.example.dimi.reactiveclean.di.components.MainComponent
 import com.example.dimi.reactiveclean.models.section.ContentChosen
+import com.example.dimi.reactiveclean.presentation.BaseActivity
 import com.example.dimi.reactiveclean.presentation.main.view.MainActivity
 import com.example.dimi.reactiveclean.presentation.main.view.about.AboutFragment
 import com.example.dimi.reactiveclean.presentation.main.view.search.SearchFragment
@@ -23,7 +24,7 @@ object ComponentManager {
 
     private var appComponent: AppComponent? = null
 
-    private val componentMap: MutableMap<String, BaseComponent<Context>> = hashMapOf()
+    private val componentMap: MutableMap<String, BaseComponent<BaseActivity>> = hashMapOf()
 
     private val tempComponentMap: MutableMap<String, TempComponent> = hashMapOf()
 
@@ -36,11 +37,11 @@ object ComponentManager {
         }
     }
 
-    fun getComponent(context: Context): BaseComponent<Context> {
+    fun getComponent(context: Context): BaseComponent<BaseActivity> {
         val name = getName(context)
         var component = componentMap[name]
         if (component == null) {
-            component = createComponent(name)
+            component = createComponent(name) as BaseComponent<BaseActivity>
             storeComponent(name, component)
         }
         return component
@@ -71,15 +72,16 @@ object ComponentManager {
         creator::class.qualifiedName
                 ?: throw PackageManager.NameNotFoundException("For activity $creator")
 
-    private fun createComponent(name: String): BaseComponent<Context> {
+
+    private fun createComponent(name: String): BaseComponent<out BaseActivity> {
         val component = appComponent ?: throw NullPointerException("App Component is null")
         return when (name) {
             SplashActivity::class.qualifiedName ->
-                component.splashComponentBuilder().build() as BaseComponent<Context>
+                component.splashComponentBuilder().build()
             TutorialActivity::class.qualifiedName ->
-                component.tutorialComponentBuilder().build() as BaseComponent<Context>
+                component.tutorialComponentBuilder().build()
             MainActivity::class.qualifiedName ->
-                component.mainComponentBuilder().build() as BaseComponent<Context>
+                component.mainComponentBuilder().build()
             else -> throw UninitializedPropertyAccessException("This component is not initialized yet")
         }
     }
@@ -88,44 +90,39 @@ object ComponentManager {
         componentName: String,
         tempComponentName: String,
         data: Any?
-    ): TempComponent {
+    ): TempComponent = when (componentName) {
+        MainActivity::class.qualifiedName -> {
+            val component =
+                componentMap[componentName] as? MainComponent ?: throw NullPointerException(
+                    "Parent component is null for temp component"
+                )
+            when (tempComponentName) {
+                SectionChosenFragment::class.qualifiedName -> {
+                    val model = data as? ContentChosen
+                            ?: throw IllegalArgumentException("Wrong parameter passed")
 
-        return when (componentName) {
-            MainActivity::class.qualifiedName -> {
-                val component =
-                    componentMap[componentName] as? MainComponent ?: throw NullPointerException(
-                        "Parent component is null for temp component"
-                    )
-                when (tempComponentName) {
-                    SectionChosenFragment::class.qualifiedName -> {
-                        val model = data as? ContentChosen
-                                ?: throw IllegalArgumentException("Wrong parameter passed")
-
-                        component.sectionChosenBuilder()
-                            .sectionChosenModel(model)
-                            .build()
-                    }
-
-                    SearchFragment::class.qualifiedName -> {
-                        component.searchBuilder().build()
-                    }
-
-                    AboutFragment::class.qualifiedName -> {
-                        component.aboutBuilder().build()
-                    }
-
-                    else -> throw UninitializedPropertyAccessException(
-                        "This component is not initialized yet for $tempComponentName"
-                    )
+                    component.sectionChosenBuilder()
+                        .sectionChosenModel(model)
+                        .build()
                 }
 
-            }
+                SearchFragment::class.qualifiedName -> {
+                    component.searchBuilder().build()
+                }
 
-            else -> throw UninitializedPropertyAccessException("This component is not initialized yet")
+                AboutFragment::class.qualifiedName -> {
+                    component.aboutBuilder().build()
+                }
+
+                else -> throw UninitializedPropertyAccessException(
+                    "This component is not initialized yet for $tempComponentName"
+                )
+            }
         }
+        else -> throw UninitializedPropertyAccessException("This component is not initialized yet")
     }
 
-    private fun storeComponent(name: String, component: BaseComponent<Context>) {
+    private fun storeComponent(name: String, component: BaseComponent<BaseActivity>) {
         componentMap[name] = component
     }
 

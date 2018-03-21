@@ -11,7 +11,7 @@ class SplashNavigatorImpl
         router.newRootScreen(RouterConstants.TUTORIAL_ACTIVITY)
     }
 
-    override fun navigateToStart() {
+    override fun navigateToMain() {
         router.newRootScreen(RouterConstants.NEWS_MAIN_ACTIVITY)
     }
 }
