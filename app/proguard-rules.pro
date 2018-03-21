@@ -19,3 +19,37 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-dontwarn org.mockito.**
+-dontwarn org.objenesis.**
+-dontwarn retrofit2.**
+-dontwarn okio.**
+-dontwarn org.joda.**
+-dontwarn okhttp3.**
+-dontwarn net.bytebuddy.**
+-dontwarn com.squareup.**
+-dontwarn dagger.android.**
+
+-repackageclasses
+-allowaccessmodification
+-flattenpackagehierarchy
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-verbose
+-dontoptimize
+-dontpreverify
+
+
+    -keep class retrofit.** { *; }
+    -keepattributes Signature
+    -keepattributes Exceptions
+    -dontwarn java.lang.invoke.*
+    -keep class com.example.dimi.reactiveclean.models.** { *; }
+    -keep class com.example.dimi.reactiveclean.data.** { *; }
+    -dontwarn retrofit.appengine.UrlFetchClient
+    -keepclasseswithmembers class * {
+        @retrofit.http.* <methods>;
+    }
+    -keepclassmembernames interface * {
+        @retrofit.http.* <methods>;
+    }
+    -dontwarn retrofit2.Platform$Java8
