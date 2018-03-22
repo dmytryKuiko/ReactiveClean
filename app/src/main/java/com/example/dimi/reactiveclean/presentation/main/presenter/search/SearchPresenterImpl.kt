@@ -8,11 +8,8 @@ import com.example.dimi.reactiveclean.extensions.addTo
 import com.example.dimi.reactiveclean.models.search.EditTextBindingModel
 import com.example.dimi.reactiveclean.models.search.SearchDisplayable
 import com.example.dimi.reactiveclean.navigation.main.NewsMainNavigator
-import com.example.dimi.reactiveclean.utils.SchedulersProvider
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -20,8 +17,7 @@ class SearchPresenterImpl
 @Inject constructor(
     private val interactor: SearchInteractor,
     private val navigator: NewsMainNavigator,
-    private val mapper: SearchDomainMapperDB,
-    private val schedulers: SchedulersProvider
+    private val mapper: SearchDomainMapperDB
 ) : SearchPresenter {
 
     private val searchesLiveData: MutableLiveData<List<SearchDisplayable.Search>> =
@@ -30,8 +26,6 @@ class SearchPresenterImpl
     private val listenerCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
-    private var disposable: Disposable? = null
 
     override fun getData(): LiveData<List<SearchDisplayable.Search>> = searchesLiveData
 
@@ -48,21 +42,14 @@ class SearchPresenterImpl
     }
 
     override fun listenEditText(listener: Observable<String>) {
-        interactor.searchTyped(listener)
+        interactor.listenSymbolTyped(listener)
             .map(mapper)
-            .subscribe {
-                searchesLiveData.postValue(it)
-            }
+            .subscribe (searchesLiveData::postValue, this::handleError)
             .addTo(listenerCompositeDisposable)
     }
 
-    override fun listenEditTextAction(listener: Observable<EditTextBindingModel>) {
-        interactor.actionKeyboardTyped(listener)
-            .switchMap { text ->
-                Completable.fromCallable { interactor.storeSearch(text) }
-                    .compose(this::composeSchedulers)
-                    .andThen(Observable.just(text))
-            }
+    override fun listenEditTextModel(listener: Observable<EditTextBindingModel>) {
+        interactor.listenActionDone(listener)
             .subscribe(navigator::openSearchContent, this::handleError)
             .addTo(listenerCompositeDisposable)
     }
@@ -70,10 +57,6 @@ class SearchPresenterImpl
     override fun onBackPressed() {
         navigator.onBackPressed()
     }
-
-    private fun composeSchedulers(completable: Completable): Completable =
-        completable.subscribeOn(schedulers.computation())
-            .observeOn(schedulers.ui())
 
     private fun handleError(throwable: Throwable) {
         Timber.d(throwable)

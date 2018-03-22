@@ -6,9 +6,7 @@ import io.reactivex.Observable
 
 interface SearchInteractor {
 
-    fun storeSearch(text: String)
+    fun listenSymbolTyped(listener: Observable<String>): Observable<List<SearchModel>>
 
-    fun searchTyped(listener: Observable<String>): Observable<List<SearchModel>>
-
-    fun actionKeyboardTyped(listener: Observable<EditTextBindingModel>): Observable<String>
+    fun listenActionDone(listener: Observable<EditTextBindingModel>): Observable<String>
 }

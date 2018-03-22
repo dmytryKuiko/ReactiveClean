@@ -46,7 +46,7 @@ class SearchFragment : BaseFragment() {
         presenter.listenEditText(RxTextView.textChanges(fragment_search_edit_text)
             .map { it.toString() })
 
-        presenter.listenEditTextAction(RxTextView.editorActionEvents(fragment_search_edit_text)
+        presenter.listenEditTextModel(RxTextView.editorActionEvents(fragment_search_edit_text)
             .map { EditTextBindingModel(it.view().text.toString(), it.actionId()) })
 
         presenter.getData().observe(this, Observer {

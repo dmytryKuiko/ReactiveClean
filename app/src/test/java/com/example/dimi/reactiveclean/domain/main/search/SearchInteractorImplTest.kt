@@ -4,14 +4,11 @@ import android.view.inputmethod.EditorInfo
 import com.example.dimi.reactiveclean.argumentCaptor
 import com.example.dimi.reactiveclean.capture
 import com.example.dimi.reactiveclean.data.main.search.SearchRepository
-import com.example.dimi.reactiveclean.models.content.Content
 import com.example.dimi.reactiveclean.models.search.EditTextBindingModel
 import com.example.dimi.reactiveclean.models.search.SearchModel
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import io.reactivex.subscribers.TestSubscriber
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.Matchers.hasSize
 import org.junit.Test
@@ -19,7 +16,6 @@ import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Rule
 import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
@@ -56,7 +52,7 @@ class SearchInteractorImplTest {
         val testObserver = TestObserver.create<List<SearchModel>>()
         given(repository.getSearches(anyInt())).willReturn(Flowable.just(emptyList()))
 
-        interactor.searchTyped(Observable.just("123"))
+        interactor.listenSymbolTyped(Observable.just("123"))
             .subscribe(testObserver)
         testObserver.awaitTerminalEvent()
 
@@ -81,7 +77,7 @@ class SearchInteractorImplTest {
         )
         given(repository.getSearches(anyInt())).willReturn(Flowable.just(returnedList))
 
-        interactor.searchTyped(Observable.just(expectedName1))
+        interactor.listenSymbolTyped(Observable.just(expectedName1))
             .subscribe(testObserver)
         testObserver.awaitTerminalEvent()
 
@@ -98,7 +94,7 @@ class SearchInteractorImplTest {
         val expectedModelNo = EditTextBindingModel("blabla222", EditorInfo.IME_ACTION_GO)
         val observable = Observable.just(expectedModel, expectedModelNo)
 
-        interactor.actionKeyboardTyped(observable)
+        interactor.listenActionDone(observable)
             .subscribe(testObserver)
         testObserver.awaitTerminalEvent()
 

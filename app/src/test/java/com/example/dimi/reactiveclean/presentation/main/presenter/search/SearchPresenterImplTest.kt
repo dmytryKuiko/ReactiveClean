@@ -69,7 +69,7 @@ class SearchPresenterImplTest {
         val expectedList = listOf( SearchModel(expectedText, Timestamp(12341)))
         val observable = Observable.just("111")
         val observable2 = Observable.just(expectedList)
-        given(interactor.searchTyped(testAny())).willReturn(observable2)
+        given(interactor.listenSymbolTyped(testAny())).willReturn(observable2)
 
         presenter.listenEditText(observable)
         testObserver.awaitTerminalEvent(500, TimeUnit.MILLISECONDS)
@@ -79,7 +79,7 @@ class SearchPresenterImplTest {
         assertThat(result[0].text, equalTo(expectedText))
         assertThat(result[0].dateTime, equalTo(expectedDateTime))
 
-        verify(interactor, times(1)).searchTyped(observable)
+        verify(interactor, times(1)).listenSymbolTyped(observable)
         verifyNoMoreInteractions(interactor)
     }
 
@@ -88,12 +88,12 @@ class SearchPresenterImplTest {
         val testObserver = TestObserver.create<EditTextBindingModel>()
         val expectedModel = EditTextBindingModel("123", EditorInfo.IME_ACTION_DONE)
         val observable = Observable.just(expectedModel)
-        given(interactor.actionKeyboardTyped(observable)).willReturn(observable)
+        given(interactor.listenActionDone(observable)).willReturn(observable)
 
-        presenter.listenEditTextAction(observable)
+        presenter.listenEditTextModel(observable)
         testObserver.await(1000, TimeUnit.MILLISECONDS)
 
-        verify(interactor, times(1)).actionKeyboardTyped(observable)
+        verify(interactor, times(1)).listenActionDone(observable)
         verify(interactor, times(1)).storeSearch(expectedModel.text)
         verifyNoMoreInteractions(interactor)
         verify(navigator, times(1)).openSearchContent(expectedModel.text)
@@ -105,12 +105,12 @@ class SearchPresenterImplTest {
         val testObserver = TestObserver.create<EditTextBindingModel>()
         val expectedModel = EditTextBindingModel("123", EditorInfo.IME_ACTION_NEXT)
         val observable = Observable.just(expectedModel)
-        given(interactor.actionKeyboardTyped(observable)).willReturn(Observable.empty())
+        given(interactor.listenActionDone(observable)).willReturn(Observable.empty())
 
-        presenter.listenEditTextAction(observable)
+        presenter.listenEditTextModel(observable)
         testObserver.await(1000, TimeUnit.MILLISECONDS)
 
-        verify(interactor, times(1)).actionKeyboardTyped(observable)
+        verify(interactor, times(1)).listenActionDone(observable)
         verifyNoMoreInteractions(interactor)
         verifyNoMoreInteractions(navigator)
     }

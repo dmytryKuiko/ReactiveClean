@@ -13,7 +13,7 @@ interface SearchPresenter : BaseDataPresenter<List<SearchDisplayable.Search>> {
 
     fun listenEditText(listener: Observable<String>)
 
-    fun listenEditTextAction(listener: Observable<EditTextBindingModel>)
+    fun listenEditTextModel(listener: Observable<EditTextBindingModel>)
 
     fun onBackPressed()
 }
