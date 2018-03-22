@@ -41,7 +41,7 @@ class NewsMainNavigatorImpl
             RouterConstants.SEARCH_CHOSEN_SCREEN,
             ContentChosen(
                 toolbar = ToolbarData.SearchToolbar(title = textTyped),
-                url = "search",
+                url = SEARCH_URL_PREFIX,
                 query = textTyped
             )
         )
@@ -56,5 +56,8 @@ class NewsMainNavigatorImpl
             MenuItem.News -> router.newRootScreen(RouterConstants.MAIN_SCREEN)
             MenuItem.About -> router.newRootScreen(RouterConstants.ABOUT_SCREEN)
         }
+    }
+    companion object {
+        const val SEARCH_URL_PREFIX = "search"
     }
 }
