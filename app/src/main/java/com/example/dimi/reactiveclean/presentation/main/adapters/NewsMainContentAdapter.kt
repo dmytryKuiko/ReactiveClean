@@ -32,9 +32,9 @@ class NewsMainContentAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder?,
+        holder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: MutableList<Any?>?
+        payloads: MutableList<Any?>
     ) {
         super.onBindViewHolder(holder, position, payloads)
         if (position == items.size - DELTA_POSITION_LOADING && isContent()) loadNextPage.invoke()

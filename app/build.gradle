@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "de.mannodermaus.android-junit5"
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
@@ -43,7 +45,21 @@ sourceSets {
     main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
 }
 
+project.ext {
+    spekVersion = "1.1.5"
+    mockitoKotlinVersion = "2.0.0-alpha02"
+    kluentVersion = "1.34"
+}
 
+android.testOptions {
+    junitPlatform {
+        filters {
+            engines {
+                include 'spek'
+            }
+        }
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -137,4 +153,17 @@ dependencies {
 
     //JodaTime
     implementation "joda-time:joda-time:$rootProject.jodaTimeVersion"
+
+    //Spek
+    testImplementation("org.jetbrains.spek:spek-api:$spekVersion") {
+        exclude group: "org.jetbrains.kotlin"
+    }
+    testImplementation("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion") {
+        exclude group: "org.junit.platform"
+        exclude group: "org.jetbrains.kotlin"
+    }
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    testImplementation junit5.unitTests()
+    testCompileOnly junit5.unitTestsRuntime()
 }

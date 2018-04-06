@@ -61,7 +61,7 @@ class MainActivity : BaseActivity() {
             else -> null
         }
 
-        override fun createCustomTabsIntent(url: String): CustomTabsIntent? =
+        override fun createCustomTabsIntent(url: String): CustomTabsIntent =
             CustomTabsIntent.Builder()
                 .addDefaultShareMenuItem()
                 .setShowTitle(true)
