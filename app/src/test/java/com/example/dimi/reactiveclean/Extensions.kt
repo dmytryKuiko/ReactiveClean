@@ -1,10 +1,18 @@
 package com.example.dimi.reactiveclean
+import org.jetbrains.spek.api.dsl.SpecBody
+import org.jetbrains.spek.api.lifecycle.CachingMode
+import org.jetbrains.spek.api.lifecycle.LifecycleAware
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
 
 inline fun <reified T : Any> mock(): T = mock(T::class.java)
 
+inline fun <reified T> SpecBody.spekmock(mode: CachingMode = CachingMode.TEST): LifecycleAware<T> {
+    return memoized(mode) {
+        Mockito.mock(T::class.java)
+    }
+}
 /**
  * Helper functions that are workarounds to kotlin Runtime Exceptions when using kotlin.
  */
