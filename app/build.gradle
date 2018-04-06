@@ -54,7 +54,7 @@ dependencies {
     implementation "com.android.support:design:$rootProject.buildToolsVersion"
     implementation "com.android.support:customtabs:$rootProject.buildToolsVersion"
     implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
-    implementation 'com.android.support:support-v4:27.0.2'
+    implementation "com.android.support:support-v4:$rootProject.buildToolsVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "com.android.support.test:runner:$rootProject.runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
@@ -63,10 +63,10 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-library:$rootProject.hamcrestVersion"
 
     //Kotlin reflections
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     //Mockito
-    compile "org.mockito:mockito-core:$rootProject.mockitoVersion"
+    implementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
 
     //LifeCycles
     implementation "android.arch.lifecycle:runtime:$rootProject.archComponentsRuntimeVersion"
@@ -76,65 +76,65 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$rootProject.archComponentsVersion"
 
     //LiveData testing
-    testCompile "android.arch.core:core-testing:$rootProject.archComponentsVersion"
+    testImplementation "android.arch.core:core-testing:$rootProject.archComponentsVersion"
 
     //LiveData with ReactiveStreams
     implementation "android.arch.lifecycle:reactivestreams:$rootProject.archComponentsVersion"
 
     //Room
-    implementation "android.arch.persistence.room:runtime:$rootProject.archComponentsVersion"
-    kapt "android.arch.persistence.room:compiler:$rootProject.archComponentsVersion"
+    implementation "android.arch.persistence.room:runtime:$rootProject.archComponentsRoom"
+    kapt "android.arch.persistence.room:compiler:$rootProject.archComponentsRoom"
 
     //Room RxJava
-    implementation "android.arch.persistence.room:rxjava2:$rootProject.archComponentsVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.archComponentsRoom"
 
     //Leak canary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
 
     //Dagger
-    compile "com.google.dagger:dagger:$rootProject.daggerVersion"
-    compile "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
 
     //Rx
-    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
-    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
 
     //RxBindings
-    compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rootProject.rxBindingVersion"
-    compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxBindingVersion"
-    compile "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rootProject.rxBindingVersion"
-    compile "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$rootProject.rxBindingVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rootProject.rxBindingVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxBindingVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rootProject.rxBindingVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$rootProject.rxBindingVersion"
 
     //RxRelay
-    compile "com.jakewharton.rxrelay2:rxrelay:$rootProject.rxRelayVersion"
+    implementation "com.jakewharton.rxrelay2:rxrelay:$rootProject.rxRelayVersion"
 
     //Retrofit
-    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
 
     //GSON
-    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
-    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitConverterGsonVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitConverterGsonVersion"
 
     //OkHttp
-    compile "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
 
     //Timber
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
     //Cicerone
-    compile "ru.terrakok.cicerone:cicerone:$rootProject.ciceroneVersion"
+    implementation "ru.terrakok.cicerone:cicerone:$rootProject.ciceroneVersion"
 
     //Picasso
-    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+    implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 
     //AdapterDelegates
-    compile "com.hannesdorfmann:adapterdelegates3:$rootProject.adapterDelegatesVersion"
+    implementation "com.hannesdorfmann:adapterdelegates3:$rootProject.adapterDelegatesVersion"
 
     //JodaTime
-    compile "joda-time:joda-time:$rootProject.jodaTimeVersion"
+    implementation "joda-time:joda-time:$rootProject.jodaTimeVersion"
 }
