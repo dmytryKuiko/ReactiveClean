@@ -45,11 +45,9 @@ class SearchPresenterImplTest {
 
     private val mapper: SearchDomainMapperDB = SearchDomainMapperDB()
 
-    private val schedulers: TestSchedulers = TestSchedulers()
-
     @Before
     fun setUp() {
-        presenter = SearchPresenterImpl(interactor, navigator, mapper, schedulers)
+        presenter = SearchPresenterImpl(interactor, navigator, mapper)
     }
 
     @Test
@@ -81,23 +79,6 @@ class SearchPresenterImplTest {
 
         verify(interactor, times(1)).listenSymbolTyped(observable)
         verifyNoMoreInteractions(interactor)
-    }
-
-    @Test
-    fun listenEditTextAction_ImeActionDone_SavesSearchAndOpenIt() {
-        val testObserver = TestObserver.create<EditTextBindingModel>()
-        val expectedModel = EditTextBindingModel("123", EditorInfo.IME_ACTION_DONE)
-        val observable = Observable.just(expectedModel)
-        given(interactor.listenActionDone(observable)).willReturn(observable)
-
-        presenter.listenEditTextModel(observable)
-        testObserver.await(1000, TimeUnit.MILLISECONDS)
-
-        verify(interactor, times(1)).listenActionDone(observable)
-        verify(interactor, times(1)).storeSearch(expectedModel.text)
-        verifyNoMoreInteractions(interactor)
-        verify(navigator, times(1)).openSearchContent(expectedModel.text)
-        verifyNoMoreInteractions(navigator)
     }
 
     @Test

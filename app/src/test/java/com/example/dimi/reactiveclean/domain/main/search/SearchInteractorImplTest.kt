@@ -33,19 +33,6 @@ class SearchInteractorImplTest {
 
     @InjectMocks
     private lateinit var interactor: SearchInteractorImpl
-
-    @Test
-    fun storeSearch_ModeltWithTheSameFieldsSaved() {
-        val expectedText = "SomeSearch"
-        val argumentCaptor: ArgumentCaptor<SearchModel> = argumentCaptor()
-
-        interactor.storeSearch(expectedText)
-
-        verify(repository, times(1)).storeSearch(capture(argumentCaptor))
-        verifyNoMoreInteractions(repository)
-        assertThat(argumentCaptor.value.text, equalTo(expectedText))
-        assertThat(argumentCaptor.value.id, `is`(nullValue()))
-    }
     
     @Test
     fun searchTyped_DbEmpty_EmitsEmpty() {
@@ -87,20 +74,20 @@ class SearchInteractorImplTest {
         assertThat(resultList[0].dateTime.time, equalTo(expectedTime1))
     }
 
-    @Test
-    fun actionKeyboardTyped_EmitsOnlyWithActionDone() {
-        val testObserver = TestObserver.create<EditTextBindingModel>()
-        val expectedModel = EditTextBindingModel("blabla", EditorInfo.IME_ACTION_DONE)
-        val expectedModelNo = EditTextBindingModel("blabla222", EditorInfo.IME_ACTION_GO)
-        val observable = Observable.just(expectedModel, expectedModelNo)
-
-        interactor.listenActionDone(observable)
-            .subscribe(testObserver)
-        testObserver.awaitTerminalEvent()
-
-        testObserver.assertValueCount(1)
-            .assertValue(expectedModel)
-            .assertNoErrors()
-        verifyNoMoreInteractions(repository)
-    }
+//    @Test
+//    fun actionKeyboardTyped_EmitsOnlyWithActionDone() {
+//        val testObserver = TestObserver.create<EditTextBindingModel>()
+//        val expectedModel = EditTextBindingModel("blabla", EditorInfo.IME_ACTION_DONE)
+//        val expectedModelNo = EditTextBindingModel("blabla222", EditorInfo.IME_ACTION_GO)
+//        val observable = Observable.just(expectedModel, expectedModelNo)
+//
+//        interactor.listenActionDone(observable)
+//            .subscribe(testObserver)
+//        testObserver.awaitTerminalEvent()
+//
+//        testObserver.assertValueCount(1)
+//            .assertValue(expectedModel)
+//            .assertNoErrors()
+//        verifyNoMoreInteractions(repository)
+//    }
 }
