@@ -36,7 +36,7 @@ object SplashRepositoryImplSpekTest : Spek( {
                 verify(store, Mockito.times(1)).isFirstLaunch()
             }
 
-            it("noMore interractions for store") {
+            it("no more interactions for store") {
                 verifyNoMoreInteractions(store)
             }
         }
@@ -58,11 +58,12 @@ object SplashRepositoryImplSpekTest : Spek( {
                 verify(store, Mockito.times(1)).isFirstLaunch()
             }
 
-            it("noMore interractions for store") {
+            it("no more interactions for store") {
                 verifyNoMoreInteractions(store)
             }
         }
     }
+
     describe("test setFirstLaunch") {
         val testObserver by memoized { TestObserver.create<Completable>() }
         val store: SplashReactiveStore by spekmock()

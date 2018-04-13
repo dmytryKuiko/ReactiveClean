@@ -6,6 +6,7 @@ import com.example.dimi.reactiveclean.navigation.splash.SplashNavigator
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,20 +32,12 @@ class SplashPresenterImplTest {
 
     private lateinit var presenter: SplashPresenter
 
-    private lateinit var testObserver: TestObserver<Boolean>
-
-    @Before
-    fun setUp() {
-        testObserver = TestObserver.create()
-    }
-
     @Test
     fun getFirstLaunch_True_NavigateToTutorial() {
         val result = Single.just(true)
         given(interactor.isFirstLaunch()).willReturn(result)
 
         presenter = SplashPresenterImpl(navigator, interactor, schedulers)
-        testObserver.await(500, TimeUnit.MILLISECONDS)
 
         verify(interactor, times(1)).isFirstLaunch()
 
@@ -59,7 +52,6 @@ class SplashPresenterImplTest {
         given(interactor.isFirstLaunch()).willReturn(result)
 
         presenter = SplashPresenterImpl(navigator, interactor, schedulers)
-        testObserver.await(500, TimeUnit.MILLISECONDS)
 
         verify(interactor, times(1)).isFirstLaunch()
         verifyNoMoreInteractions(interactor)
@@ -74,7 +66,6 @@ class SplashPresenterImplTest {
         given(interactor.isFirstLaunch()).willReturn(Single.error(throwable))
 
         presenter = SplashPresenterImpl(navigator, interactor, schedulers)
-        testObserver.await(1000, TimeUnit.MILLISECONDS)
 
         verify(interactor, times(1)).isFirstLaunch()
         verify(navigator, times(1)).navigateToTutorial()
