@@ -46,7 +46,7 @@ class MainActivity : BaseActivity() {
         override fun createActivityIntent(
             context: Context?,
             screenKey: String?,
-            data: Any?
+            data: Any
         ): Intent? = null
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {
@@ -82,7 +82,8 @@ class MainActivity : BaseActivity() {
     override fun onResumeFragments() {
         super.onResumeFragments()
         navigatorHolder.setNavigator(appNavigator)
-        menuDisposable = presenter.isMenuOpen().subscribe(this::openDrawer)
+        menuDisposable = presenter.isMenuOpen()
+            .subscribe(this::openDrawer)
     }
 
     override fun onPause() {
@@ -113,7 +114,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun openDrawer(open: Boolean) {
-        main_activity_drawer_layout.postDelayed ({
+        main_activity_drawer_layout.postDelayed({
             if (open) {
                 main_activity_drawer_layout.openDrawer(GravityCompat.START, true)
             } else {

@@ -30,7 +30,7 @@ class ContentRepositoryImpl
         serviceNewsApi.getAllContent()
             .map(mapperDB)
             .doOnSuccess(store::deleteAllAndStoreAll)
-            .toCompletable()
+            .ignoreElement()
 
     /**
      * Loads info for a new page, required for Pagination
@@ -41,6 +41,6 @@ class ContentRepositoryImpl
         return serviceNewsApi.getNextContent(page)
             .map(mapperDB)
             .doOnSuccess(store::storeAll)
-            .toCompletable()
+            .ignoreElement()
     }
 }

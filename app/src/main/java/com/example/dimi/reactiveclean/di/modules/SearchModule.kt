@@ -23,6 +23,7 @@ abstract class SearchModule {
     @CustomScope
     @Binds
     internal abstract fun bindPresenter(presenter: SearchPresenterImpl): SearchPresenter
+
     @CustomScope
     @Binds
     internal abstract fun bindinteractor(interactor: SearchInteractorImpl): SearchInteractor

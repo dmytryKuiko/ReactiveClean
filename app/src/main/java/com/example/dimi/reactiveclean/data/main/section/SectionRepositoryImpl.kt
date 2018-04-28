@@ -26,7 +26,7 @@ class SectionRepositoryImpl
      */
     override fun fetchSections(): Completable = loadSections()
         .doOnSuccess(store::storeAll)
-        .toCompletable()
+        .ignoreElement()
 
     /**
      * Retrieves specific Section from DB
