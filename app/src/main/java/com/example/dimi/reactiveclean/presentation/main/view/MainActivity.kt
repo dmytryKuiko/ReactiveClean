@@ -46,7 +46,7 @@ class MainActivity : BaseActivity() {
         override fun createActivityIntent(
             context: Context?,
             screenKey: String?,
-            data: Any
+            data: Any?
         ): Intent? = null
 
         override fun createFragment(screenKey: String?, data: Any?): Fragment? = when (screenKey) {

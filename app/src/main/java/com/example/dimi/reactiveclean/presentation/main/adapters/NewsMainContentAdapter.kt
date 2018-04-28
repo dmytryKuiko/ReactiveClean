@@ -2,11 +2,11 @@ package com.example.dimi.reactiveclean.presentation.main.adapters
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import com.example.dimi.reactiveclean.extensions.paginator.PaginatorModelData
 import com.example.dimi.reactiveclean.models.RecyclerUpdate
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.models.content.ContentState
 import com.example.dimi.reactiveclean.utils.DiffUtilContent
-import com.example.dimi.reactiveclean.extensions.paginator.PaginatorModelData
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import io.reactivex.Single
@@ -18,8 +18,6 @@ class NewsMainContentAdapter(
     val openCurrentContent: (ContentDisplayable.Content) -> Unit,
     private val schedulers: SchedulersProvider
 ) : ListDelegationAdapter<MutableList<ContentDisplayable>>() {
-
-    private val DELTA_POSITION_LOADING = 5
 
     private var disposable: Disposable? = null
 
@@ -85,4 +83,8 @@ class NewsMainContentAdapter(
     private fun composeSchedulers(single: Single<DiffUtil.DiffResult>): Single<DiffUtil.DiffResult> =
         single.subscribeOn(schedulers.computation())
             .observeOn(schedulers.ui())
+
+    companion object {
+        const val DELTA_POSITION_LOADING = 5
+    }
 }
