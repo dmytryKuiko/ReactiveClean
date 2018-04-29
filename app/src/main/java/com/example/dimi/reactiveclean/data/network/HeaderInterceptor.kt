@@ -1,5 +1,6 @@
 package com.example.dimi.reactiveclean.data.network
 
+import android.util.Base64
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -27,16 +28,25 @@ class HeaderInterceptor
         return chain.proceed(requestBuilder.build())
     }
 
+
     companion object {
 
-        private val API_KEY = "api-key"
+        const val API_KEY = "api-key"
 
-        private val API_KEY_VALUE = "d474bd2d-2865-4f91-bd31-018ee20422d6"
+        val API_KEY_VALUE: String
 
-        private val PAGE_SIZE = "page-size"
+        const val PAGE_SIZE = "page-size"
 
         const val DEFAULT_PAGE_SIZE = "DefaultPageSize"
 
-        private val DEFAULT_PAGE_SIZE_VALUE = "25"
+        const val DEFAULT_PAGE_SIZE_VALUE = "25"
+
+        init {
+            System.loadLibrary("keys")
+            API_KEY_VALUE = String(Base64.decode(getNativeApiKey(), Base64.DEFAULT))
+        }
+
+        @JvmStatic
+        private external fun getNativeApiKey(): String
     }
 }
