@@ -133,7 +133,7 @@ class PaginatorDBImpl<T>
                 currentPage = FIRST_PAGE
                 val paginatorData = PaginatorModelData(
                     content = data,
-                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK,
                     state = ContentState.DATA
                 )
                 paginatorModelResult = PaginatorModelResult(
@@ -154,7 +154,7 @@ class PaginatorDBImpl<T>
                 paginatorModelData = PaginatorModelData(
                     content = currentData,
                     state = ContentState.DATA,
-                    recyclerUpdate = RecyclerUpdate.NOTIFY
+                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK
                 )
             )
         }
@@ -183,7 +183,7 @@ class PaginatorDBImpl<T>
                 currentData.addAll(data)
                 val paginatorData = PaginatorModelData(
                     content = data,
-                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK,
                     state = ContentState.DATA
                 )
                 PaginatorModelResult(paginatorModelData = paginatorData)
@@ -228,7 +228,7 @@ class PaginatorDBImpl<T>
             currentState = PAGE_PROGRESS()
             val paginatorData = PaginatorModelData(
                 content = currentData,
-                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK,
                 state = ContentState.PROGRESS
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
@@ -252,7 +252,7 @@ class PaginatorDBImpl<T>
                 currentPage = FIRST_PAGE
                 val paginatorData = PaginatorModelData(
                     content = data,
-                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK,
                     state = ContentState.DATA
                 )
                 PaginatorModelResult(
@@ -264,7 +264,7 @@ class PaginatorDBImpl<T>
                 currentData.clear()
                 val paginatorData = PaginatorModelData(
                     content = currentData,
-                    recyclerUpdate = RecyclerUpdate.NOTIFY,
+                    recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK,
                     state = ContentState.DATA
                 )
                 PaginatorModelResult(
@@ -279,7 +279,7 @@ class PaginatorDBImpl<T>
             currentState = DATA()
             val paginatorData = PaginatorModelData(
                 content = currentData,
-                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK,
                 state = ContentState.ERROR
             )
             paginatorModelResult = PaginatorModelResult(
@@ -307,7 +307,9 @@ class PaginatorDBImpl<T>
                 currentState = ALL_DATA()
             }
             val paginatorData = PaginatorModelData(
-                content = data, recyclerUpdate = RecyclerUpdate.NOTIFY, state = ContentState.DATA
+                content = data,
+                recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK,
+                state = ContentState.DATA
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)
         }
@@ -322,7 +324,7 @@ class PaginatorDBImpl<T>
             currentState = DATA()
             val paginatorData = PaginatorModelData(
                 content = currentData,
-                recyclerUpdate = RecyclerUpdate.NOTIFY,
+                recyclerUpdate = RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK,
                 state = ContentState.ERROR
             )
             paginatorModelResult = PaginatorModelResult(paginatorModelData = paginatorData)

@@ -1,11 +1,13 @@
 package com.example.dimi.reactiveclean.presentation.main.adapters
 
+import android.support.v7.recyclerview.extensions.AsyncListDiffer
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import com.example.dimi.reactiveclean.extensions.paginator.PaginatorModelData
 import com.example.dimi.reactiveclean.models.RecyclerUpdate
 import com.example.dimi.reactiveclean.models.content.ContentDisplayable
 import com.example.dimi.reactiveclean.models.content.ContentState
+import com.example.dimi.reactiveclean.utils.DiffUtilCallbackContent
 import com.example.dimi.reactiveclean.utils.DiffUtilContent
 import com.example.dimi.reactiveclean.utils.SchedulersProvider
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
@@ -20,6 +22,9 @@ class NewsMainContentAdapter(
 ) : ListDelegationAdapter<MutableList<ContentDisplayable>>() {
 
     private var disposable: Disposable? = null
+
+    private val asyncListDiffer: AsyncListDiffer<ContentDisplayable> =
+        AsyncListDiffer(this, DiffUtilCallbackContent())
 
     init {
         items = mutableListOf()
@@ -53,6 +58,7 @@ class NewsMainContentAdapter(
         when (model.recyclerUpdate) {
             RecyclerUpdate.DIFF_UTIL -> disposable = notifyDiffUtil(newList)
             RecyclerUpdate.NOTIFY -> notifyRanges(newList)
+            RecyclerUpdate.DIFF_UTIL_ITEM_CALLBACK -> notifyDiffUtilCallback(newList)
         }
 
     }
@@ -78,6 +84,14 @@ class NewsMainContentAdapter(
     private fun notifyRanges(newList: List<ContentDisplayable>) {
         items.apply { clear() }.addAll(newList)
         notifyDataSetChanged()
+    }
+
+    private fun notifyDiffUtilCallback(newList: List<ContentDisplayable>) {
+        items.apply {
+            clear()
+            addAll(newList)
+        }
+        asyncListDiffer.submitList(newList)
     }
 
     private fun composeSchedulers(single: Single<DiffUtil.DiffResult>): Single<DiffUtil.DiffResult> =

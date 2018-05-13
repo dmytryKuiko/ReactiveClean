@@ -5,7 +5,7 @@ package com.example.dimi.reactiveclean.models.content
  */
 sealed class ContentDisplayable {
 
-    class Content(
+    data class Content(
         val title: String,
         val url: String,
         val time: String,
