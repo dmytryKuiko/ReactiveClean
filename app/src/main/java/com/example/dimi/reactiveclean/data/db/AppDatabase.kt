@@ -10,7 +10,7 @@ import com.example.dimi.reactiveclean.models.section.Section
 /**
  * Declares tables which will be used by Room
  */
-@Database(entities = [Section::class, Content::class, SearchModel::class], version = 1)
+@Database(entities = [Section::class, Content::class, SearchModel::class], version = 1, exportSchema = false)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
