@@ -19,7 +19,8 @@
         android:clickable="true"
         android:background="@drawable/selector_background"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/fragment_drawer_about"
@@ -31,5 +32,6 @@
         android:text="About"
         android:background="@drawable/selector_background"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true" />
 </android.support.constraint.ConstraintLayout>
