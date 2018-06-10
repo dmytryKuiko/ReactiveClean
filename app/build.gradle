@@ -21,17 +21,16 @@ android {
     }
     buildTypes {
         debug {
+            buildConfigField 'String', "API_KEY", ReactiveClean_newsApiKeyDecoded //for Code
+            resValue 'string', "API_KEY", ReactiveClean_newsApiKeyDecoded
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+            buildConfigField 'String', "API_KEY", ReactiveClean_newsApiKeyDecoded
+            resValue 'string', "API_KEY", ReactiveClean_newsApiKeyDecoded
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    externalNativeBuild {
-        ndkBuild {
-            path 'src/main/jni/Android.mk'
         }
     }
 }
