@@ -37,7 +37,6 @@ android {
 }
 
 kapt {
-    generateStubs = true
     correctErrorTypes = true
 }
 
@@ -84,25 +83,26 @@ dependencies {
     //Mockito
     implementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
 
-    //LifeCycles
-    implementation "android.arch.lifecycle:runtime:$rootProject.archComponentsRuntimeVersion"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archComponentsVersion"
-
     //LiveData and ViewModel
-    implementation "android.arch.lifecycle:extensions:$rootProject.archComponentsRuntimeVersion"
+    implementation "android.arch.lifecycle:extensions:$rootProject.archComponentsLifeCycleVersion"
 
-    //LiveData testing
-    testImplementation "android.arch.core:core-testing:$rootProject.archComponentsVersion"
+    //LifeCycles
+    implementation "android.arch.lifecycle:runtime:$rootProject.archComponentsLifeCycleVersion"
+    kapt "android.arch.lifecycle:compiler:$rootProject.archComponentsLifeCycleVersion"
 
     //LiveData with ReactiveStreams
-    implementation "android.arch.lifecycle:reactivestreams:$rootProject.archComponentsRuntimeVersion"
+    implementation "android.arch.lifecycle:reactivestreams:$rootProject.archComponentsLifeCycleVersion"
+
+    //LiveData testing
+    testImplementation "android.arch.core:core-testing:$rootProject.archComponentsLifeCycleVersion"
 
     //Room
-    implementation "android.arch.persistence.room:runtime:$rootProject.archComponentsVersion"
-    kapt "android.arch.persistence.room:compiler:$rootProject.archComponentsVersion"
+    implementation "android.arch.persistence.room:runtime:$rootProject.archComponentsRoomVersion"
 
     //Room RxJava
-    implementation "android.arch.persistence.room:rxjava2:$rootProject.archComponentsVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.archComponentsRoomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.archComponentsRoomVersion"
+
 
     //Leak canary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"

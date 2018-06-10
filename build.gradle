@@ -2,10 +2,9 @@
 apply from: 'dependencies.gradle'
 
 buildscript {
-    ext.kotlin_version = '1.2.40'
+    ext.kotlin_version = '1.2.41'
     ext.junit_version = '1.0.30'
     repositories {
-        google()
         jcenter()
     }
     dependencies {
