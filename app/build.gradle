@@ -8,12 +8,14 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "de.mannodermaus.android-junit5"
 
+apply plugin: "com.vanniktech.dependency.graph.generator"
+
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion Versions.compileSdkVersion
     defaultConfig {
         applicationId "com.example.dimi.reactiveclean"
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -43,12 +45,6 @@ sourceSets {
     main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
 }
 
-project.ext {
-    spekVersion = "1.1.5"
-    mockitoKotlinVersion = "2.0.0-alpha02"
-    kluentVersion = "1.34"
-}
-
 android.testOptions {
     junitPlatform {
         filters {
@@ -61,107 +57,106 @@ android.testOptions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$rootProject.buildToolsVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.buildToolsVersion"
-    implementation "com.android.support:support-v4:$rootProject.buildToolsVersion"
-    implementation "com.android.support:design:$rootProject.buildToolsVersion"
-    implementation "com.android.support:customtabs:$rootProject.buildToolsVersion"
-    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
-    implementation "com.android.support:support-v4:$rootProject.buildToolsVersion"
-    testImplementation "junit:junit:$rootProject.junitVersion"
-    androidTestImplementation "com.android.support.test:runner:$rootProject.runnerVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
+    implementation Dependencies.kotlinStdlib
+    implementation Dependencies.appcompat
+    implementation Dependencies.recyclerView
+    implementation Dependencies.supportV4
+    implementation Dependencies.supportDesign
+    implementation Dependencies.supportCustomTabs
+    implementation Dependencies.supportConstraintLayout
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.testRunner
+    androidTestImplementation Dependencies.espresso
 
     //Hamcrest Matchers
-    testImplementation "org.hamcrest:hamcrest-library:$rootProject.hamcrestVersion"
+    testImplementation Dependencies.hamcrest
 
     //Kotlin reflections
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation Dependencies.kotlinReflections
 
     //Mockito
-    implementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+    implementation Dependencies.mockito
 
     //LiveData and ViewModel
-    implementation "android.arch.lifecycle:extensions:$rootProject.archComponentsLifeCycleVersion"
+    implementation Dependencies.lifecycleExtensions
 
     //LifeCycles
-    implementation "android.arch.lifecycle:runtime:$rootProject.archComponentsLifeCycleVersion"
-    kapt "android.arch.lifecycle:compiler:$rootProject.archComponentsLifeCycleVersion"
+    implementation Dependencies.lifecycleRuntime
+    kapt Dependencies.lifecyclerCompiler
 
     //LiveData with ReactiveStreams
-    implementation "android.arch.lifecycle:reactivestreams:$rootProject.archComponentsLifeCycleVersion"
+    implementation Dependencies.lifecycleReactiveStreams
 
     //LiveData testing
-    testImplementation "android.arch.core:core-testing:$rootProject.archComponentsLifeCycleVersion"
+    testImplementation Dependencies.coreTesting
 
     //Room
-    implementation "android.arch.persistence.room:runtime:$rootProject.archComponentsRoomVersion"
+    implementation Dependencies.roomRuntime
 
     //Room RxJava
-    implementation "android.arch.persistence.room:rxjava2:$rootProject.archComponentsRoomVersion"
-    kapt "android.arch.persistence.room:compiler:$rootProject.archComponentsRoomVersion"
+    implementation Dependencies.roomRxJava2
+    kapt Dependencies.roomCompiler
 
 
     //Leak canary
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
+    debugImplementation Dependencies.leakCanaryAndroid
+    releaseImplementation Dependencies.leakcanaryAndroiNoOp
 
     //Dagger
-    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+    implementation Dependencies.dagger
+    implementation Dependencies.daggerAndroid
+    kapt Dependencies.daggerCompiler
+    kapt Dependencies.daggerAndroidProcessor
 
     //Rx
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation Dependencies.rxJava2RxAndroid
+    implementation Dependencies.rxJava2RxJava
 
     //RxBindings
-    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rootProject.rxBindingVersion"
-    implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxBindingVersion"
-    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rootProject.rxBindingVersion"
-    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$rootProject.rxBindingVersion"
+    implementation Dependencies.rxBinding2AppCompat
+    implementation Dependencies.rxBinding2RxBinding
+    implementation Dependencies.rxBinding2SupportV4
+    implementation Dependencies.rxBinding2RecyclerView
 
     //RxRelay
-    implementation "com.jakewharton.rxrelay2:rxrelay:$rootProject.rxRelayVersion"
+    implementation Dependencies.rxRelay
 
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofitAdapter
 
     //GSON
-    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitConverterGsonVersion"
+    implementation Dependencies.gson
+    implementation Dependencies.gsonConverter
 
     //OkHttp
-    implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okHttpVersion"
+    implementation Dependencies.okHttp
+    implementation Dependencies.okHttpInterceptor
 
     //Timber
-    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+    implementation Dependencies.timber
 
     //Cicerone
-    implementation "ru.terrakok.cicerone:cicerone:$rootProject.ciceroneVersion"
+    implementation Dependencies.cicerone
 
     //Picasso
-    implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+    implementation Dependencies.picasso
 
     //AdapterDelegates
-    implementation "com.hannesdorfmann:adapterdelegates3:$rootProject.adapterDelegatesVersion"
+    implementation Dependencies.adapterDelegates
 
     //JodaTime
-    implementation "joda-time:joda-time:$rootProject.jodaTimeVersion"
+    implementation Dependencies.jodaTime
 
     //Spek
-    testImplementation("org.jetbrains.spek:spek-api:$spekVersion") {
+    testImplementation(Dependencies.spekApi) {
         exclude group: "org.jetbrains.kotlin"
     }
-    testImplementation("org.jetbrains.spek:spek-junit-platform-engine:$spekVersion") {
+    testImplementation(Dependencies.spekJunitPlatform) {
         exclude group: "org.junit.platform"
         exclude group: "org.jetbrains.kotlin"
     }
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testImplementation Dependencies.kotlinReflections
 
     testImplementation junit5.unitTests()
     testCompileOnly junit5.unitTestsRuntime()
